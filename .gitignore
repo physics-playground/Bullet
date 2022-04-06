@@ -1,7 +1,9 @@
-/bin
+/bin/
 /build/intermediate/
-/build/gmake
-/build/vs2010
+/build/gmake/
+/build/vs2010/
+/build/LuaFormatter/
+
 /build_cmake/
 
 *.pyc

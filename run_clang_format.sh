@@ -68,17 +68,17 @@ find-dominating-file() {
 # Run clang-format -i on all of the things
 for dir in "$@"; do
     pushd "${dir}" &>/dev/null
-    if ! find-dominating-file . _clang-format; then
+    if ! find-dominating-file . .clang-format; then
         echo "Failed to find dominating .clang-format starting at $PWD"
         continue
     fi
     find . \
-         \( -name '*.c' \
-         -o -name '*.cc' \
-         -o -name '*.cpp' \
-         -o -name '*.h' \
-         -o -name '*.hh' \
-         -o -name '*.hpp' \) \
-         -exec "${FMT}" -i -verbose '{}' \;
+        \( -name '*.c' \
+        -o -name '*.cc' \
+        -o -name '*.cpp' \
+        -o -name '*.h' \
+        -o -name '*.hh' \
+        -o -name '*.hpp' \) \
+        -exec "${FMT}" -i -verbose '{}' \;
     popd &>/dev/null
 done
