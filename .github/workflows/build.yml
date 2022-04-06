@@ -54,7 +54,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Run premake5
-        run: cd build && premake5 vs2019
+        run: build\premake5.exe --file=build\premake5.lua vs2019
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.1
