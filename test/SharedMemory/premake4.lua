@@ -6,11 +6,11 @@ project ("Test_SharedMemoryPhysicsClient")
 		includedirs {"../../src", "../../examples"}
 		links {
 			"BulletFileLoader",
-			"Bullet3Common", 
+			"Bullet3Common",
 			"LinearMath"
 		}
 		defines {"PHYSICS_SHARED_MEMORY"}
-			
+
 		files {
 			"test.c",
 			"../../examples/SharedMemory/PhysicsClient.cpp",
@@ -37,7 +37,7 @@ project ("Test_PhysicsClientUDP")
                 kind "ConsoleApp"
 
                 includedirs {
-                "../../src", 
+                "../../src",
                 "../../examples",
                 "../../examples/ThirdPartyLibs/enet/include"
                 }
@@ -47,11 +47,11 @@ project ("Test_PhysicsClientUDP")
                         "Bullet3Common",
                         "LinearMath"
                 }
-		if os.is("Windows") then
+		if os.istarget("Windows") then
                 	defines { "WIN32" }
         	        links {"Ws2_32","Winmm"}
 	        end
-		if os.is("Linux") then
+		if os.istarget("Linux") then
 			links {"pthread"}
 		end
 
@@ -69,7 +69,7 @@ project ("Test_PhysicsClientUDP")
 									"../../examples/SharedMemory/PhysicsClientUDP.h",
 									"../../examples/SharedMemory/PhysicsClientUDP_C_API.cpp",
 									"../../examples/SharedMemory/PhysicsClientUDP_C_API.h",
-									"../../examples/SharedMemory/PhysicsClientSharedMemory_C_API.h",	
+									"../../examples/SharedMemory/PhysicsClientSharedMemory_C_API.h",
 									"../../examples/SharedMemory/PhysicsClientC_API.cpp",
 									"../../examples/SharedMemory/PhysicsClientC_API.h",
 									"../../examples/SharedMemory/Win32SharedMemory.cpp",
@@ -92,7 +92,7 @@ project ("Test_PhysicsClientTCP")
                 kind "ConsoleApp"
 
                 includedirs {
-                "../../src", 
+                "../../src",
                 "../../examples",
                 "../../examples/ThirdPartyLibs/clsocket/src"
                 }
@@ -102,18 +102,18 @@ project ("Test_PhysicsClientTCP")
                         "Bullet3Common",
                         "LinearMath"
                 }
-		if os.is("Windows") then
+		if os.istarget("Windows") then
                 	defines { "WIN32" }
         	        links {"Ws2_32","Winmm"}
 	        end
 
-		if os.is("Windows") then
+		if os.istarget("Windows") then
                 	defines { "WIN32","_WINSOCK_DEPRECATED_NO_WARNINGS" }
                 	end
-                if os.is("Linux") then
+                if os.istarget("Linux") then
                  defines {"_LINUX"}
                 end
-                if os.is("MacOSX") then
+                if os.istarget("MacOSX") then
                  defines {"_DARWIN"}
                 end
 
@@ -131,7 +131,7 @@ project ("Test_PhysicsClientTCP")
 									"../../examples/SharedMemory/PhysicsClientTCP.h",
 									"../../examples/SharedMemory/PhysicsClientTCP_C_API.cpp",
 									"../../examples/SharedMemory/PhysicsClientTCP_C_API.h",
-									"../../examples/SharedMemory/PhysicsClientSharedMemory_C_API.h",	
+									"../../examples/SharedMemory/PhysicsClientSharedMemory_C_API.h",
 									"../../examples/SharedMemory/PhysicsClientC_API.cpp",
 									"../../examples/SharedMemory/PhysicsClientC_API.h",
 									"../../examples/SharedMemory/Win32SharedMemory.cpp",
@@ -144,7 +144,7 @@ project ("Test_PhysicsClientTCP")
 									"../../examples/Utils/b3Clock.cpp",
             }
 
-		
+
 project ("Test_PhysicsServerLoopBack")
 
 		language "C++"
@@ -159,15 +159,15 @@ project ("Test_PhysicsServerLoopBack")
 			"BulletFileLoader",
 			"BulletWorldImporter",
 			"Bullet3Common",
-			"BulletDynamics", 
-			"BulletCollision", 
+			"BulletDynamics",
+			"BulletCollision",
 			"BussIK",
 			"LinearMath"
 		}
-        if os.is("Linux") then
+        if os.istarget("Linux") then
             links{"dl"}
         end
-			
+
 		files {
 			"test.c",
 			"../../examples/SharedMemory/b3RobotSimulatorClientAPI_NoDirect.cpp",
@@ -233,11 +233,11 @@ project ("Test_PhysicsServerLoopBack")
 			"../../examples/Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
 			"../../examples/ThirdPartyLibs/stb_image/stb_image.cpp",
 	}
-	
+
 if (_OPTIONS["enable_static_plugins"]) then
 		files {"../../examples/SharedMemory/plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
 end
-		
+
 		project ("Test_PhysicsServerDirect")
 
 		language "C++"
@@ -252,15 +252,15 @@ end
 			"BulletFileLoader",
 			"BulletWorldImporter",
 			"Bullet3Common",
-			"BulletDynamics", 
+			"BulletDynamics",
 			"BulletCollision",
 			"BussIK",
 			"LinearMath"
 		}
-        if os.is("Linux") then
+        if os.istarget("Linux") then
             links{"dl"}
         end
-			
+
 		files {
 			"test.c",
 			"../../examples/SharedMemory/b3RobotSimulatorClientAPI_NoDirect.cpp",
@@ -306,7 +306,7 @@ end
 			"../../examples/Utils/RobotLoggingUtil.h",
 			"../../examples/Utils/b3Clock.cpp",
 			"../../examples/Utils/ChromeTraceUtil.cpp",
-			"../../examples/Utils/ChromeTraceUtil.h",			
+			"../../examples/Utils/ChromeTraceUtil.h",
 			"../../examples/ThirdPartyLibs/tinyxml2/tinyxml2.cpp",
 			"../../examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp",
 			"../../examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.h",
@@ -320,7 +320,7 @@ end
 			"../../examples/Importers/ImportURDFDemo/UrdfParser.cpp",
 			"../../examples/Importers/ImportURDFDemo/urdfStringSplit.cpp",
 			"../../examples/Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
-                        "../../examples/ThirdPartyLibs/stb_image/stb_image.cpp",     	
+                        "../../examples/ThirdPartyLibs/stb_image/stb_image.cpp",
 		}
 if (_OPTIONS["enable_static_plugins"]) then
 		files {"../../examples/SharedMemory/plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
@@ -339,8 +339,8 @@ project ("Test_PhysicsServerInProcessExampleBrowser")
 --			"BulletFileLoader",
 --			"BulletWorldImporter",
 --			"Bullet3Common",
---			"BulletDynamics", 
---			"BulletCollision", 
+--			"BulletDynamics",
+--			"BulletCollision",
 --			"LinearMath"
 --		}
 	hasCL = findOpenCL("clew")
@@ -356,7 +356,7 @@ project ("Test_PhysicsServerInProcessExampleBrowser")
                 }
 
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 		links{"Cocoa.framework"}
 	end
 
@@ -374,14 +374,14 @@ if not _OPTIONS["no-clsocket"] then
 
                 includedirs {"../../examples/ThirdPartyLibs/clsocket/src"}
 
-                 if os.is("Windows") then
+                 if os.istarget("Windows") then
                         defines { "WIN32" }
                         links {"Ws2_32","Winmm"}
                  end
-                if os.is("Linux") then
+                if os.istarget("Linux") then
                         defines {"_LINUX"}
                 end
-                if os.is("MacOSX") then
+                if os.istarget("MacOSX") then
                         defines {"_DARWIN"}
                 end
 
@@ -466,8 +466,8 @@ if (_OPTIONS["enable_static_vr_plugin"]) then
 		files {"../../examples/SharedMemory/plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
 end
 
-	if os.is("Linux") then
+	if os.istarget("Linux") then
        		initX11()
 	end
 
-	
+

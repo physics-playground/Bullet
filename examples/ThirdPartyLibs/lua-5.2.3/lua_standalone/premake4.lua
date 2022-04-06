@@ -3,20 +3,20 @@
 project ("App_LuaStandalone")
 
 	language "C++"
-			
+
 	kind "ConsoleApp"
 	targetdir "../../../../bin"
 	includedirs {"../src"}
-	
-	if os.is("Windows") then 
+
+	if os.istarget("Windows") then
 	end
-	if os.is("Linux") then
+	if os.istarget("Linux") then
 	end
-	if os.is("MacOSX") then
-	end		
-		
-	links {"lua-5.2.3"}		
-	
+	if os.istarget("MacOSX") then
+	end
+
+	links {"lua-5.2.3"}
+
 	files {
 		"lua.c",
 	}

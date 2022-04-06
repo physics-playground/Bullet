@@ -12,17 +12,17 @@ function findDirectX11()
 	end
 
 function initDirectX11()
-	configuration {}
-	
+	filter {}
+
 	local dx11path = os.getenv("DXSDK_DIR")
 			defines { "ADL_ENABLE_DX11"}
 			includedirs {"$(DXSDK_DIR)/include"}
-	
-		configuration "x32"
+
+		filter "configurations:x32"
 			libdirs {"$(DXSDK_DIR)/Lib/x86"}
-		configuration "x64"
+		filter "configurations:x64"
 			libdirs {"$(DXSDK_DIR)/Lib/x64"}
-		configuration {}
+		filter {}
 		links {"d3dcompiler",
 					"dxerr",
 					"dxguid",

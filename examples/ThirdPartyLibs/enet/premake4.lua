@@ -1,24 +1,24 @@
 	project "enet"
-		
+
 	kind "StaticLib"
-	
-	if os.is("Windows") then 
+
+	if os.istarget("Windows") then
 		defines { "WIN32" }
 			files{"win32.c"}
 		end
-		if os.is("Linux") then
+		if os.istarget("Linux") then
 		 defines {"HAS_SOCKLEN_T"}
 			files {"unix.c",}
 		end
-		if os.is("MacOSX") then
+		if os.istarget("MacOSX") then
 			files{"unix.c"}
-		end		
-		
-	
+		end
+
+
 	includedirs {
 		".","include"
 	}
-    if os.is("Linux") then
+    if os.istarget("Linux") then
         buildoptions{"-fPIC"}
     end
 	files {

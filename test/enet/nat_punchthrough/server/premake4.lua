@@ -3,23 +3,23 @@
 project ("Test_enet_nat_punchthrough_server")
 
 	language "C++"
-			
+
 	kind "ConsoleApp"
-	
+
 	includedirs {"../../../../examples/ThirdPartyLibs/enet/include"}
-	
-	if os.is("Windows") then 
+
+	if os.istarget("Windows") then
 			defines { "WIN32" }
 
 		links {"Ws2_32","Winmm"}
 	end
-	if os.is("Linux") then
+	if os.istarget("Linux") then
 	end
-	if os.is("MacOSX") then
-	end		
-		
-	links {"enet"}		
-	
+	if os.istarget("MacOSX") then
+	end
+
+	links {"enet"}
+
 	files {
 		"main.cpp",
 	}

@@ -1,19 +1,19 @@
-		
+
 
 project ("pybullet_grpcPlugin")
 		language "C++"
 		kind "SharedLib"
-		
+
 		includedirs {".","../../../../src", "../../../../examples",
 		"../../../ThirdPartyLibs"}
 		defines {"PHYSICS_IN_PROCESS_EXAMPLE_BROWSER"}
-	
+
 	initGRPC()
 
 	links{"BulletFileLoader", "Bullet3Common", "LinearMath"}
 
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 --		targetextension {"so"}
 		links{"Cocoa.framework"}
 	end
@@ -38,6 +38,6 @@ project ("pybullet_grpcPlugin")
 			"../../../Utils/b3ResourcePath.cpp",
 			"../../../Utils/b3ResourcePath.h",
 				}
-	
-	
-	
+
+
+

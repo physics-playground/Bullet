@@ -3,7 +3,7 @@ project "App_InverseDynamicsExample"
 
 if _OPTIONS["ios"] then
 	kind "WindowedApp"
-else	
+else
 	kind "ConsoleApp"
 end
 defines {"B3_USE_STANDALONE_EXAMPLE"}
@@ -39,7 +39,7 @@ files {
 			"../Importers/ImportURDFDemo/UrdfParser.cpp",
 			"../Importers/ImportURDFDemo/urdfStringSplit.cpp",
 			"../Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
-                        "../ThirdPartyLibs/stb_image/stb_image.cpp",	
+                        "../ThirdPartyLibs/stb_image/stb_image.cpp",
 }
 
 
@@ -95,12 +95,12 @@ files {
 			"../Utils/b3Clock.cpp",
 }
 
-if os.is("Linux") then initX11() end
+if os.istarget("Linux") then initX11() end
 
-if os.is("MacOSX") then
+if os.istarget("MacOSX") then
         links{"Cocoa.framework"}
 end
-                          
+
 
 
 project "App_InverseDynamicsExampleGuiWithSoftwareRenderer"
@@ -157,15 +157,15 @@ files {
 			"../Importers/ImportURDFDemo/UrdfParser.cpp",
 			"../Importers/ImportURDFDemo/urdfStringSplit.cpp",
 			"../Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
-                        "../ThirdPartyLibs/stb_image/stb_image.cpp",     
+                        "../ThirdPartyLibs/stb_image/stb_image.cpp",
 }
 
-if os.is("Linux") then initX11() end
+if os.istarget("Linux") then initX11() end
 
-if os.is("MacOSX") then
+if os.istarget("MacOSX") then
         links{"Cocoa.framework"}
 end
-                          
+
 
 project "App_InverseDynamicsExampleTinyRenderer"
 
@@ -216,6 +216,6 @@ files {
 			"../Importers/ImportURDFDemo/UrdfParser.cpp",
 			"../Importers/ImportURDFDemo/urdfStringSplit.cpp",
 			"../Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
-                        "../ThirdPartyLibs/stb_image/stb_image.cpp",     
+                        "../ThirdPartyLibs/stb_image/stb_image.cpp",
 }
-               
+

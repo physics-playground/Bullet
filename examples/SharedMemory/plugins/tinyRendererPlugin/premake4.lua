@@ -1,9 +1,9 @@
-		
+
 
 project ("pybullet_tinyRendererPlugin")
 		language "C++"
 		kind "SharedLib"
-		
+
 		includedirs {".","../../../../src", "../../../../examples",
 		"../../../ThirdPartyLibs"}
 		defines {"PHYSICS_IN_PROCESS_EXAMPLE_BROWSER"}
@@ -11,7 +11,7 @@ project ("pybullet_tinyRendererPlugin")
 
 	links{"BulletCollision", "Bullet3Common", "LinearMath"}
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 --		targetextension {"so"}
 		links{"Cocoa.framework","Python"}
 	end
@@ -48,6 +48,6 @@ project ("pybullet_tinyRendererPlugin")
 			"../../../Utils/b3ResourcePath.cpp",
 			"../../../Utils/b3ResourcePath.h",
 			}
-	
-	
-	
+
+
+

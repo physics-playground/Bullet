@@ -32,7 +32,7 @@ project ("App_RobotSimulator")
                 }
 
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 		links{"Cocoa.framework"}
 	end
 
@@ -40,25 +40,25 @@ project ("App_RobotSimulator")
 if not _OPTIONS["no-enet"] then
 
 		includedirs {"../../examples/ThirdPartyLibs/enet/include"}
-	
-		if os.is("Windows") then 
+
+		if os.istarget("Windows") then
 --			targetextension {"dylib"}
 			defines { "WIN32" }
 			links {"Ws2_32","Winmm"}
 		end
-		if os.is("Linux") then
+		if os.istarget("Linux") then
 		end
-		if os.is("MacOSX") then
-		end		
-		
-		links {"enet"}		
+		if os.istarget("MacOSX") then
+		end
+
+		links {"enet"}
 
 		files {
 			"../../examples/SharedMemory/PhysicsClientUDP.cpp",
 			"../../examples/SharedMemory/PhysicsClientUDP.h",
 			"../../examples/SharedMemory/PhysicsClientUDP_C_API.cpp",
 			"../../examples/SharedMemory/PhysicsClientUDP_C_API.h",
-		}	
+		}
 		defines {"BT_ENABLE_ENET"}
 	end
 
@@ -66,14 +66,14 @@ if not _OPTIONS["no-enet"] then
 
                 includedirs {"../../examples/ThirdPartyLibs/clsocket/src"}
 
-		 if os.is("Windows") then
+		 if os.istarget("Windows") then
                 	defines { "WIN32" }
                 	links {"Ws2_32","Winmm"}
        		 end
-        	if os.is("Linux") then
+        	if os.istarget("Linux") then
                 	defines {"_LINUX"}
         	end
-        	if os.is("MacOSX") then
+        	if os.istarget("MacOSX") then
                 	defines {"_DARWIN"}
         	end
 
@@ -105,19 +105,19 @@ if not _OPTIONS["no-enet"] then
 				includedirs {"../../examples/ThirdPartyLibs/serial/include"}
 				links {"serial"}
 			end
-			
-			if os.is("Windows") then
+
+			if os.istarget("Windows") then
 				links {"winmm","Wsock32","dsound"}
 				defines {"WIN32","__WINDOWS_MM__","__WINDOWS_DS__"}
 			end
-			
-			if os.is("Linux") then initX11() 
+
+			if os.istarget("Linux") then initX11()
 			                defines  {"__OS_LINUX__","__LINUX_ALSA__"}
 				links {"asound","pthread"}
 			end
 
 
-			if os.is("MacOSX") then
+			if os.istarget("MacOSX") then
 				links{"Cocoa.framework"}
 				links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
 				defines {"__OS_MACOSX__","__MACOSX_CORE__"}
@@ -139,7 +139,7 @@ if (_OPTIONS["enable_static_vr_plugin"]) then
 	files {"../../examples/SharedMemory/plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
 end
 
-	if os.is("Linux") then
+	if os.istarget("Linux") then
        		initX11()
 	end
 
@@ -168,7 +168,7 @@ project ("App_VRGloveHandSimulator")
                 }
 
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 		links{"Cocoa.framework"}
 	end
 
@@ -194,23 +194,23 @@ project ("App_VRGloveHandSimulator")
 			}
 			defines {"B3_ENABLE_TINY_AUDIO"}
 
-			
+
 			defines{"B3_ENABLE_SERIAL"}
 			includedirs {"../../examples/ThirdPartyLibs/serial/include"}
 			links {"serial"}
-		
-			if os.is("Windows") then
+
+			if os.istarget("Windows") then
 				links {"winmm","Wsock32","dsound"}
 				defines {"WIN32","__WINDOWS_MM__","__WINDOWS_DS__"}
 			end
-			
-			if os.is("Linux") then initX11() 
+
+			if os.istarget("Linux") then initX11()
 			                defines  {"__OS_LINUX__","__LINUX_ALSA__"}
 				links {"asound","pthread"}
 			end
 
 
-			if os.is("MacOSX") then
+			if os.istarget("MacOSX") then
 				links{"Cocoa.framework"}
 				links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
 				defines {"__OS_MACOSX__","__MACOSX_CORE__"}
@@ -220,14 +220,14 @@ project ("App_VRGloveHandSimulator")
 			"VRGloveSimulatorMain.cpp",
 			"b3RobotSimulatorClientAPI.cpp",
 			"b3RobotSimulatorClientAPI.h",
-			
+
 		}
 
 if (_OPTIONS["enable_static_vr_plugin"]) then
 	files {"../../examples/SharedMemory/plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
 end
 
-	if os.is("Linux") then
+	if os.istarget("Linux") then
        		initX11()
 	end
 end
@@ -239,7 +239,7 @@ project ("App_HelloBulletRobotics")
 	kind "ConsoleApp"
 
 	links{"BulletRobotics","BulletFileLoader","BulletWorldImporter","BulletSoftBody", "BulletInverseDynamicsUtils", "BulletInverseDynamics", "BulletDynamics","BulletCollision","LinearMath","Bullet3Common"}
-	
+
   includedirs {
                 ".",
                 "../../src",
@@ -250,16 +250,16 @@ project ("App_HelloBulletRobotics")
 if not _OPTIONS["no-enet"] then
 
 		includedirs {"../../examples/ThirdPartyLibs/enet/include"}
-	
-		if os.is("Windows") then 
+
+		if os.istarget("Windows") then
 			defines { "WIN32" }
 			links {"Ws2_32","Winmm"}
 		end
-		if os.is("Linux") then
+		if os.istarget("Linux") then
 		end
-		if os.is("MacOSX") then
-		end		
-		links {"enet"}		
+		if os.istarget("MacOSX") then
+		end
+		links {"enet"}
 		defines {"BT_ENABLE_ENET"}
 	end
 
@@ -267,14 +267,14 @@ if not _OPTIONS["no-enet"] then
 
 		includedirs {"../../examples/ThirdPartyLibs/clsocket/src"}
 
-		if os.is("Windows") then
+		if os.istarget("Windows") then
     		defines { "WIN32" }
         links {"Ws2_32","Winmm"}
     end
-    if os.is("Linux") then
+    if os.istarget("Linux") then
     	defines {"_LINUX"}
     end
-		if os.is("MacOSX") then
+		if os.istarget("MacOSX") then
     	defines {"_DARWIN"}
 		end
 
@@ -282,16 +282,16 @@ if not _OPTIONS["no-enet"] then
     defines {"BT_ENABLE_CLSOCKET"}
 	end
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 		links{"Cocoa.framework"}
 	end
 
-	
-	if os.is("Linux") then initX11()
+
+	if os.istarget("Linux") then initX11()
                      links {"pthread"}
         end
 
-	
+
 		files {
 			 "HelloBulletRobotics.cpp"
 		}

@@ -1,31 +1,31 @@
 
 	project "Test_Gwen_OpenGL"
-		
+
 	kind "ConsoleApp"
-	flags {"Unicode"}
-	
+	--flags {"Unicode"}
+
 	defines { "GWEN_COMPILE_STATIC" , "_HAS_EXCEPTIONS=0", "_STATIC_CPPLIB" }
 	defines { "DONT_USE_GLUT"}
-	
-	
-	
-	includedirs 
+
+
+
+	includedirs
 	{
-	
+
 		"../../examples/ThirdPartyLibs",
-		"../../examples",	
+		"../../examples",
 		".",
 		"../../src"
 	}
 
 	initOpenGL()
 	initGlew()
-			
+
 	links {
 		"gwen","Bullet3Common"
 	}
-	
-	
+
+
 	files {
 		"../../examples/OpenGLWindow/OpenSans.cpp",
 		"../../examples/OpenGLWindow/TwFonts.cpp",
@@ -33,7 +33,7 @@
 		"../../examples/OpenGLWindow/LoadShader.cpp",
 		"../../examples/OpenGLWindow/LoadShader.h",
 		"../../examples/OpenGLWindow/GLPrimitiveRenderer.cpp",
-		"../../examples/OpenGLWindow/GLPrimitiveRenderer.h",				
+		"../../examples/OpenGLWindow/GLPrimitiveRenderer.h",
 		"../../examples/OpenGLWindow/GwenOpenGL3CoreRenderer.h",
 		"../../examples/OpenGLWindow/fontstash.cpp",
 		"../../examples/OpenGLWindow/fontstash.h",
@@ -48,7 +48,7 @@
 	files {
 		"../../examples/OpenGLWindow/GLFWOpenGLWindow.cpp",
 		}
-	if os.is("Windows") then
+	if os.istarget("Windows") then
 	files {
 		"../../examples/OpenGLWindow/Win32OpenGLWindow.cpp",
                 "../../examples/OpenGLWindow/Win32OpenGLWindow.h",
@@ -56,7 +56,7 @@
                 "../../examples/OpenGLWindow/Win32Window.h",
 	}
 	end
-	if os.is("Linux") then 
+	if os.istarget("Linux") then
 		initX11()
 		files{
 		"../../examples/OpenGLWindow/X11OpenGLWindow.h",
@@ -64,7 +64,7 @@
 		}
 		links{"pthread"}
 	end
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 		links{"Cocoa.framework"}
 		files{
 		"../../examples/OpenGLWindow/MacOpenGLWindow.cpp",

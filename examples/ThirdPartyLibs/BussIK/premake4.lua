@@ -1,11 +1,11 @@
 	project "BussIK"
-		
+
 	kind "StaticLib"
 
 	includedirs {
 		"."
 	}
-    if os.is("Linux") then
+    if os.istarget("Linux") then
         buildoptions{"-fPIC"}
     end
 	files {

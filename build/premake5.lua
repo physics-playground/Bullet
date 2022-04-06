@@ -3,8 +3,8 @@
 
 	local osversion = os.getversion()
 	print(string.format(" %d.%d.%d (%s)",
-   		osversion.majorversion, osversion.minorversion, osversion.revision,
-   		osversion.description))
+		osversion.majorversion, osversion.minorversion, osversion.revision,
+		osversion.description))
 
 	if _ACTION == "vs2010" or _ACTION=="vs2008" then
 		buildoptions
@@ -121,21 +121,21 @@
 
 	}
 
-	if os.is("Linux") then
+	if os.istarget("Linux") then
                 default_grpc_include_dir = "usr/local/include/GRPC"
                 default_grpc_lib_dir = "/usr/local/lib"
                 default_protobuf_include_dir = "/usr/local/include/protobuf"
                 default_protobuf_lib_dir = "/usr/local/lib"
 	end
 
-	if os.is("macosx") then
+	if os.istarget("macosx") then
                 default_grpc_include_dir = "/usr/local/Cellar/grpc/1.14.1/include"
                 default_grpc_lib_dir = "/usr/local/Cellar/grpc/1.14.1/lib"
 								default_protobuf_include_dir = "/usr/local/Cellar/protobuf/3.6.0/include"
                 default_protobuf_lib_dir = "/usr/local/Cellar/protobuf/3.6.0/lib"
 	end
 
-	if os.is("Windows") then
+	if os.istarget("Windows") then
                 default_grpc_include_dir = projectRootDir .. "examples/ThirdPartyLibs/grpc/include"
                 default_grpc_lib_dir = projectRootDir .. "examples/ThirdPartyLibs/grpc/lib"
                 default_protobuf_include_dir =projectRootDir .. "examples/ThirdPartyLibs/grpc/include"
@@ -211,17 +211,17 @@
 
 			defines {"BT_ENABLE_GRPC"}
 
-				if os.is("macosx") then
+				if os.istarget("macosx") then
 			 buildoptions { "-std=c++11" }
 			 links{ "dl"}
 			end
 
-			if os.is("Linux") then
+			if os.istarget("Linux") then
 			 		buildoptions { "-std=c++11" }
 					links{ "dl"}
 			end
 
-			if os.is("Windows") then
+			if os.istarget("Windows") then
 					defines {"_WIN32_WINNT=0x0600"}
 					links{ "zlibstatic","ssl","crypto"}
 			end
@@ -230,16 +230,16 @@
              projectRootDir .. "examples", _OPTIONS["grpc_include_dir"], _OPTIONS["protobuf_include_dir"],
       }
 
-			if os.is("Windows") then
-				configuration {"x64", "debug"}
+			if os.istarget("Windows") then
+				filter {"x64", "debug"}
 						libdirs {_OPTIONS["grpc_lib_dir"] .. "/win64_debug" , _OPTIONS["protobuf_lib_dir"] .. "win64_debug",}
-				configuration {"x86", "debug"}
+				filter {"x86", "debug"}
 						libdirs {_OPTIONS["grpc_lib_dir"] .. "/win32_debug" , _OPTIONS["protobuf_lib_dir"] .. "win32_debug",}
-				configuration {"x64", "release"}
+				filter {"x64", "release"}
 						libdirs {_OPTIONS["grpc_lib_dir"] .. "/win64_release", _OPTIONS["protobuf_lib_dir"] .. "win64_release",}
-				configuration {"x86", "release"}
+				filter {"x86", "release"}
 						libdirs {_OPTIONS["grpc_lib_dir"] .. "/win32_release" , _OPTIONS["protobuf_lib_dir"] .. "win32_release",}
-				configuration{}
+				filter {}
 
 				else
 				libdirs {_OPTIONS["grpc_lib_dir"], _OPTIONS["protobuf_lib_dir"],}
@@ -302,13 +302,13 @@
                 description = "Enable high-level Python scripting of Bullet with URDF/SDF import and synthetic camera."
         }
 
-if os.is("Linux") then
+if os.istarget("Linux") then
  		default_python_include_dir = "/usr/include/python2.7"
  		default_python_lib_dir = "/usr/local/lib/"
 end
 
 
-if os.is("Windows") then
+if os.istarget("Windows") then
  		default_python_include_dir = "C:/Python-3.5.2/include"
  		default_python_lib_dir = "C:/Python-3.5.2/libs"
 end
@@ -402,20 +402,27 @@ end
 		description = "Enable dynamic DLL CRT runtime"
 	}
 	configurations {"Release", "Debug"}
-	configuration "Release"
-		flags { "Optimize", "EnableSSE2", "NoMinimalRebuild", "FloatFast"}
+	filter "configurations:Release"
+        vectorextensions "SSE2"
+        floatingpoint "Fast"
+        optimize "On"
+		flags { "NoMinimalRebuild"}
 		if not _OPTIONS["dynamic-runtime"] then
-			flags { "StaticRuntime" }
+            staticruntime "On"
 		end
-	configuration "Debug"
+	filter "configurations:Debug"
 		defines {"_DEBUG=1"}
-		flags { "Symbols" , "NoMinimalRebuild", "NoEditAndContinue" ,"FloatFast"}
+        vectorextensions "SSE2"
+        floatingpoint "Fast"
+        symbols "On"
+        editandcontinue "Off"
+		flags { "NoMinimalRebuild"}
 		if not _OPTIONS["dynamic-runtime"] then
-			flags { "StaticRuntime" }
+            staticruntime "On"
 		end
 
 
-	if os.is("Linux") or os.is("macosx") then
+	if os.istarget("Linux") or os.istarget("macosx") then
 		if os.is64bit() then
 			platforms {"x64"}
 		else
@@ -425,18 +432,18 @@ end
 		platforms {"x32","x64"}
 	end
 
-	configuration {"x32"}
+	filter {"x32"}
 		targetsuffix ("_" .. act)
-	configuration "x64"
+	filter "configurations:x64"
 		targetsuffix ("_" .. act .. "_64" )
-	configuration {"x64", "debug"}
+	filter {"x64", "debug"}
 		targetsuffix ("_" .. act .. "_x64_debug")
-	configuration {"x64", "release"}
+	filter {"x64", "release"}
 		targetsuffix ("_" .. act .. "_x64_release" )
-	configuration {"x32", "debug"}
+	filter {"x32", "debug"}
 		targetsuffix ("_" .. act .. "_debug" )
 
-	configuration{}
+	filter {}
 
 	postfix=""
 
@@ -483,19 +490,19 @@ end
 			_OPTIONS["python_lib_dir"] = default_python_lib_dir
 	end
 
-if os.is("Linux") then
+if os.istarget("Linux") then
                 default_glfw_include_dir = "usr/local/include/GLFW"
                 default_glfw_lib_dir = "/usr/local/lib/"
 		default_glfw_lib_name = "glfw3"
 end
 
-if os.is("macosx") then
+if os.istarget("macosx") then
 		default_glfw_include_dir = "/usr/local/Cellar/glfw/3.2.1/include"
 		default_glfw_lib_dir = "/usr/local/Cellar/glfw/3.2.1/lib"
 		default_glfw_lib_name = "glfw"
 end
 
-if os.is("Windows") then
+if os.istarget("Windows") then
                 default_glfw_include_dir = "c:/glfw/include"
                 default_glfw_lib_dir = "c:/glfw/lib"
 		default_glfw_lib_name = "glfw3"

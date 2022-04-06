@@ -3,7 +3,7 @@ project "test_vhacd"
 
 if _OPTIONS["ios"] then
 	kind "WindowedApp"
-else	
+else
 	kind "ConsoleApp"
 end
 
@@ -22,6 +22,6 @@ files {
 }
 
 
-if os.is("Linux") then 
+if os.istarget("Linux") then
 		links {"pthread"}
 end

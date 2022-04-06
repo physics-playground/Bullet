@@ -4,14 +4,14 @@
 	end
 
 	function findOpenCL_Apple()
---		if os.is("macosx") then
---			return true	
+--		if os.istarget("macosx") then
+--			return true
 --		else
 			return false
 --		end
 	end
 
-	
+
 	function findOpenCL_AMD()
 --		local amdopenclpath = os.getenv("AMDAPPSDKROOT")
 --		if (amdopenclpath) then
@@ -29,13 +29,13 @@
 	end
 
 	function findOpenCL_Intel()
---		if os.is("Windows") then
+--		if os.istarget("Windows") then
 --			local intelopenclpath = os.getenv("INTELOCLSDKROOT")
 --			if (intelopenclpath) then
 --			return true
 --			end
 --		end
---		if os.is("Linux") then
+--		if os.istarget("Linux") then
 --			local intelsdk = io.open("/usr/include/CL/opencl.h","r")
 --			if (intelsdk) then
 --				return true;
@@ -43,9 +43,9 @@
 --		end
 		return false
 	end
-		
+
 	function initOpenCL_clew()
-		configuration{}
+		filter {}
 		includedirs {
 			projectRootDir .. "src/clew"
 		}
@@ -54,13 +54,13 @@
 			projectRootDir .. "src/clew/clew.c",
 			projectRootDir .. "src/clew/clew.h"
 		}
-		 if os.is("Linux") then
+		 if os.istarget("Linux") then
         	        links {"dl"}
         	end
 	end
 
 	function initOpenCL_Apple()
-		configuration{}
+		filter {}
 		includedirs {
 			"/System/Library/Frameworks/OpenCL.framework"
 		}
@@ -70,20 +70,20 @@
 			"OpenCL.framework"
 		}
 	end
-	
+
 	function initOpenCL_AMD()
-		configuration {}
+		filter {}
 		local amdopenclpath = os.getenv("AMDAPPSDKROOT")
 		if (amdopenclpath) then
 			defines { "ADL_ENABLE_CL" , "CL_PLATFORM_AMD"}
 			includedirs {
-				"$(AMDAPPSDKROOT)/include"				
+				"$(AMDAPPSDKROOT)/include"
 			}
-			configuration "x32"
+			filter "configurations:x32"
 				libdirs {"$(AMDAPPSDKROOT)/lib/x86"}
-			configuration "x64"
+			filter "configurations:x64"
 				libdirs {"$(AMDAPPSDKROOT)/lib/x86_64"}
-			configuration {}
+			filter {}
 			links {"OpenCL"}
 			return true
 		end
@@ -92,18 +92,18 @@
 
 
 	function initOpenCL_NVIDIA()
-		configuration {}
+		filter {}
 		local nvidiaopenclpath = os.getenv("CUDA_PATH")
 		if (nvidiaopenclpath) then
 			defines { "ADL_ENABLE_CL" , "CL_PLATFORM_NVIDIA"}
 			includedirs {
-				"$(CUDA_PATH)/include"				
+				"$(CUDA_PATH)/include"
 			}
-			configuration "x32"
+			filter "configurations:x32"
 				libdirs {"$(CUDA_PATH)/lib/Win32"}
-			configuration "x64"
+			filter "configurations:x64"
 				libdirs {"$(CUDA_PATH)/lib/x64"}
-			configuration {}
+			filter {}
 			links {"OpenCL"}
 			return true
 		end
@@ -111,31 +111,31 @@
 	end
 
 	function initOpenCL_Intel()
-		configuration {}
-		if os.is("Windows") then
+		filter {}
+		if os.istarget("Windows") then
 		local intelopenclpath = os.getenv("INTELOCLSDKROOT")
 		if (intelopenclpath) then
 			defines { "ADL_ENABLE_CL" , "CL_PLATFORM_INTEL"}
 			includedirs {
-				"$(INTELOCLSDKROOT)/include"				
+				"$(INTELOCLSDKROOT)/include"
 			}
-			configuration "x32"
+			filter "configurations:x32"
 				libdirs {"$(INTELOCLSDKROOT)/lib/x86"}
-			configuration "x64"
+			filter "configurations:x64"
 				libdirs {"$(INTELOCLSDKROOT)/lib/x64"}
-			configuration {}
+			filter {}
 			links {"OpenCL"}
 			return true
 		end
 		end
-		if os.is("Linux") then
+		if os.istarget("Linux") then
 			defines { "ADL_ENABLE_CL" , "CL_PLATFORM_INTEL"}
-                        configuration {}
+                        filter {}
                         links {"OpenCL"}
 		end
 		return false
 	end
-	
+
 	function findOpenCL (vendor )
 		if vendor=="clew" then
 			return findOpenCL_clew()
@@ -154,7 +154,7 @@
 		end
 		return false
 	end
-	
+
 	function initOpenCL ( vendor )
 		if vendor=="clew" then
 			initOpenCL_clew()
@@ -172,4 +172,4 @@
 			return initOpenCL_Apple()
 		end
 	end
-	
+

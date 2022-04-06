@@ -3,7 +3,7 @@ project "App_BasicExample"
 
 if _OPTIONS["ios"] then
 	kind "WindowedApp"
-else	
+else
 	kind "ConsoleApp"
 end
 
@@ -55,12 +55,12 @@ files {
 	"../Utils/b3Clock.h",
 }
 
-if os.is("Linux") then initX11() end
+if os.istarget("Linux") then initX11() end
 
-if os.is("MacOSX") then
+if os.istarget("MacOSX") then
         links{"Cocoa.framework"}
 end
-                          
+
 
 
 
@@ -103,12 +103,12 @@ files {
 	"../Utils/b3Clock.h",
 }
 
-if os.is("Linux") then initX11() end
+if os.istarget("Linux") then initX11() end
 
-if os.is("MacOSX") then
+if os.istarget("MacOSX") then
         links{"Cocoa.framework"}
 end
-                          
+
 
 project "App_BasicExampleTinyRenderer"
 
@@ -161,7 +161,7 @@ defines {"B3_USE_STANDALONE_EXAMPLE","BT_ENABLE_VR"}
 
 
 
-includedirs {"../../src", 
+includedirs {"../../src",
 					"../ThirdPartyLibs/openvr/headers",
 					"../ThirdPartyLibs/openvr/samples/shared"}
 
@@ -197,13 +197,13 @@ files {
 				"../Utils/ChromeTraceUtil.h",
 }
 
-if os.is("Windows") then 
+if os.istarget("Windows") then
 	libdirs {"../ThirdPartyLibs/openvr/lib/win32"}
 end
 
-if os.is("Linux") then initX11() end
+if os.istarget("Linux") then initX11() end
 
-if os.is("MacOSX") then
+if os.istarget("MacOSX") then
         links{"Cocoa.framework"}
 end
 

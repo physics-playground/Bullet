@@ -1,48 +1,48 @@
 
 	project "App_ThreadingTest"
-		
+
 	kind "ConsoleApp"
-	
+
 --	defines {  }
-	
-	
-	includedirs 
+
+
+	includedirs
 	{
 		".","../../src"
 	}
 
-			
+
 	links { "Bullet3Common" }
-	
-	
+
+
 	files {
 		"b3ThreadSupportInterface.cpp",
 		"main.cpp",
 		"b3ThreadSupportInterface.h"
 	}
-	if os.is("Windows") then
+	if os.istarget("Windows") then
 
 		files {
-                "b3Win32ThreadSupport.cpp",  
-                "b3Win32ThreadSupport.h" 
+                "b3Win32ThreadSupport.cpp",
+                "b3Win32ThreadSupport.h"
 		}
 		--links {"winmm"}
 		--defines {"__WINDOWS_MM__", "WIN32"}
 	end
 
-	if os.is("Linux") then 
+	if os.istarget("Linux") then
 		files {
-                "b3PosixThreadSupport.cpp",  
-                "b3PosixThreadSupport.h"    
+                "b3PosixThreadSupport.cpp",
+                "b3PosixThreadSupport.h"
         	}
 
 		links {"pthread"}
 	end
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 		files {
                 "b3PosixThreadSupport.cpp",
-                "b3PosixThreadSupport.h"    
+                "b3PosixThreadSupport.h"
                 }
 
 		links {"pthread"}

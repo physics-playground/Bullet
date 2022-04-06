@@ -1,9 +1,9 @@
-		
+
 
 project ("BulletRobotics")
 		language "C++"
 		kind "StaticLib"
-		
+
 		includedirs {"../../src", "../../examples",
 		"../../examples/ThirdPartyLibs"}
 		defines {"PHYSICS_IN_PROCESS_EXAMPLE_BROWSER"}
@@ -22,34 +22,34 @@ project ("BulletRobotics")
                 "../ThirdPartyLibs/clsocket/src",
                 }
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 --		targetextension {"so"}
 		links{"Cocoa.framework","Python"}
 	end
 
-	
+
 if not _OPTIONS["no-enet"] then
 
 		includedirs {"../../examples/ThirdPartyLibs/enet/include"}
-	
-		if os.is("Windows") then 
+
+		if os.istarget("Windows") then
 --			targetextension {"dylib"}
 			defines { "WIN32" }
 			links {"Ws2_32","Winmm"}
 		end
-		if os.is("Linux") then
+		if os.istarget("Linux") then
 		end
-		if os.is("MacOSX") then
-		end		
-		
-		links {"enet"}		
+		if os.istarget("MacOSX") then
+		end
+
+		links {"enet"}
 
 		files {
 			"../../examples/SharedMemory/PhysicsClientUDP.cpp",
 			"../../examples/SharedMemory/PhysicsClientUDP.h",
 			"../../examples/SharedMemory/PhysicsClientUDP_C_API.cpp",
 			"../../examples/SharedMemory/PhysicsClientUDP_C_API.h",
-		}	
+		}
 		defines {"BT_ENABLE_ENET"}
 	end
 
@@ -57,14 +57,14 @@ if not _OPTIONS["no-enet"] then
 
                 includedirs {"../../examples/ThirdPartyLibs/clsocket/src"}
 
-		 if os.is("Windows") then
+		 if os.istarget("Windows") then
                 	defines { "WIN32" }
                 	links {"Ws2_32","Winmm"}
        		 end
-        	if os.is("Linux") then
+        	if os.istarget("Linux") then
                 	defines {"_LINUX"}
         	end
-        	if os.is("MacOSX") then
+        	if os.istarget("MacOSX") then
                 	defines {"_DARWIN"}
         	end
 
@@ -117,13 +117,13 @@ if not _OPTIONS["no-enet"] then
 		"../../examples/SharedMemory/PhysicsServerCommandProcessor.h",
 		"../../examples/SharedMemory/b3PluginManager.cpp",
 		"../../examples/SharedMemory/b3PluginManager.h",
-				
+
 		"../../examples/SharedMemory/PhysicsClientSharedMemory.cpp",
 		"../../examples/SharedMemory/PhysicsClientSharedMemory.h",
 		"../../examples/SharedMemory/PhysicsClientSharedMemory_C_API.cpp",
 		"../../examples/SharedMemory/PhysicsClientSharedMemory_C_API.h",
 		"../../examples/SharedMemory/PhysicsClientC_API.cpp",
-	
+
 		"../../examples/SharedMemory/PhysicsClientC_API.h",
 		"../../examples/SharedMemory/SharedMemoryPublic.h",
 
@@ -174,10 +174,10 @@ if not _OPTIONS["no-enet"] then
 		"../../examples/MultiThreading/b3Win32ThreadSupport.cpp",
 		"../../examples/MultiThreading/b3ThreadSupportInterface.cpp",
 			}
-			
+
 if (_OPTIONS["enable_static_vr_plugin"]) then
 		files {"../../examples/SharedMemory/plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
 end
 
 
-	
+

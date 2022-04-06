@@ -1,9 +1,9 @@
-		
+
 
 project ("pybullet_vrSyncPlugin")
 		language "C++"
 		kind "SharedLib"
-		
+
 		includedirs {".","../../../../src", "../../../../examples",
 		"../../../ThirdPartyLibs"}
 		defines {"PHYSICS_IN_PROCESS_EXAMPLE_BROWSER"}
@@ -12,7 +12,7 @@ project ("pybullet_vrSyncPlugin")
 	links{"BulletFileLoader", "Bullet3Common", "LinearMath"}
 
 
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 --		targetextension {"so"}
 		links{"Cocoa.framework","Python"}
 	end
@@ -37,6 +37,6 @@ project ("pybullet_vrSyncPlugin")
 			"../../../Utils/b3ResourcePath.cpp",
 			"../../../Utils/b3ResourcePath.h",
 				}
-	
-	
-	
+
+
+

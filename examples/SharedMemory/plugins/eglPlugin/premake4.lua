@@ -1,10 +1,10 @@
-		
+
 
 project ("pybullet_eglRendererPlugin")
 		language "C++"
 		kind "SharedLib"
 		initEGL()
-		
+
 		includedirs {".","../../../../src", "../../../../examples",
 		"../../../ThirdPartyLibs", "../../../ThirdPartyLibs/glad"}
 		defines {"PHYSICS_IN_PROCESS_EXAMPLE_BROWSER", "STB_AGAIN"}
@@ -14,17 +14,17 @@ project ("pybullet_eglRendererPlugin")
 
 	initOpenGL()
 
-	if os.is("Windows") then
+	if os.istarget("Windows") then
 		files {"../../../OpenGLWindow/Win32OpenGLWindow.cpp",
 		"../../../OpenGLWindow/Win32Window.cpp",}
-		
+
 	end
-	if os.is("MacOSX") then
+	if os.istarget("MacOSX") then
 --		targetextension {"so"}
 		links{"Cocoa.framework"}
 	end
 
-  if os.is("Linux") then
+  if os.istarget("Linux") then
 	  files {"../../../OpenGLWindow/EGLOpenGLWindow.cpp"}
 
   end
@@ -69,6 +69,6 @@ project ("pybullet_eglRendererPlugin")
 			"../../../Utils/b3ResourcePath.cpp",
 			"../../../Utils/b3ResourcePath.h",
 			}
-	
-	
-	
+
+
+

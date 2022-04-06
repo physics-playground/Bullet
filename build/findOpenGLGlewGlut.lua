@@ -1,7 +1,7 @@
 
 	function findOpenGL()
-		configuration{}
-		if os.is("Linux") then
+		filter {}
+		if os.istarget("Linux") then
 			return true
 		end
 		--assume OpenGL is available on Mac OSX, Windows etc
@@ -9,8 +9,8 @@
 	end
 
       function findOpenGL3()
-                configuration{}
-                if os.is("MacOSX") then
+                filter {}
+                if os.istarget("MacOSX") then
                         local osversion = os.getversion()
 		--Mac OSX 10.9 and above supports OpenGL 3, below doesn't, so ...
                         if osversion.majorversion > 10 or (osversion.majorversion == 10 and osversion.minorversion >=9) then
@@ -25,13 +25,13 @@
 
 
 	function initOpenGL()
-		configuration {}
-		configuration {"Windows"}
+		filter {}
+		filter {"Windows"}
 			links {"opengl32","glu32"}
-		configuration {"MacOSX"}
- 			links { "OpenGL.framework"} 
-		configuration {"not Windows", "not MacOSX"}
-		if os.is("Linux") then	
+		filter {"MacOSX"}
+ 			links { "OpenGL.framework"}
+		filter {"not Windows", "not MacOSX"}
+		if os.istarget("Linux") then
 			if  _OPTIONS["enable_system_opengl"] and (os.isdir("/usr/include") and os.isfile("/usr/include/GL/gl.h")) then
 				links {"GL"}
 			else
@@ -40,11 +40,11 @@
 				links {"dl"}
 			end
 		end
-		configuration{}
+		filter {}
 	end
 
 	function initX11()
-		if os.is("Linux") then
+		if os.istarget("Linux") then
 			if _OPTIONS["enable_system_x11"] and (os.isdir("/usr/include") and os.isfile("/usr/include/X11/X.h")) then
 				links{"X11","pthread"}
 			else
@@ -52,7 +52,7 @@
 				includedirs {
                                         projectRootDir .. "examples/ThirdPartyLibs/optionalX11"
                                 }
-				defines {"DYNAMIC_LOAD_X11_FUNCTIONS"}	
+				defines {"DYNAMIC_LOAD_X11_FUNCTIONS"}
 				links {"dl","pthread"}
 			end
 		end
@@ -60,7 +60,7 @@
 
 
 	function initX11()
-		if os.is("Linux") then
+		if os.istarget("Linux") then
 			if _OPTIONS["enable_system_x11"] and (os.isdir("/usr/include") and os.isfile("/usr/include/X11/X.h")) then
 				links{"X11","pthread"}
 			else
@@ -68,7 +68,7 @@
 				includedirs {
                                         projectRootDir .. "examples/ThirdPartyLibs/optionalX11"
                                 }
-				defines {"DYNAMIC_LOAD_X11_FUNCTIONS"}	
+				defines {"DYNAMIC_LOAD_X11_FUNCTIONS"}
 				links {"dl","pthread"}
 			end
 		end
@@ -76,32 +76,32 @@
 
 
 	function initGlew()
-		configuration {}
-		if os.is("Windows") then
-			configuration {"Windows"}
+		filter {}
+		if os.istarget("Windows") then
+			filter {"Windows"}
 			defines { "GLEW_STATIC"}
 			includedirs {
 					projectRootDir .. "examples/ThirdPartyLibs/glad"
 			}
 			files { projectRootDir .. "examples/ThirdPartyLibs/glad/gl.c"}
 		end
-		if os.is("MacOSX") then
+		if os.istarget("MacOSX") then
 			 includedirs {
                                         projectRootDir .. "examples/ThirdPartyLibs/glad"
                                 }
                                 files { projectRootDir .. "examples/ThirdPartyLibs/glad/gl.c"}
 		end
 
-		if os.is("Linux") then
-			configuration{"Linux"}
+		if os.istarget("Linux") then
+			filter {"Linux"}
 			  initX11()
 				if  _OPTIONS["enable_system_glx"] then --# and (os.isdir("/usr/include") and os.isfile("/usr/include/GL/glx.h")) then
                                 	links{"pthread"}
 					print("Using system GL/glx.h")
                         	else
 					print("Using glad_glx")
-				 	defines { "GLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1"}	
-				 	files { 
+				 	defines { "GLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1"}
+				 	files {
 					projectRootDir .. "examples/ThirdPartyLibs/glad/glx.c"}
 				end
 
@@ -115,7 +115,7 @@
 				links {"dl"}
 
 		end
-		configuration{}
+		filter {}
 	end
 
 
