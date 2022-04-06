@@ -40,7 +40,9 @@
     "cmake.buildDirectory": "${workspaceFolder}/build/intermediate/vscode",
     "files.associations": {
         "*.cmake": "cmake",
-        ".clang-tidy": "yaml"
+        "*.cmake.in": "cmake",
+        ".clang-tidy": "yaml",
+        "*.command": "shellscript"
     },
     "cSpell.words": []
 }
