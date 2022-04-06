@@ -222,25 +222,25 @@ sources = ["examples/pybullet/pybullet.c"]\
 +["examples/ThirdPartyLibs/clsocket/src/ActiveSocket.cpp"]\
 +["examples/ThirdPartyLibs/clsocket/src/PassiveSocket.cpp"]\
 +["examples/ThirdPartyLibs/clsocket/src/SimpleSocket.cpp"]\
-+["Extras/Serialize/BulletFileLoader/bChunk.cpp"]\
-+["Extras/Serialize/BulletFileLoader/bDNA.cpp"]\
-+["Extras/Serialize/BulletFileLoader/bFile.cpp"]\
-+["Extras/Serialize/BulletFileLoader/btBulletFile.cpp"]\
-+["Extras/Serialize/BulletWorldImporter/btMultiBodyWorldImporter.cpp"]\
-+["Extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp"]\
-+["Extras/Serialize/BulletWorldImporter/btWorldImporter.cpp"]\
-+["Extras/InverseDynamics/CloneTreeCreator.cpp"]\
-+["Extras/InverseDynamics/IDRandomUtil.cpp"]\
-+["Extras/InverseDynamics/MultiBodyTreeDebugGraph.cpp"]\
-+["Extras/InverseDynamics/User2InternalIndex.cpp"]\
-+["Extras/InverseDynamics/CoilCreator.cpp"]\
-+["Extras/InverseDynamics/MultiBodyNameMap.cpp"]\
-+["Extras/InverseDynamics/RandomTreeCreator.cpp"]\
-+["Extras/InverseDynamics/btMultiBodyTreeCreator.cpp"]\
-+["Extras/InverseDynamics/DillCreator.cpp"]\
-+["Extras/InverseDynamics/MultiBodyTreeCreator.cpp"]\
-+["Extras/InverseDynamics/SimpleTreeCreator.cpp"]\
-+["Extras/InverseDynamics/invdyn_bullet_comparison.cpp"]\
++["extras/Serialize/BulletFileLoader/bChunk.cpp"]\
++["extras/Serialize/BulletFileLoader/bDNA.cpp"]\
++["extras/Serialize/BulletFileLoader/bFile.cpp"]\
++["extras/Serialize/BulletFileLoader/btBulletFile.cpp"]\
++["extras/Serialize/BulletWorldImporter/btMultiBodyWorldImporter.cpp"]\
++["extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp"]\
++["extras/Serialize/BulletWorldImporter/btWorldImporter.cpp"]\
++["extras/InverseDynamics/CloneTreeCreator.cpp"]\
++["extras/InverseDynamics/IDRandomUtil.cpp"]\
++["extras/InverseDynamics/MultiBodyTreeDebugGraph.cpp"]\
++["extras/InverseDynamics/User2InternalIndex.cpp"]\
++["extras/InverseDynamics/CoilCreator.cpp"]\
++["extras/InverseDynamics/MultiBodyNameMap.cpp"]\
++["extras/InverseDynamics/RandomTreeCreator.cpp"]\
++["extras/InverseDynamics/btMultiBodyTreeCreator.cpp"]\
++["extras/InverseDynamics/DillCreator.cpp"]\
++["extras/InverseDynamics/MultiBodyTreeCreator.cpp"]\
++["extras/InverseDynamics/SimpleTreeCreator.cpp"]\
++["extras/InverseDynamics/invdyn_bullet_comparison.cpp"]\
 +["src/BulletSoftBody/btDefaultSoftBodySolver.cpp"]\
 +["src/BulletSoftBody/btSoftBodyHelpers.cpp"]\
 +["src/BulletSoftBody/btSoftRigidCollisionAlgorithm.cpp"]\
@@ -338,12 +338,12 @@ sources = ["examples/pybullet/pybullet.c"]\
 +["examples/ThirdPartyLibs/Gwen/Platforms/Null.cpp"]\
 +["examples/ThirdPartyLibs/Gwen/Platforms/Windows.cpp"]\
 +["examples/ThirdPartyLibs/Gwen/Renderers/OpenGL_DebugFont.cpp"]\
-+["Extras/VHACD/test/src/main_vhacd.cpp"] \
-+["Extras/VHACD/src/VHACD.cpp"] \
-+["Extras/VHACD/src/vhacdICHull.cpp"] \
-+["Extras/VHACD/src/vhacdManifoldMesh.cpp"] \
-+["Extras/VHACD/src/vhacdMesh.cpp"] \
-+["Extras/VHACD/src/vhacdVolume.cpp"]
++["extras/VHACD/test/src/main_vhacd.cpp"] \
++["extras/VHACD/src/VHACD.cpp"] \
++["extras/VHACD/src/vhacdICHull.cpp"] \
++["extras/VHACD/src/vhacdManifoldMesh.cpp"] \
++["extras/VHACD/src/vhacdMesh.cpp"] \
++["extras/VHACD/src/vhacdVolume.cpp"]
 
 
 egl_renderer_sources = \
@@ -485,7 +485,7 @@ pybullet_ext = Extension(
     include_dirs=include_dirs + [
         "src", "examples/ThirdPartyLibs", "examples/ThirdPartyLibs/glad",
         "examples/ThirdPartyLibs/enet/include", "examples/ThirdPartyLibs/clsocket/src",
-        "Extras/VHACD/inc", "Extras/VHACD/public",
+        "extras/VHACD/inc", "extras/VHACD/public",
     ])
 extensions.append(pybullet_ext)
 

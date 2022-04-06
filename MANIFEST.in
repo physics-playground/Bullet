@@ -1,9 +1,9 @@
 include MANIFEST.in *.txt
 recursive-include examples *.h
 recursive-include examples *.hpp
-recursive-include Extras *.h
-recursive-include Extras *.hpp
-recursive-include Extras *.inl
+recursive-include extras *.h
+recursive-include extras *.hpp
+recursive-include extras *.inl
 recursive-include src *.h
 recursive-include src *.hpp
 recursive-include src *.cpp

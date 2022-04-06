@@ -12,7 +12,7 @@
 		".",
 		"../../src",
 		"../../examples/InverseDynamics",
-		"../../Extras/InverseDynamics",
+		"../../extras/InverseDynamics",
 		"../gtest-1.7.0/include"
 
 	}
@@ -51,7 +51,7 @@
                 ".",
                 "../../src",
                 "../../examples/InverseDynamics",
-                "../../Extras/InverseDynamics",
+                "../../extras/InverseDynamics",
                 "../gtest-1.7.0/include"
 
         }
@@ -84,7 +84,7 @@
                 "../../src",
                 "../../examples/InverseDynamics",
                 "../../examples/ThirdPartyLibs",
-                "../../Extras/InverseDynamics",
+                "../../extras/InverseDynamics",
                 "../gtest-1.7.0/include",
                 "../../examples/ThirdPartyLibs",
         }
@@ -114,8 +114,8 @@
 	"../../examples/Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
         "../../examples/ThirdPartyLibs/stb_image/stb_image.cpp",
         "../../examples/Utils/b3Clock.cpp",
-        "../../Extras/Serialize/BulletWorldImporter/*",
-        "../../Extras/Serialize/BulletFileLoader/*",
+        "../../extras/Serialize/BulletWorldImporter/*",
+        "../../extras/Serialize/BulletFileLoader/*",
         "../../examples/Importers/ImportURDFDemo/URDFImporterInterface.h",
         "../../examples/Importers/ImportURDFDemo/URDFJointTypes.h",
         "../../examples/Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.cpp",
@@ -127,10 +127,10 @@
         "../../examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp",
     "../../examples/ThirdPartyLibs/tinyxml2/tinyxml2.cpp",
     "../../examples/ThirdPartyLibs/urdf/boost_replacement/lexical_cast.h",
-  
+
 	}
 
         if os.is("Linux") then
                 links {"pthread"}
         end
-        
+

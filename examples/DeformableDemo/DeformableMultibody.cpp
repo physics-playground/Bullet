@@ -40,11 +40,11 @@ public:
     :CommonDeformableBodyBase(helper)
 	{
 	}
-    
+
 	virtual ~DeformableMultibody()
 	{
 	}
-    
+
 	void initPhysics();
 
 	void exitPhysics();
@@ -57,18 +57,18 @@ public:
         float targetPos[3] = {0, -10, 0};
 		m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
 	}
-    
+
     virtual void stepSimulation(float deltaTime);
-    
+
     btMultiBody* createFeatherstoneMultiBody_testMultiDof(class btMultiBodyDynamicsWorld* world, int numLinks, const btVector3& basePosition, const btVector3& baseHalfExtents, const btVector3& linkHalfExtents, bool spherical = false, bool floating = false);
-    
+
     void addColliders_testMultiDof(btMultiBody* pMultiBody, btMultiBodyDynamicsWorld* pWorld, const btVector3& baseHalfExtents, const btVector3& linkHalfExtents);
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btSoftBody* psb = (btSoftBody*)deformableWorld->getSoftBodyArray()[i];
@@ -87,7 +87,7 @@ void DeformableMultibody::initPhysics()
 	///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
 	m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
 	m_broadphase = new btDbvtBroadphase();
@@ -96,7 +96,7 @@ void DeformableMultibody::initPhysics()
     sol = new btDeformableMultiBodyConstraintSolver;
     sol->setDeformableSolver(deformableBodySolver);
 	m_solver = sol;
-    
+
     m_dynamicsWorld = new btDeformableMultiBodyDynamicsWorld(m_dispatcher, m_broadphase, sol, m_collisionConfiguration, deformableBodySolver);
     btVector3 gravity = btVector3(0, -10, 0);
 	m_dynamicsWorld->setGravity(gravity);
@@ -144,9 +144,9 @@ void DeformableMultibody::initPhysics()
         bool selfCollide = true;
         btVector3 linkHalfExtents(.4, 1, .4);
         btVector3 baseHalfExtents(.4, 1, .4);
-        
+
         btMultiBody* mbC = createFeatherstoneMultiBody_testMultiDof(m_dynamicsWorld, numLinks, btVector3(0.f, 10.f,0.f), linkHalfExtents, baseHalfExtents, spherical, g_floatingBase);
-        
+
         mbC->setCanSleep(canSleep);
         mbC->setHasSelfCollision(selfCollide);
         mbC->setUseGyroTerm(gyro);
@@ -179,7 +179,7 @@ void DeformableMultibody::initPhysics()
         ///
         addColliders_testMultiDof(mbC, m_dynamicsWorld, baseHalfExtents, linkHalfExtents);
     }
-    
+
     // create a patch of cloth
     {
         btScalar h = 0;
@@ -207,7 +207,7 @@ void DeformableMultibody::initPhysics()
         btDeformableMassSpringForce* mass_spring = new btDeformableMassSpringForce(30, 1, true);
         getDeformableDynamicsWorld()->addForce(psb, mass_spring);
         m_forces.push_back(mass_spring);
-        
+
         btDeformableGravityForce* gravity_force =  new btDeformableGravityForce(gravity);
         getDeformableDynamicsWorld()->addForce(psb, gravity_force);
         m_forces.push_back(gravity_force);
@@ -271,44 +271,44 @@ btMultiBody* DeformableMultibody::createFeatherstoneMultiBody_testMultiDof(btMul
     //init the base
     btVector3 baseInertiaDiag(0.f, 0.f, 0.f);
     float baseMass = .1f;
-    
+
     if (baseMass)
     {
         btCollisionShape* pTempBox = new btBoxShape(btVector3(baseHalfExtents[0], baseHalfExtents[1], baseHalfExtents[2]));
         pTempBox->calculateLocalInertia(baseMass, baseInertiaDiag);
         delete pTempBox;
     }
-    
+
     bool canSleep = false;
-    
+
     btMultiBody* pMultiBody = new btMultiBody(numLinks, baseMass, baseInertiaDiag, !floating, canSleep);
-    
+
     btQuaternion baseOriQuat(0.f, 0.f, 0.f, 1.f);
     pMultiBody->setBasePos(basePosition);
     pMultiBody->setWorldToBaseRot(baseOriQuat);
     btVector3 vel(0, 0, 0);
     //    pMultiBody->setBaseVel(vel);
-    
+
     //init the links
     btVector3 hingeJointAxis(1, 0, 0);
     float linkMass = .1f;
     btVector3 linkInertiaDiag(0.f, 0.f, 0.f);
-    
+
     btCollisionShape* pTempBox = new btBoxShape(btVector3(linkHalfExtents[0], linkHalfExtents[1], linkHalfExtents[2]));
     pTempBox->calculateLocalInertia(linkMass, linkInertiaDiag);
     delete pTempBox;
-    
+
     //y-axis assumed up
     btVector3 parentComToCurrentCom(0, -linkHalfExtents[1] * 2.f, 0);                      //par body's COM to cur body's COM offset
     btVector3 currentPivotToCurrentCom(0, -linkHalfExtents[1], 0);                         //cur body's COM to cur body's PIV offset
     btVector3 parentComToCurrentPivot = parentComToCurrentCom - currentPivotToCurrentCom;  //par body's COM to cur body's PIV offset
-    
+
     //////
     btScalar q0 = 0.f * SIMD_PI / 180.f;
     btQuaternion quat0(btVector3(0, 1, 0).normalized(), q0);
     quat0.normalize();
     /////
-    
+
     for (int i = 0; i < numLinks; ++i)
     {
         if (!spherical)
@@ -317,9 +317,9 @@ btMultiBody* DeformableMultibody::createFeatherstoneMultiBody_testMultiDof(btMul
             //pMultiBody->setupPlanar(i, linkMass, linkInertiaDiag, i - 1, btQuaternion(0.f, 0.f, 0.f, 1.f)/*quat0*/, btVector3(1, 0, 0), parentComToCurrentPivot*2, false);
             pMultiBody->setupSpherical(i, linkMass, linkInertiaDiag, i - 1, btQuaternion(0.f, 0.f, 0.f, 1.f), parentComToCurrentPivot, currentPivotToCurrentCom, true);
     }
-    
+
     pMultiBody->finalizeMultiDof();
-    
+
     ///
     pWorld->addMultiBody(pMultiBody);
     ///
@@ -330,49 +330,49 @@ void DeformableMultibody::addColliders_testMultiDof(btMultiBody* pMultiBody, btM
 {
     btAlignedObjectArray<btQuaternion> world_to_local;
     world_to_local.resize(pMultiBody->getNumLinks() + 1);
-    
+
     btAlignedObjectArray<btVector3> local_origin;
     local_origin.resize(pMultiBody->getNumLinks() + 1);
     world_to_local[0] = pMultiBody->getWorldToBaseRot();
     local_origin[0] = pMultiBody->getBasePos();
-    
+
     {
 
         btScalar quat[4] = {-world_to_local[0].x(), -world_to_local[0].y(), -world_to_local[0].z(), world_to_local[0].w()};
-        
+
         btCollisionShape* box = new btBoxShape(baseHalfExtents);
         box->setMargin(0.01);
         btMultiBodyLinkCollider* col = new btMultiBodyLinkCollider(pMultiBody, -1);
         col->setCollisionShape(box);
-        
+
         btTransform tr;
         tr.setIdentity();
         tr.setOrigin(local_origin[0]);
         tr.setRotation(btQuaternion(quat[0], quat[1], quat[2], quat[3]));
         col->setWorldTransform(tr);
-        
+
         pWorld->addCollisionObject(col, 2, 1 + 2);
-        
+
         col->setFriction(friction);
         pMultiBody->setBaseCollider(col);
     }
-    
+
     for (int i = 0; i < pMultiBody->getNumLinks(); ++i)
     {
         const int parent = pMultiBody->getParent(i);
         world_to_local[i + 1] = pMultiBody->getParentToLocalRot(i) * world_to_local[parent + 1];
         local_origin[i + 1] = local_origin[parent + 1] + (quatRotate(world_to_local[i + 1].inverse(), pMultiBody->getRVector(i)));
     }
-    
+
     for (int i = 0; i < pMultiBody->getNumLinks(); ++i)
     {
         btVector3 posr = local_origin[i + 1];
-        
+
         btScalar quat[4] = {-world_to_local[i + 1].x(), -world_to_local[i + 1].y(), -world_to_local[i + 1].z(), world_to_local[i + 1].w()};
-        
+
         btCollisionShape* box = new btBoxShape(linkHalfExtents);
         btMultiBodyLinkCollider* col = new btMultiBodyLinkCollider(pMultiBody, i);
-        
+
         col->setCollisionShape(box);
         btTransform tr;
         tr.setIdentity();
@@ -381,7 +381,7 @@ void DeformableMultibody::addColliders_testMultiDof(btMultiBody* pMultiBody, btM
         col->setWorldTransform(tr);
         col->setFriction(friction);
         pWorld->addCollisionObject(col, 2, 1 + 2);
-        
+
         pMultiBody->getLink(i).m_collider = col;
     }
 }

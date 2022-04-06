@@ -47,18 +47,18 @@ public:
         float targetPos[3] = {0, -3, 0};
 		m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
 	}
-    
+
     void stepSimulation(float deltaTime)
     {
         //use a smaller internal timestep, there are stability issues
         float internalTimeStep = 1. / 240.f;
         m_dynamicsWorld->stepSimulation(deltaTime, 4, internalTimeStep);
     }
-    
+
     void Ctor_RbUpStack(int count)
     {
         float mass = 0.2;
-        
+
         btCollisionShape* shape[] = {
             new btBoxShape(btVector3(1, 1, 1)),
         };
@@ -67,12 +67,12 @@ public:
         startTransform.setOrigin(btVector3(0, 0.7, 0));
         createRigidBody(mass, startTransform, shape[0]);
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btSoftBody* psb = (btSoftBody*)deformableWorld->getSoftBodyArray()[i];
@@ -92,13 +92,13 @@ void SplitImpulse::initPhysics()
 	///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
 	m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
 	m_broadphase = new btDbvtBroadphase();
     btDeformableBodySolver* deformableBodySolver = new btDeformableBodySolver();
 
-	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+	///the default constraint solver. For parallel processing you can use a different solver (see extras/BulletMultiThreaded)
 	btDeformableMultiBodyConstraintSolver* sol = new btDeformableMultiBodyConstraintSolver();
     sol->setDeformableSolver(deformableBodySolver);
 	m_solver = sol;
@@ -111,7 +111,7 @@ void SplitImpulse::initPhysics()
     getDeformableDynamicsWorld()->getWorldInfo().m_gravity = gravity;
 	getDeformableDynamicsWorld()->getWorldInfo().m_sparsesdf.setDefaultVoxelsz(0.25);
 	getDeformableDynamicsWorld()->getWorldInfo().m_sparsesdf.Reset();
-    
+
 //    getDeformableDynamicsWorld()->before_solver_callbacks.push_back(dynamics);
 	m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
 
@@ -144,12 +144,12 @@ void SplitImpulse::initPhysics()
         //add the ground to the dynamics world
         m_dynamicsWorld->addRigidBody(body);
     }
-    
+
     // create a piece of cloth
     {
         const btScalar s = 4;
         const btScalar h = 0;
-        
+
         btSoftBody* psb = btSoftBodyHelpers::CreatePatch(getDeformableDynamicsWorld()->getWorldInfo(), btVector3(-s, h, -s),
                                                          btVector3(+s, h, -s),
                                                          btVector3(-s, h, +s),
@@ -159,7 +159,7 @@ void SplitImpulse::initPhysics()
                                                           1 + 2 + 4 + 8, true);
 //                                                          0, true);
 
-        
+
         psb->getCollisionShape()->setMargin(0.015);
         psb->generateBendingConstraints(2);
         psb->setTotalMass(1);
@@ -169,11 +169,11 @@ void SplitImpulse::initPhysics()
         psb->m_cfg.collisions = btSoftBody::fCollision::SDF_RD;
         psb->m_cfg.collisions |= btSoftBody::fCollision::SDF_RDF;
         getDeformableDynamicsWorld()->addSoftBody(psb);
-        
+
         btDeformableMassSpringForce* mass_spring = new btDeformableMassSpringForce(30,1, true);
         getDeformableDynamicsWorld()->addForce(psb, mass_spring);
         m_forces.push_back(mass_spring);
-        
+
         btDeformableGravityForce* gravity_force =  new btDeformableGravityForce(gravity);
         getDeformableDynamicsWorld()->addForce(psb, gravity_force);
         m_forces.push_back(gravity_force);

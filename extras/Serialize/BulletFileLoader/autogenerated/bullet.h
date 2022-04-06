@@ -16,7 +16,7 @@
 *    misrepresented as being the original software.
 * 3. This notice may not be removed or altered from any source distribution.
 */
-// Auto generated from Bullet/Extras/HeaderGenerator/bulletGenerate.py
+// Auto generated from Bullet/extras/HeaderGenerator/bulletGenerate.py
 #ifndef __BULLET_H__
 #define __BULLET_H__
 namespace Bullet {

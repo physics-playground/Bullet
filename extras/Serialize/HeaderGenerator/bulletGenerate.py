@@ -20,7 +20,7 @@ header = """/* Copyright (C) 2011 Erwin Coumans & Charlie C
 *    misrepresented as being the original software.
 * 3. This notice may not be removed or altered from any source distribution.
 */
-// Auto generated from Bullet/Extras/HeaderGenerator/bulletGenerate.py
+// Auto generated from Bullet/extras/HeaderGenerator/bulletGenerate.py
 """
 
 dtList = dump.DataTypeList

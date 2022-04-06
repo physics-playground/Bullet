@@ -72,7 +72,7 @@ public:
     // disable pick force. non-interactive example.
     bool pickBody(const btVector3& rayFromWorld, const btVector3& rayToWorld) {
         return false;
-    } 
+    }
 
     void resetCamera()
     {
@@ -82,7 +82,7 @@ public:
         float targetPos[3] = {0, 3, 0};
         m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
     }
-    
+
     void stepSimulation(float deltaTime)
     {
       btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(static_cast<btDeformableMultiBodyDynamicsWorld*>(m_dynamicsWorld)->getSoftBodyArray()[0]);
@@ -96,12 +96,12 @@ public:
     //                                                       << mass_weighted_column_sum[1] << "\t"
     //                                                       << mass_weighted_column_sum[2] << "\n";
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btSoftBody* rsb = (btSoftBody*)deformableWorld->getSoftBodyArray()[i];
@@ -120,7 +120,7 @@ void ModeVisualizer::initPhysics()
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
     m_broadphase = new btDbvtBroadphase();
@@ -156,7 +156,7 @@ void ModeVisualizer::initPhysics()
     }
     getDeformableDynamicsWorld()->setImplicit(false);
     m_guiHelper->autogenerateGraphicsObjects(m_dynamicsWorld);
-    
+
     {
       SliderParams slider("Visualize Mode", &visualize_mode);
       slider.m_minVal = 0;
@@ -197,7 +197,7 @@ void ModeVisualizer::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
     //delete collision shapes
     for (int j = 0; j < m_collisionShapes.size(); j++)
     {

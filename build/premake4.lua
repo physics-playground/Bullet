@@ -25,7 +25,7 @@
 
 	projectRootDir = os.getcwd() .. "/../"
 	print("Project root directory: " .. projectRootDir);
-	
+
 	newoption {
 		trigger     = "ios",
 		description = "Enable iOS target (requires xcode4)"
@@ -86,7 +86,7 @@
                 trigger = "enable_static_collision_filter_plugin",
                 description = "Statically link vr plugin (in examples/SharedMemory/plugins/collisionFilterPlugin)"
         }
- 
+
 	newoption
 	{
 		trigger = "enable_physx",
@@ -104,8 +104,8 @@
 		trigger = "midi",
 		description = "Use Midi controller to control parameters"
 	}
-	
-	
+
+
 	newoption
 	{
 		trigger = "enable_egl",
@@ -113,12 +113,12 @@
 		description = "Build an experimental eglPlugin"
 	}
 
-	
+
 	newoption
 	{
 		trigger = "enable_grpc",
 		description = "Build GRPC server/client features for PyBullet/BulletRobotics"
-	
+
 	}
 
 	if os.is("Linux") then
@@ -141,7 +141,7 @@
                 default_protobuf_include_dir =projectRootDir .. "examples/ThirdPartyLibs/grpc/include"
                 default_protobuf_lib_dir = projectRootDir .. "examples/ThirdPartyLibs/grpc/lib"
 	end
-	
+
 	newoption
 	{
                         trigger     = "grpc_include_dir",
@@ -180,23 +180,23 @@
 	end
 	if not _OPTIONS["protobuf_include_dir"] then
 		_OPTIONS["protobuf_include_dir"] = default_protobuf_include_dir
-	end	
-	
+	end
+
 	if not _OPTIONS["protobuf_lib_dir"] then
 		_OPTIONS["protobuf_lib_dir"] = default_protobuf_lib_dir
-	end	
-	
+	end
+
 
 	if _OPTIONS["enable_egl"] then
 		function initEGL()
 			defines {"BT_USE_EGL"}
 		end
-	end	
-	
-	
+	end
+
+
 	if _OPTIONS["enable_grpc"] then
 	function initGRPC()
-	
+
 
 			print "BT_ENABLE_GRPC"
 
@@ -208,19 +208,19 @@
 			print(_OPTIONS["protobuf_include_dir"])
 			print("protobuf_lib_dir=")
 			print(_OPTIONS["protobuf_lib_dir"])
-			
+
 			defines {"BT_ENABLE_GRPC"}
-			
+
 				if os.is("macosx") then
 			 buildoptions { "-std=c++11" }
 			 links{ "dl"}
 			end
-			
+
 			if os.is("Linux") then
 			 		buildoptions { "-std=c++11" }
 					links{ "dl"}
 			end
-			
+
 			if os.is("Windows") then
 					defines {"_WIN32_WINNT=0x0600"}
 					links{ "zlibstatic","ssl","crypto"}
@@ -231,7 +231,7 @@
       }
 
 			if os.is("Windows") then
-				configuration {"x64", "debug"}			
+				configuration {"x64", "debug"}
 						libdirs {_OPTIONS["grpc_lib_dir"] .. "/win64_debug" , _OPTIONS["protobuf_lib_dir"] .. "win64_debug",}
 				configuration {"x86", "debug"}
 						libdirs {_OPTIONS["grpc_lib_dir"] .. "/win32_debug" , _OPTIONS["protobuf_lib_dir"] .. "win32_debug",}
@@ -240,13 +240,13 @@
 				configuration {"x86", "release"}
 						libdirs {_OPTIONS["grpc_lib_dir"] .. "/win32_release" , _OPTIONS["protobuf_lib_dir"] .. "win32_release",}
 				configuration{}
-				
+
 				else
 				libdirs {_OPTIONS["grpc_lib_dir"], _OPTIONS["protobuf_lib_dir"],}
 			end
-      
+
       links { "grpc","grpc++", "grpc++_reflection", "gpr", "protobuf"}
-      files { 
+      files {
       projectRootDir .. "examples/SharedMemory/grpc/ConvertGRPCBullet.cpp",
 			projectRootDir .. "examples/SharedMemory/grpc/ConvertGRPCBullet.h",
 			projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.grpc.pb.cpp",
@@ -268,7 +268,7 @@
 	newoption
 	{
 		trigger = "no-extras",
-		description = "Don't build Extras"
+		description = "Don't build extras"
 	}
 
 	newoption
@@ -307,7 +307,7 @@ if os.is("Linux") then
  		default_python_lib_dir = "/usr/local/lib/"
 end
 
-		
+
 if os.is("Windows") then
  		default_python_include_dir = "C:/Python-3.5.2/include"
  		default_python_lib_dir = "C:/Python-3.5.2/libs"
@@ -319,7 +319,7 @@ end
 			value       = default_python_include_dir,
 			description = "Python (2.x or 3.x) include directory"
     }
-    
+
     newoption
     {
 			trigger     = "python_lib_dir",
@@ -327,7 +327,7 @@ end
 			description = "Python (2.x or 3.x) library directory "
     }
 
-	
+
 	newoption {
 		trigger     = "targetdir",
 		value       = "path such as ../bin",
@@ -340,7 +340,7 @@ end
 		description = "Disable all tests"
 	}
 	newoption
-        {       
+        {
                 trigger = "test-bullet2",
 
                 description = "Enable Bullet2 LinearMath test"
@@ -369,13 +369,13 @@ end
 		trigger = "clamp-velocities",
 		description = "Limit maximum velocities to reduce FP exception risk"
 	}
-	
+
 	newoption
 	{
 		trigger = "serial",
 		description = "Enable serial, for testing the VR glove in C++"
 	}
-	
+
 	newoption
 	{
 		trigger = "audio",
@@ -405,13 +405,13 @@ end
 	configuration "Release"
 		flags { "Optimize", "EnableSSE2", "NoMinimalRebuild", "FloatFast"}
 		if not _OPTIONS["dynamic-runtime"] then
-			flags { "StaticRuntime" } 
+			flags { "StaticRuntime" }
 		end
 	configuration "Debug"
 		defines {"_DEBUG=1"}
 		flags { "Symbols" , "NoMinimalRebuild", "NoEditAndContinue" ,"FloatFast"}
 		if not _OPTIONS["dynamic-runtime"] then
-			flags { "StaticRuntime" } 
+			flags { "StaticRuntime" }
 		end
 
 
@@ -473,12 +473,12 @@ end
 	targetdir( _OPTIONS["targetdir"] or "../bin" )
 	location("./" .. act .. postfix)
 
-	
-	
+
+
 	if not _OPTIONS["python_include_dir"] then
 			_OPTIONS["python_include_dir"] = default_python_include_dir
 	end
-	
+
 	if not _OPTIONS["python_lib_dir"] then
 			_OPTIONS["python_lib_dir"] = default_python_lib_dir
 	end
@@ -501,9 +501,9 @@ if os.is("Windows") then
 		default_glfw_lib_name = "glfw3"
 end
 
-	
 
-	
+
+
 	if not _OPTIONS["glfw_lib_dir"] then
 		_OPTIONS["glfw_lib_dir"] = default_glfw_lib_dir
 	end
@@ -512,9 +512,9 @@ end
 	end
 	if not _OPTIONS["glfw_lib_name"] then
 		_OPTIONS["glfw_lib_name"] = default_glfw_lib_name
-	end	
+	end
 
-	
+
 
 	newoption
     {
@@ -522,40 +522,40 @@ end
 			value       = default_glfw_include_dir,
 			description = "GLFW 3.x include directory"
     }
-   
+
 	 newoption
     {
                         trigger     = "glfw_lib_name",
                         value       = default_glfw_lib_name,
                         description = "GLFW 3.x library name (glfw, glfw3)"
     }
- 
+
     newoption
     {
 			trigger     = "glfw_lib_dir",
 			value       = default_glfw_lib_dir,
 			description = "(optional) GLFW 3.x library directory "
     }
-    
+
     newoption
     {
 			trigger     = "enable_glfw",
 			value       = false,
 			description = "(optional) use GLFW 3.x library"
     }
-    
+
 	if _OPTIONS["enable_glfw"] then
 		defines {"B3_USE_GLFW"}
-		
+
 		function initOpenGL()
 		includedirs {
 					projectRootDir .. "examples/ThirdPartyLibs/glad"
 			}
-		
+
 			includedirs {
 				_OPTIONS["glfw_include_dir"],
 			}
-			
+
 			libdirs {
 				_OPTIONS["glfw_lib_dir"]
 			}
@@ -571,7 +571,7 @@ end
 		links {"X11", "dl","pthread"}
 
 		end
-		
+
 	else
 		dofile ("findOpenGLGlewGlut.lua")
 		if (not findOpenGL3()) then
@@ -579,19 +579,19 @@ end
 		end
 	end
 
-	
+
 
 	dofile ("findOpenCL.lua")
 	dofile ("findDirectX11.lua")
-	
-	
-	
+
+
+
 	language "C++"
 
 
-	
-	
-	
+
+
+
 
 	if _OPTIONS["audio"] then
 		include "../examples/TinyAudio"
@@ -619,7 +619,7 @@ end
 		include "../examples/SimpleOpenGL3"
 
 		if _OPTIONS["standalone-examples"] then
-			
+
 			include "../examples/TinyRenderer"
 			include "../examples/BasicDemo"
 			include "../examples/InverseDynamics"
@@ -635,10 +635,10 @@ end
 	if _OPTIONS["midi"] then
 		include "../examples/ThirdPartyLibs/midi"
 	end
-	
+
 	if not _OPTIONS["no-clsocket"] then
 		defines {"BT_ENABLE_CLSOCKET"}
-		include "../examples/ThirdPartyLibs/clsocket"		
+		include "../examples/ThirdPartyLibs/clsocket"
 		include "../test/clsocket"
 	end
 
@@ -668,7 +668,7 @@ end
                 print "--no-extras implies --no-demos"
                 _OPTIONS["no-demos"] = "1"
         else
-                include "../Extras"
+                include "../extras"
         end
 
 	if not _OPTIONS["no-test"] then

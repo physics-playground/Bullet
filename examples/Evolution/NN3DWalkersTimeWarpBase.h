@@ -91,7 +91,7 @@ enum SolverEnumType
 	NNCGSOLVER = 2,
 	DANZIGSOLVER = 3,
 	LEMKESOLVER = 4,
-	
+
 	NUM_SOLVERS = 6
 };
 
@@ -324,7 +324,7 @@ struct NN3DWalkersTimeWarpBase : public CommonRigidBodyBase
 		solverTypes[2] = SolverType::NNCGSOLVER;
 		solverTypes[3] = SolverType::DANZIGSOLVER;
 		solverTypes[4] = SolverType::LEMKESOLVER;
-		
+
 
 		{
 			ComboBoxParams comboParams;
@@ -457,7 +457,7 @@ struct NN3DWalkersTimeWarpBase : public CommonRigidBodyBase
 		m_collisionConfiguration = new btDefaultCollisionConfiguration();
 		//m_collisionConfiguration->setConvexConvexMultipointIterations();
 
-		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
 		m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
 		// default broadphase
@@ -499,7 +499,7 @@ struct NN3DWalkersTimeWarpBase : public CommonRigidBodyBase
 				m_solver = new btMLCPSolver(mlcp);
 				break;
 			}
-			
+
 			default:
 				break;
 		}

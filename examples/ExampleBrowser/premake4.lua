@@ -3,7 +3,7 @@ project "App_BulletExampleBrowser"
         language "C++"
 
         kind "ConsoleApp"
-        
+
         if os.is("Linux") then
 	        buildoptions{"-fPIC"}
 	    	end
@@ -20,7 +20,7 @@ project "App_BulletExampleBrowser"
 
                 }
 				end
-		        
+
         hasCL = findOpenCL("clew")
 
         if (hasCL) then
@@ -56,13 +56,13 @@ project "App_BulletExampleBrowser"
 	if _OPTIONS["audio"] then
 			files {"../TinyAudio/*.cpp"}
 			defines {"B3_ENABLE_TINY_AUDIO"}
-			
+
 			if os.is("Windows") then
 				links {"winmm","Wsock32","dsound"}
 				defines {"WIN32","__WINDOWS_MM__","__WINDOWS_DS__"}
 			end
-			
-			if os.is("Linux") then initX11() 
+
+			if os.is("Linux") then initX11()
 			                defines  {"__OS_LINUX__","__LINUX_ALSA__"}
 				links {"asound","pthread"}
 			end
@@ -74,7 +74,7 @@ project "App_BulletExampleBrowser"
 				defines {"__OS_MACOSX__","__MACOSX_CORE__"}
 			end
 		end
-					
+
     if _OPTIONS["lua"] then
                 includedirs{"../ThirdPartyLibs/lua-5.2.3/src"}
                 links {"lua-5.2.3"}
@@ -85,7 +85,7 @@ project "App_BulletExampleBrowser"
 	defines {"INCLUDE_CLOTH_DEMOS"}
 
         files {
-        	
+
         "main.cpp",
         "ExampleEntries.cpp",
         "../InverseKinematics/*",
@@ -139,7 +139,7 @@ project "App_BulletExampleBrowser"
 		"../SharedMemory/PhysicsLoopBackC_API.h",
 		"../SharedMemory/PhysicsServerCommandProcessor.cpp",
 		"../SharedMemory/PhysicsServerCommandProcessor.h",
-		"../SharedMemory/b3PluginManager.cpp",		
+		"../SharedMemory/b3PluginManager.cpp",
 		"../SharedMemory/plugins/collisionFilterPlugin/collisionFilterPlugin.cpp",
 		"../SharedMemory/plugins/tinyRendererPlugin/TinyRendererVisualShapeConverter.cpp",
 		"../SharedMemory/plugins/tinyRendererPlugin/tinyRendererPlugin.cpp",
@@ -148,9 +148,9 @@ project "App_BulletExampleBrowser"
 		"../SharedMemory/SharedMemoryCommands.h",
 		"../SharedMemory/SharedMemoryPublic.h",
 		"../SharedMemory/b3RobotSimulatorClientAPI_NoGUI.cpp",
-		"../SharedMemory/b3RobotSimulatorClientAPI_NoGUI.h",		
+		"../SharedMemory/b3RobotSimulatorClientAPI_NoGUI.h",
 		"../SharedMemory/b3RobotSimulatorClientAPI_NoDirect.cpp",
-		"../SharedMemory/b3RobotSimulatorClientAPI_NoDirect.h",		
+		"../SharedMemory/b3RobotSimulatorClientAPI_NoDirect.h",
 		"../MultiThreading/MultiThreadingExample.cpp",
 		"../MultiThreading/b3PosixThreadSupport.cpp",
 		"../MultiThreading/b3Win32ThreadSupport.cpp",
@@ -158,7 +158,7 @@ project "App_BulletExampleBrowser"
 		"../InverseDynamics/InverseDynamicsExample.cpp",
 		"../InverseDynamics/InverseDynamicsExample.h",
 		"../RobotSimulator/b3RobotSimulatorClientAPI.cpp",
-		"../RobotSimulator/b3RobotSimulatorClientAPI.h",		
+		"../RobotSimulator/b3RobotSimulatorClientAPI.h",
 		"../BasicDemo/BasicExample.*",
 		"../Tutorial/*",
 		"../ExtendedTutorials/*",
@@ -175,8 +175,8 @@ project "App_BulletExampleBrowser"
 		"../CommonInterfaces/*.h",
 		"../ForkLift/ForkLiftDemo.*",
 		"../Importers/**",
-		"../../Extras/Serialize/BulletWorldImporter/*",
-		"../../Extras/Serialize/BulletFileLoader/*",	
+		"../../extras/Serialize/BulletWorldImporter/*",
+		"../../extras/Serialize/BulletFileLoader/*",
 		"../Planar2D/Planar2D.*",
 		"../RenderingExamples/*",
 		"../VoronoiFracture/*",
@@ -207,7 +207,7 @@ project "App_BulletExampleBrowser"
     "../ThirdPartyLibs/tinyxml2/tinyxml2.cpp",
     "../ThirdPartyLibs/tinyxml2/tinyxml2.h",
         }
-        
+
   if _OPTIONS["enable_stable_pd"] then
 		defines {"STATIC_LINK_SPD_PLUGIN"}
 		files {
@@ -235,7 +235,7 @@ if (hasCL and findOpenGL3()) then
 				"../OpenCL/rigidbody/GpuRigidBodyDemo.cpp",
 			}
 		end
-		
+
 if (_OPTIONS["enable_static_vr_plugin"]) then
 		files {"../../examples/SharedMemory/plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
 end
@@ -245,11 +245,11 @@ if os.is("Linux") then
 end
 
 
-	
+
 project "BulletExampleBrowserLib"
 
 		hasCL = findOpenCL("clew")
-	
+
 		if (hasCL) then
 
 				-- project ("App_Bullet3_OpenCL_Demos_" .. vendor)
@@ -259,7 +259,7 @@ project "BulletExampleBrowserLib"
 		end
 
 		language "C++"
-				
+
 		kind "StaticLib"
 
   	includedirs {
@@ -267,7 +267,7 @@ project "BulletExampleBrowserLib"
                 "../../src",
                 "../ThirdPartyLibs",
                 }
-                
+
         if os.is("Linux") then
             buildoptions{"-fPIC"}
         end
@@ -279,14 +279,14 @@ project "BulletExampleBrowserLib"
 		files {"../LuaDemo/LuaPhysicsSetup.cpp"}
 	end
 
-	
-	
-			
+
+
+
 		initOpenGL()
 		initGlew()
 
 		defines {"INCLUDE_CLOTH_DEMOS"}
-			
+
 
 
 		files {
@@ -305,16 +305,16 @@ project "BulletExampleBrowserLib"
 		"../Utils/b3ResourcePath.*",
 		"GL_ShapeDrawer.cpp",
 		"InProcessExampleBrowser.cpp",
-	
-   
+
+
 
 		}
-		
-		
 
-if os.is("Linux") then 
+
+
+if os.is("Linux") then
 	initX11()
 end
 
-			
+
 

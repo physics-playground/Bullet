@@ -77,7 +77,7 @@ private:
 		m_collisionConfiguration = new btDefaultCollisionConfiguration();
 
 		/// use the default collision dispatcher. For parallel processing you can use a diffent
-		/// dispatcher (see Extras/BulletMultiThreaded)
+		/// dispatcher (see extras/BulletMultiThreaded)
 		m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 		m_broadphase = new btDbvtBroadphase();
 		m_solver = new btMultiBodyConstraintSolver;

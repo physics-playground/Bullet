@@ -52,7 +52,7 @@ public:
     // TODO: disable pick force, non-interactive for now.
     bool pickBody(const btVector3& rayFromWorld, const btVector3& rayToWorld) {
         return false;
-    } 
+    }
 
     void resetCamera()
     {
@@ -62,7 +62,7 @@ public:
         float targetPos[3] = {0, 3, 0};
         m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
     }
-    
+
     void Ctor_RbUpStack()
     {
         float mass = 2;
@@ -73,35 +73,35 @@ public:
         btRigidBody* rb1 = createRigidBody(mass, startTransform, shape);
         rb1->setActivationState(DISABLE_DEACTIVATION);
     }
-    
+
     void stepSimulation(float deltaTime)
-    {      
+    {
       float internalTimeStep = 1. / 60.f;
       m_dynamicsWorld->stepSimulation(deltaTime, 1, internalTimeStep);
 
       {
         sim_time += internalTimeStep;
         btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(getDeformableDynamicsWorld()->getSoftBodyArray()[0]);
-        
+
         // std::ofstream myfile("fixed_node.txt", std::ios_base::app);
-        // myfile << sim_time << "\t" << rsb->m_nodes[0].m_x[0] - rsb->m_x0[0][0] << "\t" 
-        //                            << rsb->m_nodes[0].m_x[1] - rsb->m_x0[0][1] << "\t" 
+        // myfile << sim_time << "\t" << rsb->m_nodes[0].m_x[0] - rsb->m_x0[0][0] << "\t"
+        //                            << rsb->m_nodes[0].m_x[1] - rsb->m_x0[0][1] << "\t"
         //                            << rsb->m_nodes[0].m_x[2] - rsb->m_x0[0][2] << "\n";
         // myfile.close();
       }
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(deformableWorld->getSoftBodyArray()[i]);
             {
                 btSoftBodyHelpers::DrawFrame(rsb, deformableWorld->getDebugDrawer());
-                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags()); 
+                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags());
 
                 for (int p = 0; p < rsb->m_fixedNodes.size(); ++p)
                 {
@@ -123,7 +123,7 @@ void Springboard::initPhysics()
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
     m_broadphase = new btDbvtBroadphase();
@@ -140,7 +140,7 @@ void Springboard::initPhysics()
     m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
 
     // create volumetric reduced deformable body
-    {   
+    {
         std::string file_path("../../../data/reduced_beam/");
         std::string vtk_file("beam_mesh_origin.vtk");
         btReducedDeformableBody* rsb = btReducedDeformableBodyHelpers::createReducedDeformableObject(
@@ -152,7 +152,7 @@ void Springboard::initPhysics()
 
         getDeformableDynamicsWorld()->addSoftBody(rsb);
         rsb->getCollisionShape()->setMargin(0.1);
-        
+
         btTransform init_transform;
         init_transform.setIdentity();
         init_transform.setOrigin(btVector3(0, 4, 0));
@@ -161,13 +161,13 @@ void Springboard::initPhysics()
 
         rsb->setStiffnessScale(200);
         rsb->setDamping(damping_alpha, damping_beta);
-        
+
         // set fixed nodes
         rsb->setFixedNodes(0);
         rsb->setFixedNodes(1);
         rsb->setFixedNodes(2);
         rsb->setFixedNodes(3);
-        
+
         rsb->m_cfg.kKHR = 1; // collision hardness with kinematic objects
         rsb->m_cfg.kCHR = 1; // collision hardness with rigid body
         rsb->m_cfg.kDF = 0;
@@ -175,7 +175,7 @@ void Springboard::initPhysics()
         rsb->m_cfg.collisions |= btSoftBody::fCollision::SDF_RDN;
         rsb->m_sleepingThreshold = 0;
         btSoftBodyHelpers::generateBoundaryFaces(rsb);
-        
+
         // rsb->setVelocity(btVector3(0, -COLLIDING_VELOCITY, 0));
         // rsb->setRigidVelocity(btVector3(0, 1, 0));
         // rsb->setRigidAngularVelocity(btVector3(1, 0, 0));
@@ -234,7 +234,7 @@ void Springboard::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
     //delete collision shapes
     for (int j = 0; j < m_collisionShapes.size(); j++)
     {

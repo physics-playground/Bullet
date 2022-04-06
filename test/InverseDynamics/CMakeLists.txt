@@ -8,7 +8,7 @@ IF (BULLET_BUILD_RBDL_COMPARE_TEST)
     	    ${BULLET_RBDL_SOURCE_DIR}/addons/urdfreader/
             ${BULLET_RBDL_BINARY_DIR}/include
     )
-    
+
     ADD_DEFINITIONS(-D_VARIADIC_MAX=10)
     ADD_DEFINITIONS(-DRBDL_USE_SIMPLE_MATH)
     IF (MSVC)
@@ -20,8 +20,8 @@ IF (BULLET_BUILD_RBDL_COMPARE_TEST)
         FIND_PACKAGE(Threads)
         LINK_LIBRARIES( ${CMAKE_THREAD_LIBS_INIT} )
     ENDIF()
-    
-    
+
+
     	ADD_EXECUTABLE(Test_DynamicsABA_bulletVSrbdl
     		test_dynABA_bulletVSrbdl.cpp
     		../../examples/Utils/b3ResourcePath.cpp
@@ -38,12 +38,12 @@ IF (BULLET_BUILD_RBDL_COMPARE_TEST)
             ../../examples/Importers/ImportMeshUtility/b3ImportMeshUtility.cpp
             ../../examples/ThirdPartyLibs/stb_image/stb_image.cpp
             ../../examples/Utils/b3Clock.cpp
-            ../../Extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp
-    	../../Extras/Serialize/BulletWorldImporter/btWorldImporter.cpp
-    	../../Extras/Serialize/BulletFileLoader/bChunk.cpp
-    	../../Extras/Serialize/BulletFileLoader/bFile.cpp
-    	../../Extras/Serialize/BulletFileLoader/bDNA.cpp
-    	../../Extras/Serialize/BulletFileLoader/btBulletFile.cpp
+            ../../extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp
+    	../../extras/Serialize/BulletWorldImporter/btWorldImporter.cpp
+    	../../extras/Serialize/BulletFileLoader/bChunk.cpp
+    	../../extras/Serialize/BulletFileLoader/bFile.cpp
+    	../../extras/Serialize/BulletFileLoader/bDNA.cpp
+    	../../extras/Serialize/BulletFileLoader/btBulletFile.cpp
             ../../examples/Importers/ImportURDFDemo/URDFImporterInterface.h
             ../../examples/Importers/ImportURDFDemo/URDFJointTypes.h
             ../../examples/Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.cpp
@@ -54,11 +54,11 @@ IF (BULLET_BUILD_RBDL_COMPARE_TEST)
             	../../examples/Importers/ImportColladaDemo/ColladaGraphicsInstance.h
             	../../examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp
     		../../examples/ThirdPartyLibs/tinyxml2/tinyxml2.cpp
-    		
+
     	)
-    
+
     ADD_TEST(Test_DynamicsABA_bulletVSrbdl_PASS Test_DynamicsABA_bulletVSrbdl)
-    
+
     IF (INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
     			SET_TARGET_PROPERTIES(Test_DynamicsABA_bulletVSrbdl PROPERTIES  DEBUG_POSTFIX "_Debug")
     			SET_TARGET_PROPERTIES(Test_DynamicsABA_bulletVSrbdl PROPERTIES  MINSIZEREL_POSTFIX "_MinsizeRel")
@@ -71,7 +71,7 @@ INCLUDE_DIRECTORIES(
 	.
 	../../src
 	../gtest-1.7.0/include
-	../../Extras/InverseDynamics
+	../../extras/InverseDynamics
 )
 
 
@@ -79,7 +79,7 @@ INCLUDE_DIRECTORIES(
 ADD_DEFINITIONS(-D_VARIADIC_MAX=10)
 
 LINK_LIBRARIES(
- BulletInverseDynamicsUtils BulletInverseDynamics Bullet3Common LinearMath gtest 
+ BulletInverseDynamicsUtils BulletInverseDynamics Bullet3Common LinearMath gtest
 )
 IF (NOT WIN32)
 	FIND_PACKAGE(Threads)
@@ -103,7 +103,7 @@ INCLUDE_DIRECTORIES(
         .
         ../../src
         ../gtest-1.7.0/include
-        ../../Extras/InverseDynamics
+        ../../extras/InverseDynamics
         ../../examples/ThirdPartyLibs
 )
 
@@ -112,7 +112,7 @@ INCLUDE_DIRECTORIES(
 ADD_DEFINITIONS(-D_VARIADIC_MAX=10)
 
 LINK_LIBRARIES(
-BulletDynamics BulletCollision  BulletInverseDynamicsUtils BulletInverseDynamics Bullet3Common LinearMath gtest 
+BulletDynamics BulletCollision  BulletInverseDynamicsUtils BulletInverseDynamics Bullet3Common LinearMath gtest
 )
 IF (NOT WIN32)
 	FIND_PACKAGE(Threads)
@@ -137,12 +137,12 @@ ENDIF()
         ../../examples/Importers/ImportMeshUtility/b3ImportMeshUtility.cpp
         ../../examples/ThirdPartyLibs/stb_image/stb_image.cpp
         ../../examples/Utils/b3Clock.cpp
-        ../../Extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp
-	../../Extras/Serialize/BulletWorldImporter/btWorldImporter.cpp
-	../../Extras/Serialize/BulletFileLoader/bChunk.cpp
-	../../Extras/Serialize/BulletFileLoader/bFile.cpp
-	../../Extras/Serialize/BulletFileLoader/bDNA.cpp
-	../../Extras/Serialize/BulletFileLoader/btBulletFile.cpp
+        ../../extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp
+	../../extras/Serialize/BulletWorldImporter/btWorldImporter.cpp
+	../../extras/Serialize/BulletFileLoader/bChunk.cpp
+	../../extras/Serialize/BulletFileLoader/bFile.cpp
+	../../extras/Serialize/BulletFileLoader/bDNA.cpp
+	../../extras/Serialize/BulletFileLoader/btBulletFile.cpp
         ../../examples/Importers/ImportURDFDemo/URDFImporterInterface.h
         ../../examples/Importers/ImportURDFDemo/URDFJointTypes.h
         ../../examples/Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.cpp
@@ -153,7 +153,7 @@ ENDIF()
         	../../examples/Importers/ImportColladaDemo/ColladaGraphicsInstance.h
         	../../examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp
 		../../examples/ThirdPartyLibs/tinyxml2/tinyxml2.cpp
-		
+
         )
 
 ADD_TEST(Test_BulletInverseForwardDynamics_PASS Test_BulletInverseForwardDynamics)
@@ -168,7 +168,7 @@ INCLUDE_DIRECTORIES(
         .
         ../../src
         ../gtest-1.7.0/include
-        ../../Extras/InverseDynamics
+        ../../extras/InverseDynamics
 )
 
 
@@ -176,7 +176,7 @@ INCLUDE_DIRECTORIES(
 ADD_DEFINITIONS(-D_VARIADIC_MAX=10)
 
 LINK_LIBRARIES(
- BulletInverseDynamicsUtils BulletInverseDynamics Bullet3Common LinearMath gtest 
+ BulletInverseDynamicsUtils BulletInverseDynamics Bullet3Common LinearMath gtest
 )
 IF (NOT WIN32)
 	FIND_PACKAGE(Threads)

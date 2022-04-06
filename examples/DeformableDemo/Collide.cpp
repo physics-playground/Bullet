@@ -63,7 +63,7 @@ public:
         float targetPos[3] = {0, 3, 0};
 		m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
 	}
-    
+
     void Ctor_RbUpStack()
     {
         float mass = 0.5;
@@ -74,7 +74,7 @@ public:
         btRigidBody* rb = createRigidBody(mass, startTransform, shape);
         rb->setLinearVelocity(btVector3(0,+COLLIDING_VELOCITY, 0));
     }
-    
+
     void stepSimulation(float deltaTime)
     {
 		m_linearElasticity->setPoissonRatio(nu);
@@ -83,12 +83,12 @@ public:
         float internalTimeStep = 1. / 60.f;
         m_dynamicsWorld->stepSimulation(deltaTime, 1, internalTimeStep);
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btSoftBody* psb = (btSoftBody*)deformableWorld->getSoftBodyArray()[i];
@@ -107,7 +107,7 @@ void Collide::initPhysics()
 	///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
 	m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
 	m_broadphase = new btDbvtBroadphase();
@@ -141,9 +141,9 @@ void Collide::initPhysics()
         psb->m_cfg.collisions |= btSoftBody::fCollision::SDF_RDN;
 		psb->m_sleepingThreshold = 0;
         btSoftBodyHelpers::generateBoundaryFaces(psb);
-        
+
         psb->setVelocity(btVector3(0, -COLLIDING_VELOCITY, 0));
-        
+
         btDeformableLinearElasticityForce* linearElasticity = new btDeformableLinearElasticityForce(100,100,0.01);
 		m_linearElasticity = linearElasticity;
         getDeformableDynamicsWorld()->addForce(psb, linearElasticity);
@@ -160,7 +160,7 @@ void Collide::initPhysics()
     // add a few rigid bodies
     Ctor_RbUpStack();
 	m_guiHelper->autogenerateGraphicsObjects(m_dynamicsWorld);
-	
+
 //	{
 //		SliderParams slider("Young's Modulus", &E);
 //		slider.m_minVal = 0;
@@ -243,7 +243,7 @@ void Collide::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
 	//delete collision shapes
 	for (int j = 0; j < m_collisionShapes.size(); j++)
 	{

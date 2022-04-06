@@ -2,14 +2,14 @@
 project ("App_PhysicsServerSharedMemoryBridgeUDP")
 
 	language "C++"
-			
+
 	kind "ConsoleApp"
-	
+
 	includedirs {"../../ThirdPartyLibs/enet/include","../../../src",".."}
-		
-	if os.is("Windows") then 
+
+	if os.is("Windows") then
 			defines { "WIN32" }
-			
+
 
 		links {"Ws2_32","Winmm"}
 	end
@@ -17,16 +17,16 @@ project ("App_PhysicsServerSharedMemoryBridgeUDP")
 	    links{"dl"}
 	end
 	if os.is("MacOSX") then
-	end		
-		
-	
+	end
+
+
 		links {
 			"enet",
 			"BulletFileLoader",
-			"Bullet3Common", 
+			"Bullet3Common",
 			"LinearMath"
 		}
-	
+
 	files {
 		"main.cpp",
 		"../PhysicsClient.cpp",
@@ -45,7 +45,7 @@ project ("App_PhysicsServerSharedMemoryBridgeUDP")
 		"../../Utils/b3ResourcePath.cpp",
 		"../../Utils/b3ResourcePath.h",
 		"../../Utils/b3Clock.cpp",
-		"../../Utils/b3Clock.h",		
+		"../../Utils/b3Clock.h",
 	}
 
 
@@ -53,19 +53,19 @@ project "App_PhysicsServerUDP"
 
 if _OPTIONS["ios"] then
 	kind "WindowedApp"
-else	
+else
 	kind "ConsoleApp"
 end
 
 defines { "NO_SHARED_MEMORY" }
-						
+
 includedirs {"..","../../../src", "../../ThirdPartyLibs","../../ThirdPartyLibs/enet/include"}
 
 links {
 	"enet","Bullet3Common","BulletInverseDynamicsUtils", "BulletInverseDynamics",	"BulletSoftBody",  "BulletDynamics","BulletCollision", "LinearMath", "BussIK"
 }
 
-if os.is("Windows") then 
+if os.is("Windows") then
 	defines { "WIN32" }
 	links {"Ws2_32","Winmm"}
 end
@@ -75,7 +75,7 @@ end
 
 language "C++"
 
-myfiles = 
+myfiles =
 {
 	"../plugins/collisionFilterPlugin/collisionFilterPlugin.cpp",
 	"../plugins/pdControlPlugin/pdControlPlugin.cpp",
@@ -121,8 +121,8 @@ myfiles =
 	"../../Utils/ChromeTraceUtil.h",
 	"../../Utils/RobotLoggingUtil.cpp",
 	"../../Utils/RobotLoggingUtil.h",
-	"../../../Extras/Serialize/BulletWorldImporter/*",
-	"../../../Extras/Serialize/BulletFileLoader/*",	
+	"../../../extras/Serialize/BulletWorldImporter/*",
+	"../../../extras/Serialize/BulletFileLoader/*",
 	"../../Importers/ImportURDFDemo/URDFImporterInterface.h",
 	"../../Importers/ImportURDFDemo/URDFJointTypes.h",
 	"../../Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.cpp",
@@ -131,10 +131,10 @@ myfiles =
 	"../../Importers/ImportSTLDemo/LoadMeshFromSTL.h",
 	"../../Importers/ImportColladaDemo/LoadMeshFromCollada.cpp",
 	"../../Importers/ImportColladaDemo/ColladaGraphicsInstance.h",
-	"../../ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp",	
+	"../../ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp",
 	"../../ThirdPartyLibs/tinyxml2/tinyxml2.cpp",
 	"../../Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
-	"../../ThirdPartyLibs/stb_image/stb_image.cpp",     
+	"../../ThirdPartyLibs/stb_image/stb_image.cpp",
 }
 
 files {

@@ -37,9 +37,9 @@ public:
     {
     }
     void initPhysics();
-    
+
     void exitPhysics();
-    
+
     void resetCamera()
     {
         float dist = 2.0;
@@ -48,15 +48,15 @@ public:
         float targetPos[3] = {0, -1.0, 0};
         m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
     }
-    
+
     void stepSimulation(float deltaTime)
     {
         float internalTimeStep = 1. / 240.f;
         m_dynamicsWorld->stepSimulation(deltaTime, 4, internalTimeStep);
     }
-    
+
     void addCloth(const btVector3& origin);
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
@@ -68,18 +68,18 @@ void DeformableSelfCollision::initPhysics()
     m_guiHelper->setUpAxis(1);
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
-    
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
-    
+
     m_broadphase = new btDbvtBroadphase();
     btDeformableBodySolver* deformableBodySolver = new btDeformableBodySolver();
-    
-    ///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+
+    ///the default constraint solver. For parallel processing you can use a different solver (see extras/BulletMultiThreaded)
     btDeformableMultiBodyConstraintSolver* sol = new btDeformableMultiBodyConstraintSolver();
     sol->setDeformableSolver(deformableBodySolver);
     m_solver = sol;
-    
+
     m_dynamicsWorld = new btDeformableMultiBodyDynamicsWorld(m_dispatcher, m_broadphase, sol, m_collisionConfiguration, deformableBodySolver);
     //    deformableBodySolver->setWorld(getDeformableDynamicsWorld());
     //    m_dynamicsWorld->getSolverInfo().m_singleAxisDeformableThreshold = 0.f;//faster but lower quality
@@ -87,36 +87,36 @@ void DeformableSelfCollision::initPhysics()
     m_dynamicsWorld->setGravity(gravity);
     getDeformableDynamicsWorld()->getWorldInfo().m_gravity = gravity;
     getDeformableDynamicsWorld()->getWorldInfo().m_sparsesdf.setDefaultVoxelsz(0.25);
-    
+
     //    getDeformableDynamicsWorld()->before_solver_callbacks.push_back(dynamics);
     m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
-    
+
     {
         ///create a ground
         btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(150.), btScalar(2.5), btScalar(150.)));
         groundShape->setMargin(0.02);
         m_collisionShapes.push_back(groundShape);
-        
+
         btTransform groundTransform;
         groundTransform.setIdentity();
         groundTransform.setOrigin(btVector3(0, -3.5, 0));
         groundTransform.setRotation(btQuaternion(btVector3(1, 0, 0), SIMD_PI * 0));
         //We can also use DemoApplication::localCreateRigidBody, but for clarity it is provided here:
         btScalar mass(0.);
-        
+
         //rigidbody is dynamic if and only if mass is non zero, otherwise static
         bool isDynamic = (mass != 0.f);
-        
+
         btVector3 localInertia(0, 0, 0);
         if (isDynamic)
             groundShape->calculateLocalInertia(mass, localInertia);
-        
+
         //using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
         btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
         btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
         btRigidBody* body = new btRigidBody(rbInfo);
         body->setFriction(4);
-        
+
         //add the ground to the dynamics world
         m_dynamicsWorld->addRigidBody(body);
     }
@@ -131,7 +131,7 @@ void DeformableSelfCollision::addCloth(const btVector3& origin)
 {
     const btScalar s = 0.6;
     const btScalar h = 0;
-    
+
     btSoftBody* psb = btSoftBodyHelpers::CreatePatch(getDeformableDynamicsWorld()->getWorldInfo(), btVector3(-s, h, -2*s),
                                                      btVector3(+s, h, -2*s),
                                                      btVector3(-s, h, +2*s),
@@ -140,7 +140,7 @@ void DeformableSelfCollision::addCloth(const btVector3& origin)
 //                                                     4,4,
                                                      0, true, 0.0);
 
-    
+
     psb->getCollisionShape()->setMargin(0.02);
     psb->generateBendingConstraints(2);
     psb->setTotalMass(.5);
@@ -158,7 +158,7 @@ void DeformableSelfCollision::addCloth(const btVector3& origin)
     psb->m_cfg.collisions |= btSoftBody::fCollision::VF_DD;
     getDeformableDynamicsWorld()->addSoftBody(psb);
     psb->setSelfCollision(true);
-    
+
     btDeformableMassSpringForce* mass_spring = new btDeformableMassSpringForce(2,0.2, true);
     psb->setSpringStiffness(4);
     getDeformableDynamicsWorld()->addForce(psb, mass_spring);
@@ -201,15 +201,15 @@ void DeformableSelfCollision::exitPhysics()
         delete shape;
     }
     m_collisionShapes.clear();
-    
+
     delete m_dynamicsWorld;
-    
+
     delete m_solver;
-    
+
     delete m_broadphase;
-    
+
     delete m_dispatcher;
-    
+
     delete m_collisionConfiguration;
 }
 

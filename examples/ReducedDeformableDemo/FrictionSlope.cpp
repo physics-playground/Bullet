@@ -50,7 +50,7 @@ public:
     // TODO: disable pick force, non-interactive for now.
     bool pickBody(const btVector3& rayFromWorld, const btVector3& rayToWorld) {
         return false;
-    } 
+    }
 
     void resetCamera()
     {
@@ -60,7 +60,7 @@ public:
         float targetPos[3] = {0, 0, 0.5};
         m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
     }
-    
+
     void Ctor_RbUpStack()
     {
         float mass = 1;
@@ -88,25 +88,25 @@ public:
         btRigidBody* ground = createRigidBody(mass, groundTransform, groundShape, btVector4(0,0,0,0));
         // ground->setFriction(1);
     }
-    
+
     void stepSimulation(float deltaTime)
     {
       float internalTimeStep = 1. / 60.f;
       m_dynamicsWorld->stepSimulation(deltaTime, 1, internalTimeStep);
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(deformableWorld->getSoftBodyArray()[i]);
             {
                 btSoftBodyHelpers::DrawFrame(rsb, deformableWorld->getDebugDrawer());
                 // btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), flag);
-                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags()); 
+                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags());
 
                 // for (int p = 0; p < rsb->m_fixedNodes.size(); ++p)
                 // {
@@ -121,7 +121,7 @@ public:
     }
 };
 
-namespace FrictionSlopeHelper 
+namespace FrictionSlopeHelper
 {
     void groundMotion(btScalar time, btDeformableMultiBodyDynamicsWorld* world)
     {
@@ -151,7 +151,7 @@ namespace FrictionSlopeHelper
             current_angle = start_angle;
             turn_speed = 0;
         }
-        
+
         btTransform groundTransform;
         groundTransform.setIdentity();
         // groundTransform.setRotation(btQuaternion(btVector3(1, 0, 0), SIMD_PI / 6.0));
@@ -170,7 +170,7 @@ void FrictionSlope::initPhysics()
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
     m_broadphase = new btDbvtBroadphase();
@@ -186,7 +186,7 @@ void FrictionSlope::initPhysics()
     m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
 
     // create volumetric reduced deformable body
-    {   
+    {
         std::string file_path("../../../data/reduced_beam/");
         std::string vtk_file("beam_mesh_origin.vtk");
         btReducedDeformableBody* rsb = btReducedDeformableBodyHelpers::createReducedDeformableObject(
@@ -258,7 +258,7 @@ void FrictionSlope::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
     //delete collision shapes
     for (int j = 0; j < m_collisionShapes.size(); j++)
     {

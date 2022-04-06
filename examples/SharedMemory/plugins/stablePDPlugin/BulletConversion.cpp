@@ -7,7 +7,7 @@
 
 //for BulletInverseDynamics
 //#include "BulletInverseDynamics/IDConfig.hpp"
-//#include "../Extras/InverseDynamics/btMultiBodyTreeCreator.hpp"
+//#include "../extras/InverseDynamics/btMultiBodyTreeCreator.hpp"
 
 //#include "BulletDynamics/MLCPSolvers/btDantzigSolver.h"
 //#include "BulletDynamics/MLCPSolvers/btLemkeSolver.h"
@@ -93,7 +93,7 @@ bool btExtractJointBodyFromTempLinks(btAlignedObjectArray<TempLink>& links, Eige
 					collisionShape = compound->getChildShape(0);
 				}
 			}
-			
+
 			switch (collisionShape->getShapeType())
 			{
 			case BOX_SHAPE_PROXYTYPE:
@@ -103,7 +103,7 @@ bool btExtractJointBodyFromTempLinks(btAlignedObjectArray<TempLink>& links, Eige
 				param0 = box->getHalfExtentsWithMargin()[0] * 2;
 				param1 = box->getHalfExtentsWithMargin()[1] * 2;
 				param2 = box->getHalfExtentsWithMargin()[2] * 2;
-				
+
 				break;
 			}
 			case SPHERE_SHAPE_PROXYTYPE:
@@ -320,7 +320,7 @@ void btExtractJointBodyFromBullet(const btMultiBody* bulletMB, Eigen::MatrixXd& 
 		links[0].m_this_to_body1 = btQuaternion(0, 0, 0, 1);
 		totalDofs = 7;
 	}
-	
+
 
 	for (int j = 0; j < bulletMB->getNumLinks(); ++j)
 	{
@@ -340,8 +340,8 @@ void btExtractJointBodyFromBullet(const btMultiBody* bulletMB, Eigen::MatrixXd& 
 			links[j].m_jointType = (bulletMB->hasFixedBase()) ? cKinTree::eJointTypeFixed : cKinTree::eJointTypeNone;
 			links[j].m_dofOffset = 0;
 			links[j].m_dofCount = dofCount;
-			
-			
+
+
 			links[j].m_zeroRotParentToThis = btQuaternion(0, 0, 0, 1);
 			//links[j].m_dVector.setValue(0, 0, 0);
 			links[j].m_dVector = bulletMB->getLink(j).m_dVector;

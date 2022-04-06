@@ -52,14 +52,14 @@ public:
         float dist = 10;
         float pitch = -10;
         float yaw = 90;
-        
+
         // float dist = 25;
         // float pitch = -30;
         // float yaw = 100;
         float targetPos[3] = {0, 0, 0};
 		m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
 	}
-    
+
     void stepSimulation(float deltaTime)
     {
         //use a smaller internal timestep, there are stability issues
@@ -68,7 +68,7 @@ public:
         // float internalTimeStep = 1. / 60.f;
         // m_dynamicsWorld->stepSimulation(deltaTime, 1, internalTimeStep);
     }
-    
+
     void createGrip()
     {
         int count = 2;
@@ -88,7 +88,7 @@ public:
             startTransform.setRotation(btQuaternion(btVector3(1, 0, 0), SIMD_PI * 0.));
             createRigidBody(mass, startTransform, shape);
         }
-        
+
     }
 
     void Ctor_RbUpStack()
@@ -103,12 +103,12 @@ public:
         rb1->setLinearVelocity(btVector3(0, 0, 0));
         rb1->setFriction(0.7);
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             // btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(deformableWorld->getSoftBodyArray()[i]);
@@ -152,7 +152,7 @@ void ReducedGrasp::GripperDynamics(btScalar time, btDeformableMultiBodyDynamicsW
     rbTransform.setIdentity();
     btVector3 translation;
     btVector3 velocity;
-    
+
     btVector3 initialTranslationLeft = btVector3(0,1,0);            // inner face has z=2
     btVector3 initialTranslationRight = btVector3(0,1,-4);          // inner face has z=-2
     btVector3 pinchVelocityLeft = btVector3(0,0,-1);
@@ -162,7 +162,7 @@ void ReducedGrasp::GripperDynamics(btScalar time, btDeformableMultiBodyDynamicsW
     btVector3 holdVelocity = btVector3(0,0,0);
     btVector3 openVelocityLeft = btVector3(0,0,4);
     btVector3 openVelocityRight = btVector3(0,0,-4);
-    
+
     if (time < pressTime)
     {
         velocity = pinchVelocityLeft;
@@ -203,7 +203,7 @@ void ReducedGrasp::GripperDynamics(btScalar time, btDeformableMultiBodyDynamicsW
     rb0->setCenterOfMassTransform(rbTransform);
     rb0->setAngularVelocity(btVector3(0,0,0));
     rb0->setLinearVelocity(velocity);
-    
+
     btRigidBody* rb1 = rbs[1];
     if (time < pressTime)
     {
@@ -245,7 +245,7 @@ void ReducedGrasp::GripperDynamics(btScalar time, btDeformableMultiBodyDynamicsW
     rb1->setCenterOfMassTransform(rbTransform);
     rb1->setAngularVelocity(btVector3(0,0,0));
     rb1->setLinearVelocity(velocity);
-    
+
     rb0->setFriction(20);
     rb1->setFriction(20);
 }
@@ -257,7 +257,7 @@ void ReducedGrasp::initPhysics()
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
     m_broadphase = new btDbvtBroadphase();
@@ -277,7 +277,7 @@ void ReducedGrasp::initPhysics()
 	m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
 
     // create volumetric reduced deformable body
-    {   
+    {
         std::string file_path("../../../data/reduced_cube/");
         std::string vtk_file("cube_mesh.vtk");
         btReducedDeformableBody* rsb = btReducedDeformableBodyHelpers::createReducedDeformableObject(
@@ -286,10 +286,10 @@ void ReducedGrasp::initPhysics()
                                             vtk_file,
                                             num_modes,
                                             false);
-                                            
+
         getDeformableDynamicsWorld()->addSoftBody(rsb);
         rsb->getCollisionShape()->setMargin(0.015);
-        
+
         btTransform init_transform;
         init_transform.setIdentity();
         init_transform.setOrigin(btVector3(0, 1, -2));
@@ -314,7 +314,7 @@ void ReducedGrasp::initPhysics()
         // std::string filepath("../../../examples/SoftDemo/cube/");
         // std::string filename = filepath + "mesh.vtk";
         // btSoftBody* psb = btSoftBodyHelpers::CreateFromVtkFile(getDeformableDynamicsWorld()->getWorldInfo(), filename.c_str());
-        
+
         // // psb->scale(btVector3(2, 2, 2));
         // psb->translate(btVector3(0, 1, -2));
         // psb->getCollisionShape()->setMargin(0.05);
@@ -326,11 +326,11 @@ void ReducedGrasp::initPhysics()
         // psb->m_cfg.collisions |= btSoftBody::fCollision::SDF_RDN;
         // getDeformableDynamicsWorld()->addSoftBody(psb);
         // btSoftBodyHelpers::generateBoundaryFaces(psb);
-        
+
         // btDeformableGravityForce* gravity_force =  new btDeformableGravityForce(gravity);
         // getDeformableDynamicsWorld()->addForce(psb, gravity_force);
         // m_forces.push_back(gravity_force);
-        
+
         // btScalar E = 10000;
         // btScalar nu = 0.3;
         // btScalar lambda = E * nu / ((1 + nu) * (1 - 2 * nu));
@@ -354,7 +354,7 @@ void ReducedGrasp::initPhysics()
     getDeformableDynamicsWorld()->getSolverInfo().m_leastSquaresResidualThreshold = 1e-3;
     getDeformableDynamicsWorld()->getSolverInfo().m_splitImpulse = false;
     getDeformableDynamicsWorld()->getSolverInfo().m_numIterations = 100;
-    
+
     // grippers
     createGrip();
 

@@ -15,12 +15,12 @@
 
    - John Gruber's original Markdown
    - Ben Hollis' Maruku Markdown dialect
-   - Michel Fortin's Markdown Extras dialect
+   - Michel Fortin's Markdown extras dialect
    - Ivan Sagalaev's highlight.js
    - Contributors to the above open source projects
 
   -------------------------------------------------------------
- 
+
   You may use, extend, and redistribute this code under the terms of
   the BSD license at https://opensource.org/licenses/BSD-2-Clause.
 
@@ -28,7 +28,7 @@
   Sagalaev, which is used for code highlighting. (BSD 3-clause license)
 */
 /**See http://casual-effects.com/markdeep for @license and documentation.
-markdeep.min.js 0.23 (C) 2017 Morgan McGuire 
+markdeep.min.js 0.23 (C) 2017 Morgan McGuire
 highlight.min.js 9.5.0 (C) 2016 Ivan Sagalaev https://highlightjs.org/*/
 (function() {
 'use strict';
@@ -108,11 +108,11 @@ var STYLESHEET = entag('style',
     'body{' +
     'counter-reset: h1 h2 h3 h4 h5 h6 paragraph' +
     '}' +
-                       
+
     '.md code,pre{' +
     'font-family:' + codeFontStack + ';' +
     'font-size:' + codeFontSize + ';' +
-    'line-height:140%' + 
+    'line-height:140%' +
     '}' +
 
     '.md div.title{' +
@@ -151,10 +151,10 @@ var STYLESHEET = entag('style',
      // Force captions on line listings down close and then center them
     '.md div.tilde{' +
     'margin:20px 0 -10px;' +
-    'text-align:center' + 
+    'text-align:center' +
     '}' +
 
-    '.md blockquote.fancyquote{' + 
+    '.md blockquote.fancyquote{' +
     'margin:25px 0 25px;' +
     'text-align:left;' +
     'line-height:160%' +
@@ -189,7 +189,7 @@ var STYLESHEET = entag('style',
 
     '.md blockquote.fancyquote .author{' +
     'width:100%;' +
-    'margin-top:10px;' + 
+    'margin-top:10px;' +
     'display:inline-block;' +
     'text-align:right' +
     '}' +
@@ -216,7 +216,7 @@ var STYLESHEET = entag('style',
     'stroke-linecap:round;' +
     'stroke-width:' + STROKE_WIDTH + 'px;'+
     'page-break-inside:avoid;' +
-    'stroke:#000;' + 
+    'stroke:#000;' +
     'fill:#000' +
     '}' +
 
@@ -266,7 +266,7 @@ var STYLESHEET = entag('style',
     '.md div.table{' +
     'margin:16px 0 16px 0' +
     '}' +
-                       
+
     '.md table{' +
     'font-size:9px;'+
     'border-collapse:collapse;' +
@@ -294,7 +294,7 @@ var STYLESHEET = entag('style',
     '}' +
 
     '.md .calendar .parenthesized{' +
-    'color:#999;' + 
+    'color:#999;' +
     'font-style:italic' +
     '}' +
 
@@ -321,8 +321,8 @@ var STYLESHEET = entag('style',
     '}' +
 
     '.md pre.tilde{' +
-    'border-top: 1px solid #CCC;' + 
-    'border-bottom: 1px solid #CCC;' + 
+    'border-top: 1px solid #CCC;' +
+    'border-bottom: 1px solid #CCC;' +
     'padding: 5px 0 5px 20px;' +
     'margin:0 0 0 0;' +
     'background:#FCFCFC;' +
@@ -339,10 +339,10 @@ var STYLESHEET = entag('style',
 
     // Remove excess space above definitions due to paragraph breaks, and add some at the bottom
     '.md dl>dd{margin-top:-8px; margin-bottom:8px}' +
-                       
+
      // Extra space around terse definition lists
     '.md dl>table{' +
-    'margin:35px 0 30px' + 
+    'margin:35px 0 30px' +
     '}' +
 
     '.md code{' +
@@ -370,7 +370,7 @@ var STYLESHEET = entag('style',
     '.md .mediumTOC .level1{font-weight:600}' +
 
     '.md .longTOC .level1{font-weight:600;display:block;padding-top:12px;margin:0 0 -20px}' +
-     
+
     '.md .shortTOC{text-align:center;font-weight:bold;margin-top:15px;font-size:14px}' +
 
     '.md .admonition{' +
@@ -397,7 +397,7 @@ var STYLESHEET = entag('style',
        'border-left:2.5rem solid rgba(50,255,90,.4);' +
        'background-color:rgba(50,255,90,.15)' +
     '}' +
-                       
+
     '.md .admonition.tip::before{' +
        'content:"\\24d8";' +
        'font-weight:bold;' +
@@ -433,12 +433,12 @@ var STYLESHEET = entag('style',
        'height:0' +
      '}' +
 
-     '.md .admonition.warn>.admonition-title{' +  
+     '.md .admonition.warn>.admonition-title{' +
       'border-color:rgba(255,145,0,.4)' +
      '}' +
 
      '.md .admonition.error{' +
-      'border-left: 2.5rem solid rgba(255,23,68,.4);'+    
+      'border-left: 2.5rem solid rgba(255,23,68,.4);'+
       'background-color:rgba(255,23,68,.15)' +
     '}' +
 
@@ -446,7 +446,7 @@ var STYLESHEET = entag('style',
       'border-color:rgba(255,23,68,.4)'+
     '}' +
 
-    '.md .admonition.error::before{' + 
+    '.md .admonition.error::before{' +
     'content: "\\2612";' +
     'font-family:"Arial";' +
     'font-size:200%;' +
@@ -458,8 +458,8 @@ var STYLESHEET = entag('style',
     'width:0;' +
     'height:0' +
    '}' +
-                       
-   '.md .admonition p:last-child{margin-bottom:0}' 
+
+   '.md .admonition p:last-child{margin-bottom:0}'
 );
 
 var MARKDEEP_LINE = '<!-- Markdeep: --><style class="fallback">body{visibility:hidden;white-space:pre;font-family:monospace}</style><script src="markdeep.min.js"></script><script src="https://casual-effects.com/markdeep/latest/markdeep.min.js?"></script><script>window.alreadyProcessedMarkdeep||(document.body.style.visibility="visible")</script>';
@@ -490,11 +490,11 @@ var FRENCH = {
         March:     'Mars',
         April:     'Avril',
         May:       'Mai',
-        June:      'Juin', 
+        June:      'Juin',
         July:      'Julliet',
-        August:    'Août', 
-        September: 'Septembre', 
-        October:   'Octobre', 
+        August:    'Août',
+        September: 'Septembre',
+        October:   'Octobre',
         November:  'Novembre',
         December:  'Décembre',
 
@@ -540,11 +540,11 @@ var BULGARIAN = {
         March:     'март',
         April:     'април',
         May:       'май',
-        June:      'юни', 
+        June:      'юни',
         July:      'юли',
-        August:    'август', 
-        September: 'септември', 
-        October:   'октомври', 
+        August:    'август',
+        September: 'септември',
+        October:   'октомври',
         November:  'ноември',
         December:  'декември',
 
@@ -590,11 +590,11 @@ var RUSSIAN = {
         March:     'март',
         April:     'апрель',
         May:       'май',
-        June:      'июнь', 
+        June:      'июнь',
         July:      'июль',
-        August:    'август', 
-        September: 'сентябрь', 
-        October:   'октябрь', 
+        August:    'август',
+        September: 'сентябрь',
+        October:   'октябрь',
         November:  'ноябрь',
         December:  'декабрь',
 
@@ -613,7 +613,7 @@ var RUSSIAN = {
     }
 };
 
-// Translated by Dariusz Kuśnierek 
+// Translated by Dariusz Kuśnierek
 var POLISH = {
     keyword: {
         table:     'tabela',
@@ -639,11 +639,11 @@ var POLISH = {
         March:     'Marzec',
         April:     'Kwiecień',
         May:       'Maj',
-        June:      'Czerwiec', 
+        June:      'Czerwiec',
         July:      'Lipiec',
-        August:    'Sierpień', 
-        September: 'Wrzesień', 
-        October:   'Październik', 
+        August:    'Sierpień',
+        September: 'Wrzesień',
+        October:   'Październik',
         November:  'Listopad',
         December:  'Grudzień',
 
@@ -759,8 +759,8 @@ var JAPANESE = {
         nov: '11月',
         dec: '12月'
     }
-};    
-    
+};
+
 // Translated by Sandor Berczi
 var GERMAN = {
     keyword: {
@@ -858,7 +858,7 @@ var SWEDISH = {
         dec: 'dec'
     }
 };
-   
+
 var DEFAULT_OPTIONS = {
     mode:               'markdeep',
     detectMath:         true,
@@ -876,7 +876,7 @@ var DEFAULT_OPTIONS = {
 
 // See http://www.i18nguy.com/unicode/language-identifiers.html for keys
 var LANG_TABLE = {
-    en: {keyword:{}},        
+    en: {keyword:{}},
     ru: RUSSIAN,
     fr: FRENCH,
     pl: POLISH,
@@ -988,10 +988,10 @@ function mangle(text) {
 
 /** Creates a style sheet containing elements like:
 
-  hn::before { 
-    content: counter(h1) "." counter(h2) "." ... counter(hn) " "; 
-    counter-increment: hn; 
-   } 
+  hn::before {
+    content: counter(h1) "." counter(h2) "." ... counter(hn) " ";
+    counter-increment: hn;
+   }
 */
 function sectionNumberingStylesheet() {
     var s = '';
@@ -1022,11 +1022,11 @@ function nodeToMarkdeepSource(node, leaveEscapes) {
     // document. Remove anything that looks like that and comes *after*
     // the first fallback style.
     source = source.rp(/(?:<style class="fallback">[\s\S]*?<\/style>[\s\S]*)<\/\S+@\S+\.\S+?>/gim, '');
-    
+
     // Remove artificially inserted close tags
     source = source.rp(/<\/h?ttps?:.*>/gi, '');
-    
-    // Now try to fix the URLs themselves, which will be 
+
+    // Now try to fix the URLs themselves, which will be
     // transformed like this: <http: casual-effects.com="" markdeep="">
     source = source.rp(/<(https?): (.*?)>/gi, function (match, protocol, list) {
 
@@ -1057,15 +1057,15 @@ function nodeToMarkdeepSource(node, leaveEscapes) {
 
     Returns {beforeString, diagramString, alignmentHint, afterString}
     diagramString will be empty if nothing was found. The
-    DIAGRAM_MARKER is stripped from the diagramString. 
+    DIAGRAM_MARKER is stripped from the diagramString.
 
     alignmentHint may be:
-    floatleft  
+    floatleft
     floatright
     center
     flushleft
 
-    diagramString does not include the marker characters. 
+    diagramString does not include the marker characters.
     If there is a caption, it will appear in the afterString and not be parsed.
 */
 function extractDiagram(sourceString) {
@@ -1084,7 +1084,7 @@ function extractDiagram(sourceString) {
         nextLineBeginning = sourceString.indexOf('\n', lineBeginning) + 1;
         wideCharacters = unicodeSyms(sourceString, lineBeginning + xMin, lineBeginning + xMax);
         textOnLeft  = textOnLeft  || /\S/.test(sourceString.ss(lineBeginning, lineBeginning + xMin));
-        // Text on the right ... if the line is not all '*'        
+        // Text on the right ... if the line is not all '*'
         textOnRight = textOnRight || /[^ *\t\n\r]/.test(sourceString.ss(lineBeginning + xMax + wideCharacters + 1, nextLineBeginning));
     }
 
@@ -1099,23 +1099,23 @@ function extractDiagram(sourceString) {
         // We found what looks like a diagram start. See if it has either a full border of
         // aligned '*' characters, or top-left-bottom borders and nothing but white space on
         // the left.
-        
+
         // Look backwards to find the beginning of the line (or of the string)
         // and measure the start character relative to it
         var lineBeginning = max(0, sourceString.lastIndexOf('\n', i)) + 1;
         var xMin = i - lineBeginning;
-        
+
         // Find the first non-diagram character on this line...or the end of the entire source string
         var j;
         for (j = i + DIAGRAM_START.length; sourceString[j] === DIAGRAM_MARKER; ++j) {}
         var xMax = j - lineBeginning - 1;
-        
+
         // We have a potential hit. Start accumulating a result. If there was anything
         // between the newline and the diagram, move it to the after string for proper alignment.
         var result = {
-            beforeString: sourceString.ss(0, lineBeginning), 
+            beforeString: sourceString.ss(0, lineBeginning),
             diagramString: '',
-            alignmentHint: 'center', 
+            alignmentHint: 'center',
             afterString: sourceString.ss(lineBeginning, i).rp(/[ \t]+$/, ' ')
         };
 
@@ -1123,7 +1123,7 @@ function extractDiagram(sourceString) {
         var textOnLeft = false, textOnRight = false;
 
         advance();
-                                  
+
         // Now, see if the pattern repeats on subsequent lines
         for (var good = true, previousEnding = j; good; ) {
             // Find the next line
@@ -1131,27 +1131,27 @@ function extractDiagram(sourceString) {
             advance();
             if (lineBeginning === 0) {
                 // Hit the end of the string before the end of the pattern
-                return noDiagramResult; 
+                return noDiagramResult;
             }
-            
+
             if (textOnLeft) {
                 // Even if there is text on *both* sides
                 result.alignmentHint = 'floatright';
             } else if (textOnRight) {
                 result.alignmentHint = 'floatleft';
             }
-            
+
             // See if there are markers at the correct locations on the next line
-            if ((sourceString[lineBeginning + xMin] === DIAGRAM_MARKER) && 
+            if ((sourceString[lineBeginning + xMin] === DIAGRAM_MARKER) &&
                 (! textOnLeft || (sourceString[lineBeginning + xMax + wideCharacters] === DIAGRAM_MARKER))) {
 
                 // See if there's a complete line of DIAGRAM_MARKER, which would end the diagram
                 var x;
                 for (x = xMin; (x < xMax) && (sourceString[lineBeginning + x] === DIAGRAM_MARKER); ++x) {}
-           
+
                 var begin = lineBeginning + xMin;
                 var end   = lineBeginning + xMax + wideCharacters;
-                
+
                 if (! textOnLeft) {
                     // This may be an incomplete line
                     var newlineLocation = sourceString.indexOf('\n', begin);
@@ -1166,7 +1166,7 @@ function extractDiagram(sourceString) {
                 if (x === xMax) {
                     // We found the last row. Put everything else into
                     // the afterString and return the result.
-                
+
                     result.afterString += sourceString.ss(lineBeginning + xMax + 1);
                     return result;
                 } else {
@@ -1189,7 +1189,7 @@ function extractDiagram(sourceString) {
     return noDiagramResult;
 }
 
-/** 
+/**
     Find the specified delimiterRegExp used as a quote (e.g., *foo*)
     and replace it with the HTML tag and optional attributes.
 */
@@ -1197,14 +1197,14 @@ function replaceMatched(string, delimiterRegExp, tag, attribs) {
     var delimiter = delimiterRegExp.source;
     var flanking = '[^ \\t\\n' + delimiter + ']';
     var pattern  = '([^A-Za-z0-9])(' + delimiter + ')' +
-        '(' + flanking + '.*?(\\n.+?)*?)' + 
+        '(' + flanking + '.*?(\\n.+?)*?)' +
         delimiter + '(?![A-Za-z0-9])';
 
-    return string.rp(new RegExp(pattern, 'g'), 
+    return string.rp(new RegExp(pattern, 'g'),
                           '$1<' + tag + (attribs ? ' ' + attribs : '') +
                           '>$3</' + tag + '>');
 }
-    
+
 /** Maruku ("github")-style table processing */
 function replaceTables(s, protect) {
     var TABLE_ROW       = /(?:\n[ \t]*(?:(?:\|?[ \t\S]+?(?:\|[ \t\S]+?)+\|?)|\|[ \t\S]+\|)(?=\n))/.source;
@@ -1219,9 +1219,9 @@ function replaceTables(s, protect) {
     s = s.rp(TABLE_REGEXP, function (match) {
         // Found a table, actually parse it by rows
         var rowArray = match.split('\n');
-        
+
         var result = '';
-        
+
         // Skip the bogus leading row
         var startRow = (rowArray[0] === '') ? 1 : 0;
 
@@ -1246,38 +1246,38 @@ function replaceTables(s, protect) {
         var row = rowArray[startRow + 1].trim();
         var hasLeadingBar  = row[0] === '|';
         var hasTrailingBar = row[row.length - 1] === '|';
-        
+
         var tag = 'th';
-        
+
         for (var r = startRow; r < rowArray.length; ++r) {
             // Remove leading and trailing whitespace and column delimiters
             row = rowArray[r].trim();
-            
+
             if (! hasLeadingBar && (row[0] === '|')) {
                 // Empty first column
                 row = '&nbsp;' + row;
             }
-            
+
             if (! hasTrailingBar && (row[row.length - 1] === '|')) {
                 // Empty last column
                 row += '&nbsp;';
             }
-            
+
             row = trimTableRowEnds(row);
             var i = 0;
-            result += entag('tr', '<' + tag + columnStyle[0] + '> ' + 
+            result += entag('tr', '<' + tag + columnStyle[0] + '> ' +
                             row.rp(/ *\| */g, function () {
                                 ++i;
                                 return ' </' + tag + '><' + tag + columnStyle[i] + '> ';
                             }) + ' </' + tag + '>') + '\n';
-            
+
             // Skip the header-separator row
-            if (r == startRow) { 
-                ++r; 
+            if (r == startRow) {
+                ++r;
                 tag = 'td';
             }
         }
-        
+
         result = entag('table', result, protect('class="table"'));
 
         if (caption) {
@@ -1304,7 +1304,7 @@ function replaceLists(s, protect) {
 
     // Preceding line ending in a colon
     var PREFIX     = /[:,]\s*\n/.source;
-    var LIST_BLOCK_REGEXP = 
+    var LIST_BLOCK_REGEXP =
         new RegExp('(' + PREFIX + '|' + BLANK_LINES + '|<p>\s*\n|<br/>\s*\n?)' +
                    /((?:[ \t]*(?:\d+\.|-|\+|\*)(?:[ \t]+.+\n(?:[ \t]*\n)?)+)+)/.source, 'gm');
 
@@ -1319,11 +1319,11 @@ function replaceLists(s, protect) {
         keepGoing = false;
         s = s.rp(LIST_BLOCK_REGEXP, function (match, prefix, block) {
             var result = prefix;
-            
+
             // Contains {indentLevel, tag}
             var stack = [];
             var current = {indentLevel: -1};
-            
+
             /* function logStack(stack) {
                var s = '[';
                stack.forEach(function(v) { s += v.indentLevel + ', '; });
@@ -1331,9 +1331,9 @@ function replaceLists(s, protect) {
                } */
             block.split('\n').forEach(function (line) {
                 var trimmed     = line.rp(/^\s*/, '');
-                
+
                 var indentLevel = line.length - trimmed.length;
-                
+
                 // Add a CSS class based on the type of list bullet
                 var attribs = ATTRIBS[trimmed[0]];
                 var isUnordered = !! attribs; // JavaScript for: attribs !== undefined
@@ -1377,7 +1377,7 @@ function replaceLists(s, protect) {
                         // End previous list item, if there was one
                         result += '\n</li>';
                     } // Indent level changed
-                    
+
                     if (current) {
                         // Add the list item
                         result += '\n' + current.indentChars + '<li ' + attribs + '>' + trimmed.rp(/^(\d+\.|-|\+|\*) /, '');
@@ -1392,12 +1392,12 @@ function replaceLists(s, protect) {
 
             // Remove trailing whitespace
             result = result.replace(/\s+$/,'');
-            
+
             // Finish the last item and anything else on the stack (if needed)
             for (current = stack.pop(); current; current = stack.pop()) {
                 result += '</li></' + current.tag + '>';
             }
-       
+
             return result + '\n\n';
         });
     } // while keep going
@@ -1406,7 +1406,7 @@ function replaceLists(s, protect) {
 }
 
 
-/** 
+/**
     Identifies schedule lists, which look like:
 
   date: title
@@ -1450,7 +1450,7 @@ function replaceScheduleLists(str, protect) {
 
     try {
         var scheduleNumber = 0;
-        str = 
+        str =
             str.rp(new RegExp('(' + ENTRY + '){2,}', 'gm'),
                    function (schedule) {
                        ++scheduleNumber;
@@ -1467,12 +1467,12 @@ function replaceScheduleLists(str, protect) {
                                        // Remove the day from the date (we'll reconstruct it below). This is actually unnecessary, since we
                                        // explicitly compute the value anyway and the parser is robust to extra characters, but it aides
                                        // in debugging.
-                                       // 
+                                       //
                                        // date = date.rp(/(?:(?:sun|mon|tues|wednes|thurs|fri|satur)day|(?:sun|mon|tue|wed|thu|fri|sat)\.?|(?:su|mo|tu|we|th|fr|sa)),?/gi, '');
-                                       
+
                                        // Parse the date. The Javascript Date class's parser is useless because it
                                        // is locale dependent, so we do this with a regexp.
-                                       
+
                                        var year = '', month = '', day = '', parenthesized = false;
 
                                        date = date.trim();
@@ -1485,12 +1485,12 @@ function replaceScheduleLists(str, protect) {
 
                                        // DD MM YYYY
                                        var match = date.match(RegExp('([0123]?\\d)\\D+([01]?\\d|' + MONTH_NAME_LIST + ')\\D+([12]\\d{3})', 'i'));
-                                       
+
                                        if (match) {
                                            day = match[1]; month = match[2]; year = match[3];
                                        } else {
                                            // YYYY MM DD
-                                           match = date.match(RegExp('([12]\\d{3})\\D+([01]?\\d|' + MONTH_NAME_LIST + ')\\D+([0123]?\\d)', 'i')); 
+                                           match = date.match(RegExp('([12]\\d{3})\\D+([01]?\\d|' + MONTH_NAME_LIST + ')\\D+([0123]?\\d)', 'i'));
                                            if (match) {
                                                day = match[3]; month = match[2]; year = match[1];
                                            } else {
@@ -1503,24 +1503,24 @@ function replaceScheduleLists(str, protect) {
                                                }
                                            }
                                        }
-                                       
+
                                        // Reconstruct standardized date format
                                        date = day + ' ' + month + ' ' + year;
-                                       
+
                                        // Detect the month
                                        var monthNumber = parseInt(month) - 1;
                                        if (isNaN(monthNumber)) {
                                            monthNumber = MONTH_NAME.indexOf(month.toLowerCase());
                                        }
-                                       
+
                                        var dateVal = new Date(Date.UTC(parseInt(year), monthNumber, parseInt(day), standardHour));
                                        // Reconstruct the day of the week
                                        var dayOfWeek = dateVal.getUTCDay();
                                        date = DAY_NAME[dayOfWeek] + '<br/>' + date;
-                                       
+
                                        anyWeekendEvents = anyWeekendEvents || (dayOfWeek === 0) || (dayOfWeek === 6);
 
-                                       entryArray.push({date: dateVal, 
+                                       entryArray.push({date: dateVal,
                                                         title: title,
                                                         sourceOrder: entryArray.length,
                                                         parenthesized: parenthesized,
@@ -1528,12 +1528,12 @@ function replaceScheduleLists(str, protect) {
                                                         // Don't show text if parenthesized with no body
                                                         text: parenthesized ? '' :
                                                         entag('tr',
-                                                                    entag('td', 
+                                                                    entag('td',
                                                                           '<a ' + protect('class="target" name="schedule' + scheduleNumber + '_' + dateVal.getUTCFullYear() + '-' + (dateVal.getUTCMonth() + 1) + '-' + dateVal.getUTCDate() + '"') + '>&nbsp;</a>' +
-                                                                          date, dateTDAttribs) + 
-                                                                    entag('td', entag('b', title)), rowAttribs) + 
+                                                                          date, dateTDAttribs) +
+                                                                    entag('td', entag('b', title)), rowAttribs) +
                                                         entag('tr', entag('td', '\n\n' + events, eventTDAttribs), rowAttribs)});
-                                      
+
                                        return '';
                                    });
 
@@ -1554,7 +1554,7 @@ function replaceScheduleLists(str, protect) {
 
                        // May be slightly off due to daylight savings time
                        var approximateDaySpan = (entryArray[entryArray.length - 1].date.getTime() - entryArray[0].date.getTime()) / MILLISECONDS_PER_DAY;
-                       
+
                        var today = new Date();
                        // Move back to midnight
                        today = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate(), standardHour));
@@ -1574,7 +1574,7 @@ function replaceScheduleLists(str, protect) {
 
                            var hideWeekends = ! anyWeekendEvents && option('hideEmptyWeekends');
                            var showDate = hideWeekends ? function(date) { return (date.getUTCDay() > 0) && (date.getUTCDay() < 6);} : function() { return true; };
-                           
+
                            var sameDay = function (d1, d2) {
                                // Account for daylight savings time
                                return (abs(d1.getTime() - d2.getTime()) < MILLISECONDS_PER_DAY / 2);
@@ -1588,18 +1588,18 @@ function replaceScheduleLists(str, protect) {
                                // Create the calendar header
                                calendar += '<table ' + protect('class="calendar"') + '>\n' +
                                    entag('tr', entag('th', MONTH_FULL_NAME[date.getUTCMonth()] + ' ' + date.getUTCFullYear(), protect('colspan="14"'))) + '<tr>';
-                               
+
                                (hideWeekends ? DAY_NAME.slice(1, 6) : DAY_NAME).forEach(function (name) {
                                    calendar += entag('td', name, DAY_HEADER_ATTRIBS);
                                });
                                calendar += '</tr>';
-                               
+
                                // Go back into the previous month to reach a Sunday. Check the time at noon
                                // to avoid problems with daylight saving time occuring early in the morning
-                               while (date.getUTCDay() !== 0) { 
-                                   date = new Date(date.getTime() - MILLISECONDS_PER_DAY); 
+                               while (date.getUTCDay() !== 0) {
+                                   date = new Date(date.getTime() - MILLISECONDS_PER_DAY);
                                }
-                               
+
                                // Insert the days from the previous month
                                if (date.getDate() !== 1) {
                                    calendar += '<tr ' + rowAttribs + '>';
@@ -1615,16 +1615,16 @@ function replaceScheduleLists(str, protect) {
                                        // Sunday, start a row
                                        calendar += '<tr ' + rowAttribs + '>';
                                    }
-                                   
+
                                    if (showDate(date)) {
                                        var attribs = '';
                                        if (sameDay(date, today)) {
                                            attribs = protect('class="today"');
                                        }
-                                       
+
                                        // Insert links as needed from entries
                                        var contents = '';
-                                       
+
                                        for (var entry = entryArray[index]; entry && sameDay(entry.date, date); ++index, entry = entryArray[index]) {
                                            if (contents) { contents += '<br/>'; }
                                            if (entry.parenthesized) {
@@ -1634,19 +1634,19 @@ function replaceScheduleLists(str, protect) {
                                                contents += entag('a', entry.title, protect('href="#schedule' + scheduleNumber + '_' + date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCDate() + '"'));
                                            }
                                        }
-                                       
+
                                        if (contents) {
                                            calendar += entag('td', entag('b', date.getUTCDate()), DATE_ATTRIBS + attribs) + entag('td', contents, ENTRY_ATTRIBS + attribs);
                                        } else {
                                            calendar += '<td ' + DATE_ATTRIBS + attribs + '></a>' + date.getUTCDate() + '</td><td ' + ENTRY_ATTRIBS + attribs + '> &nbsp; </td>';
                                        }
-                                   }                                   
+                                   }
 
                                    if (date.getUTCDay() === 6) {
                                        // Saturday, end a row
                                        calendar += '</tr>';
                                    }
-                                   
+
                                    // Go to (approximately) the next day
                                    date = new Date(date.getTime() + MILLISECONDS_PER_DAY);
                                } while (date.getUTCDate() > 1);
@@ -1657,7 +1657,7 @@ function replaceScheduleLists(str, protect) {
                                        if (showDate(date)) { calendar += '<td ' + FADED_ATTRIBS + '>' + date.getUTCDate() + '</td><td>&nbsp</td>'; }
                                        date = new Date(date.getTime() + MILLISECONDS_PER_DAY);
                                    }
-                                   
+
                                    calendar += '</tr>';
                                }
 
@@ -1665,7 +1665,7 @@ function replaceScheduleLists(str, protect) {
 
                                // Go to the first of the (new) month
                                date = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1, standardHour));
-                               
+
                            } // Until all days covered
                        } // if add calendar
 
@@ -1688,7 +1688,7 @@ function replaceScheduleLists(str, protect) {
 
 /**
  Term
- :     description, which might be multiple 
+ :     description, which might be multiple
        lines and include blanks.
 
  Next Term
@@ -1697,7 +1697,7 @@ becomes
 
 <dl>
   <dt>Term</dt>
-  <dd> description, which might be multiple 
+  <dd> description, which might be multiple
        lines and include blanks.</dd>
   <dt>Next Term</dt>
 </dl>
@@ -1713,12 +1713,12 @@ function replaceDefinitionLists(s, protect) {
 
     s = s.rp(new RegExp('(' + TERM + DEFINITION + ')+', 'gm'),
              function (block) {
-                 
+
                  var list = [];
 
                  // Parse the block
                  var currentEntry = null;
- 
+
                  block.split('\n').forEach(function (line, i) {
                      // What kind of line is this?
                      if (line.trim().length === 0) {
@@ -1753,8 +1753,8 @@ function replaceDefinitionLists(s, protect) {
                      // This list has short definitions. Format it as a table
                      list.forEach(function (entry) {
                          result += entag('tr',
-                                         entag('td', entag('dt', entry.term)) + 
-                                         entag('td', entag('dd', entag('p', entry.definition))), 
+                                         entag('td', entag('dt', entry.term)) +
+                                         entag('td', entag('dd', entag('p', entry.definition))),
                                          rowAttribs);
                      });
                      result = entag('table', result);
@@ -1785,7 +1785,7 @@ function insertTableOfContents(s, protect) {
     // to insert at the end.
     var fullTOC = '';
     var shortTOC = '';
-    
+
     // headerCounter[i] is the current counter for header level (i - 1)
     var headerCounter = [0];
     var currentLevel = 0;
@@ -1797,13 +1797,13 @@ function insertTableOfContents(s, protect) {
         text = text.trim();
         // If becoming more nested:
         for (var i = currentLevel; i < level; ++i) { headerCounter[i] = 0; }
-        
+
         // If becoming less nested:
         headerCounter.splice(level, currentLevel - level);
         currentLevel = level;
-        
+
         ++headerCounter[currentLevel - 1];
-        
+
         // Generate a unique name for this element
         var number = headerCounter.join('.');
         var name = 'toc' + number;
@@ -1814,14 +1814,14 @@ function insertTableOfContents(s, protect) {
         if (level <= 3) {
             // Indent and append (the Array() call generates spaces)
             fullTOC += Array(level).join('&nbsp;&nbsp;') + '<a href="#' + name + '" class="level' + level + '"><span class="tocNumber">' + number + '&nbsp; </span>' + text + '</a><br/>\n';
-            
+
             if (level === 1) {
                 shortTOC += ' &middot; <a href="#' + name + '">' + text + '</a>';
             } else {
                 ++numAboveLevel1;
             }
         }
-        
+
         return entag('a', '&nbsp;', protect('class="target" name="' + name + '"')) + header;
     });
 
@@ -1829,7 +1829,7 @@ function insertTableOfContents(s, protect) {
         // Strip the leading " &middot; "
         shortTOC = shortTOC.ss(10);
     }
-    
+
     var numLevel1 = headerCounter[0];
     var numHeaders = numLevel1 + numAboveLevel1;
 
@@ -1860,7 +1860,7 @@ function insertTableOfContents(s, protect) {
             tocStyle = 'short';
         } else if ((firstHeaderLocation === -1) || (firstHeaderLocation / 55 > numHeaders)) {
             // The abstract is long enough to float alongside, and there
-            // are not too many levels.        
+            // are not too many levels.
             // Insert the medium-length TOC floating
             tocStyle = 'medium';
         } else {
@@ -1922,7 +1922,7 @@ function isolated(preSpaces, postSpaces) {
     and script tags for including a math library, or the Markdeep
     signature footer.
 
-    Optional argument elementMode defaults to true. This avoids turning a bold first word into a 
+    Optional argument elementMode defaults to true. This avoids turning a bold first word into a
     title or introducing a table of contents. Section captions are unaffected by this argument.
     Set elementMode = false if processing a whole document instead of an internal node.
 
@@ -1991,15 +1991,15 @@ function markdeepToHTML(str, elementMode) {
     // separately
     function makeHeaderFunc(level) {
         return function (match, header) {
-            return '\n\n</p>\n<a ' + protect('class="target" name="' + mangle(removeHTMLTags(header)) + '"') + 
+            return '\n\n</p>\n<a ' + protect('class="target" name="' + mangle(removeHTMLTags(header)) + '"') +
                 '>&nbsp;</a>' + entag('h' + level, header) + '\n<p>\n\n';
         }
     }
 
-    if (elementMode === undefined) { 
+    if (elementMode === undefined) {
         elementMode = true;
     }
-    
+
     if (str.innerHTML !== undefined) {
         str = str.innerHTML;
     }
@@ -2011,7 +2011,7 @@ function markdeepToHTML(str, elementMode) {
     // Replace pre-formatted script tags that are used to protect
     // less-than signs, e.g., in std::vector<Value>
     str = str.rp(/<script\s+type\s*=\s*['"]preformatted['"]\s*>([\s\S]*?)<\/script>/gi, '$1');
-    
+
     function replaceDiagrams(str) {
         var result = extractDiagram(str);
         if (result.diagramString) {
@@ -2020,7 +2020,7 @@ function markdeepToHTML(str, elementMode) {
                 // Strip whitespace and enclosing brackets from the caption
                 caption = caption.trim();
                 caption = caption.ss(1, caption.length - 1);
-                
+
                 result.caption = entag('center', entag('div', caption, protect('class="imagecaption"')));
                 return '';
             });
@@ -2049,13 +2049,13 @@ function markdeepToHTML(str, elementMode) {
             }
             lang = lang ? lang.trim() : lang;
             lang = lang ? [lang] : undefined;
-            
+
             // Remove the block's own indentation from each line of sourceCode
             sourceCode = sourceCode.rp(new RegExp('(^|\n)' + indent, 'g'), '$1');
 
             var captionAbove = option('captionAbove', 'listing')
 
-            
+
             var nextSourceCode, nextLang, nextCssSubClass;
             var body = '';
             do {
@@ -2080,7 +2080,7 @@ function markdeepToHTML(str, elementMode) {
                 lang = nextLang;
                 cssSubClass = nextCssSubClass;
             } while (sourceCode);
-            
+
             // Insert paragraph close/open tags, since browsers force them anyway around pre tags
             // We need the indent in case this is a code block inside a list that is indented.
             return '\n' + indent + '</p>' + (caption && captionAbove ? caption : '') +
@@ -2099,12 +2099,12 @@ function markdeepToHTML(str, elementMode) {
     str = str.rp(/<!--\s[\s\S]+?\s-->/g, '');
 
     str = replaceDiagrams(str);
-    
+
     // Protect SVG blocks (including the ones we just inserted)
     str = str.rp(/<svg( .*?)?>([\s\S]*?)<\/svg>/gi, function (match, attribs, body) {
         return '<svg' + protect(attribs) + '>' + protect(body) + '</svg>';
     });
-    
+
     // Protect STYLE blocks
     str = str.rp(/<style>([\s\S]*?)<\/style>/gi, function (match, body) {
         return entag('style', protect(body));
@@ -2124,16 +2124,16 @@ function markdeepToHTML(str, elementMode) {
     // might just pick up quotes used as other punctuation across lines. Explicitly exclude
     // cases where the second quote immediately preceeds a number, e.g., "the old `97"
     str = str.rp(/(`)(.+?(?:\n.+?)?)`(?!\d)/g, entag('code', '$2'));
-    
+
     // CODE: Escape angle brackets inside code blocks (including the ones we just introduced),
     // and then protect the blocks themselves
     str = str.rp(/(<code(?: .*?)?>)([\s\S]*?)<\/code>/gi, function (match, open, inlineCode) {
         return protect(open + escapeHTMLEntities(inlineCode) + '</code>');
     });
-    
+
     // PRE: Protect pre blocks
     str = str.rp(/(<pre\b[\s\S]*?<\/pre>)/gi, protector);
-    
+
     // Protect raw HTML attributes from processing
     str = str.rp(/(<\w[^ \n<>]*?[ \t]+)(.*?)(?=\/?>)/g, protectorWithPrefix);
 
@@ -2152,7 +2152,7 @@ function markdeepToHTML(str, elementMode) {
     // Also allow LaTeX of the form $...$ if the close tag is not US$ or Can$
     // and there are spaces outside of the dollar signs.
     //
-    // Test: " $3 or US$2 and 3$, $x$ $y + \n 2x$ or ($z$) $k$. or $2 or $2".match(pattern) = 
+    // Test: " $3 or US$2 and 3$, $x$ $y + \n 2x$ or ($z$) $k$. or $2 or $2".match(pattern) =
     // ["$x$", "$y +  2x$", "$z$", "$k$"];
     str = str.rp(/((?:[^\w\d]))\$(\S(?:[^\$]*?\S(?!US|Can))??)\$(?![\w\d])/g, '$1\\($2\\)');
 
@@ -2177,17 +2177,17 @@ function markdeepToHTML(str, elementMode) {
 
     // Setext-style H1: Text with ======== right under it
     str = str.rp(/(?:^|\s*\n)(.+?)\n[ \t]*={3,}[ \t]*\n/g, makeHeaderFunc(1));
-    
+
     // Setext-style H2: Text with -------- right under it
     str = str.rp(/(?:^|\s*\n)(.+?)\n[ \t]*-{3,}[ \t]*\n/g, makeHeaderFunc(2));
 
     // ATX-style headers:
     for (var i = 6; i > 0; --i) {
-        str = str.rp(new RegExp(/^\s*/.source + '#{' + i + ',' + i +'}(?:[ \t])([^\n#]+)#*[ \t]*\n', 'gm'), 
+        str = str.rp(new RegExp(/^\s*/.source + '#{' + i + ',' + i +'}(?:[ \t])([^\n#]+)#*[ \t]*\n', 'gm'),
                  makeHeaderFunc(i));
 
         // No-number headers
-        str = str.rp(new RegExp(/^\s*/.source + '\\(#{' + i + ',' + i +'}\\)(?:[ \t])([^\n#]+)\\(?#*\\)?\\n[ \t]*\n', 'gm'), 
+        str = str.rp(new RegExp(/^\s*/.source + '\\(#{' + i + ',' + i +'}\\)(?:[ \t])([^\n#]+)\\(?#*\\)?\\n[ \t]*\n', 'gm'),
                      '\n</p>\n' + entag('div', '$1', protect('class="nonumberh' + i + '"')) + '\n<p>\n\n');
     }
 
@@ -2211,10 +2211,10 @@ function markdeepToHTML(str, elementMode) {
     var FANCY_QUOTE = protect('class="fancyquote"');
     str = str.rp(/\n>[ \t]*"(.*(?:\n>.*)*)"[ \t]*(?:\n>[ \t]*)?(\n>[ \t]{2,}\S.*)?\n/g,
                  function (match, quote, author) {
-                     return entag('blockquote', 
+                     return entag('blockquote',
                                   entag('span',
-                                        quote.rp(/\n>/g, '\n'), 
-                                        FANCY_QUOTE) + 
+                                        quote.rp(/\n>/g, '\n'),
+                                        FANCY_QUOTE) +
                                   (author ? entag('span',
                                                   author.rp(/\n>/g, '\n'),
                                                   protect('class="author"')) : ''),
@@ -2244,7 +2244,7 @@ function markdeepToHTML(str, elementMode) {
             endNoteTable[symbolicName] = endNoteCount;
         }
 
-        return '<sup><a ' + protect('href="#endnote-' + symbolicName + '"') + 
+        return '<sup><a ' + protect('href="#endnote-' + symbolicName + '"') +
             '>' + endNoteTable[symbolicName] + '</a></sup>';
     });
 
@@ -2252,14 +2252,14 @@ function markdeepToHTML(str, elementMode) {
     // The reference: (don't use \S+ because it can grab trailing punctuation)
     str = str.rp(/\[#([^\)\(\[\]\.#\s]+)\](?!:)/g, function (match, symbolicName) {
         symbolicName = symbolicName.trim();
-        return '[<a ' + protect('href="#citation-' + symbolicName.toLowerCase() + '"') + 
+        return '[<a ' + protect('href="#citation-' + symbolicName.toLowerCase() + '"') +
             '>' + symbolicName + '</a>]';
     });
 
     // The bibliography entry:
     str = str.rp(/\n\[#(\S+)\]:[ \t]+((?:[ \t]*\S[^\n]*\n?)*)/g, function (match, symbolicName, entry) {
         symbolicName = symbolicName.trim();
-        return '<div ' + protect('class="bib"') + '>[<a ' + protect('class="target" name="citation-' + symbolicName.toLowerCase() + '"') + 
+        return '<div ' + protect('class="bib"') + '>[<a ' + protect('class="target" name="citation-' + symbolicName.toLowerCase() + '"') +
             '>&nbsp;</a><b>' + symbolicName + '</b>] ' + entry + '</div>';
     });
 
@@ -2320,7 +2320,7 @@ function markdeepToHTML(str, elementMode) {
 
     // Process links before images so that captions can contain links
 
-    // Detect gravizo URLs inside of markdown images and protect them, 
+    // Detect gravizo URLs inside of markdown images and protect them,
     // which will cause them to be parsed sort-of reasonably. This is
     // a really special case needed to handle the newlines and potential
     // nested parentheses. Use the pattern from http://blog.stevenlevithan.com/archives/regex-recursion
@@ -2401,7 +2401,7 @@ function markdeepToHTML(str, elementMode) {
                     divStyle = attribMatch + ';';
                     return attrib + ':100%';
                 });
-                
+
                 // Move any width *style* specification to the box itself
                 attribs = attribs.rp(/((?:max-)?width)\s*=\s*('\S+?'|"\S+?")/g, function (attribMatch, attrib, expr) {
                     // Strip the quotes
@@ -2409,7 +2409,7 @@ function markdeepToHTML(str, elementMode) {
                     return 'style="' + attrib + ':100%" ';
                 });
             }
-            
+
             var img = formatImage(match, url, attribs);
 
             if (iso) {
@@ -2420,10 +2420,10 @@ function markdeepToHTML(str, elementMode) {
                 // Embedded: float
                 divStyle += 'float:right;margin:4px 0px 0px 25px;'
             }
-            
+
             caption = entag('div', caption + maybeShowLabel(url), protect('class="imagecaption"'));
-            return preSpaces + 
-                entag('div', (imageCaptionAbove ? caption : '') + img + (! imageCaptionAbove ? caption : ''), protect('class="image" style="' + divStyle + '"')) + 
+            return preSpaces +
+                entag('div', (imageCaptionAbove ? caption : '') + img + (! imageCaptionAbove ? caption : ''), protect('class="image" style="' + divStyle + '"')) +
                 postSpaces;
         });
     } // while replacements made
@@ -2438,7 +2438,7 @@ function markdeepToHTML(str, elementMode) {
     // EM (ITALICS): *i* _i_
     str = replaceMatched(str, /\*/, 'em', protect('class="asterisk"'));
     str = replaceMatched(str, /_/, 'em', protect('class="underscore"'));
-    
+
     // STRIKETHROUGH: ~~text~~
     str = str.rp(/\~\~([^~].*?)\~\~/g, entag('del', '$1'));
 
@@ -2446,7 +2446,7 @@ function markdeepToHTML(str, elementMode) {
     // Allow situations such as "foo"==>"bar" and foo:"bar", but not 3' 9"
     str = str.rp(/(^|[ \t->])(")(?=\w)/gm, '$1&ldquo;');
     str = str.rp(/([A-Za-z\.,:;\?!=<])(")(?=$|\W)/gm, '$1&rdquo;');
-    
+
     // ARROWS:
     str = str.rp(/(\s|^)<==(\s)/g, '$1\u21D0$2');
     str = str.rp(/(\s|^)->(\s)/g, '$1&rarr;$2');
@@ -2478,7 +2478,7 @@ function markdeepToHTML(str, elementMode) {
 
     // PAGE BREAK:
     str = str.rp(/\b\\(pagebreak|newpage)\b/gi, protect('<div style="page-break-after:always"> </div>\n'))
-    
+
     // SCHEDULE LISTS: date : title followed by indented content
     str = replaceScheduleLists(str, protect);
 
@@ -2503,14 +2503,14 @@ function markdeepToHTML(str, elementMode) {
 
     // Remove empty paragraphs (mostly avoided by the above, but some can still occur)
     str = str.rp(/<p>[\s\n]*<\/p>/gi, '');
-    
+
     // Reference links
     str = str.rp(/\[(.+?)\]\[(.*?)\]/g, function (match, text, symbolicName) {
         // Empty symbolic name is replaced by the text
         if (! symbolicName.trim()) {
             symbolicName = text;
         }
-        
+
         symbolicName = symbolicName.toLowerCase().trim();
         var t = referenceLinkTable[symbolicName];
         if (! t) {
@@ -2527,29 +2527,29 @@ function markdeepToHTML(str, elementMode) {
     str = str.rp(/\n\[\^(\S+)\]: ((?:.+?\n?)*)/g, function (match, symbolicName, note) {
         symbolicName = symbolicName.toLowerCase().trim();
         if (symbolicName in endNoteTable) {
-            return '\n<div ' + protect('class="endnote"') + '><a ' + 
-                protect('class="target" name="endnote-' + symbolicName + '"') + 
+            return '\n<div ' + protect('class="endnote"') + '><a ' +
+                protect('class="target" name="endnote-' + symbolicName + '"') +
                 '>&nbsp;</a><sup>' + endNoteTable[symbolicName] + '</sup> ' + note + '</div>';
         } else {
             return "\n";
         }
     });
-    
+
 
     // SECTION LINKS: XXX section, XXX subsection.
     // Do this by rediscovering the headers and then recursively
     // searching for links to them. Process after other
     // forms of links to avoid ambiguity.
-    
+
     var allHeaders = str.match(/<h([1-6])>(.*?)<\/h\1>/gi);
     if (allHeaders) {
         allHeaders.forEach(function (header) {
             header = removeHTMLTags(header.ss(4, header.length - 5)).trim();
             var link = '<a ' + protect('href="#' + mangle(header) + '"') + '>';
             // Search for links to this section
-            str = str.rp(RegExp("(\\b" + escapeRegExpCharacters(header) + ")(?=\\s" + keyword('subsection') + "|\\s" + 
+            str = str.rp(RegExp("(\\b" + escapeRegExpCharacters(header) + ")(?=\\s" + keyword('subsection') + "|\\s" +
                                 keyword('section') + ")", 'gi'),
-                         link + "$1</a>"); 
+                         link + "$1</a>");
         });
     }
 
@@ -2570,7 +2570,7 @@ function markdeepToHTML(str, elementMode) {
 
         // Store the reference number
         refTable[ref] = {number: count, used: false, source: type + ' [' + _ref + ']'};
-        
+
         return prefix +
                entag('a', '&nbsp;', protect('class="target" name="' + ref + '"')) + entag('b', type[0].toUpperCase() + type.ss(1) + '&nbsp;' + count + ':', protect('style="font-style:normal;"')) +
                maybeShowLabel(_ref);
@@ -2601,7 +2601,7 @@ function markdeepToHTML(str, elementMode) {
     });
 
     // URL: <http://baz> or http://baz
-    // Must be detected after [link]() processing 
+    // Must be detected after [link]() processing
     str = str.rp(/(?:<|(?!<)\b)(\w{3,6}:\/\/.+?)(?:$|>|(?=<)|(?=\s|\u00A0)(?!<))/g, function (match, url) {
         var extra = '';
         if (url[url.length - 1] == '.') {
@@ -2615,7 +2615,7 @@ function markdeepToHTML(str, elementMode) {
 
     if (! elementMode) {
         var TITLE_PATTERN = /^\s*(?:<\/p><p>)?\s*<strong.*?>([^ \t\*].*?[^ \t\*])<\/strong>(?:<\/p>)?[ \t]*\n/.source;
-        
+
         var ALL_SUBTITLES_PATTERN = /([ {4,}\t][ \t]*\S.*\n)*/.source;
 
         // Detect a bold first line and make it into a title; detect indented lines
@@ -2630,10 +2630,10 @@ function markdeepToHTML(str, elementMode) {
                 // re-process match.
                 var subtitles = match.ss(match.indexOf('\n', match.indexOf('</strong>')));
                 subtitles = subtitles ? subtitles.rp(/[ \t]*(\S.*?)\n/g, '<div class="subtitle"> $1 </div>\n') : '';
-                
+
                 // Remove all tags from the title when inside the <TITLE> tag
                 return entag('title', removeHTMLTags(title)) + maybeShowLabel(window.location.href, 'center') +
-                    '<div class="title"> ' + title + 
+                    '<div class="title"> ' + title +
                     ' </div>\n' + subtitles + '<div class="afterTitles"></div>\n';
             });
     } // if ! noTitles
@@ -2647,11 +2647,11 @@ function markdeepToHTML(str, elementMode) {
         str = temp[0];
         var toc = temp[1];
         // SECTION LINKS: Replace sec. [X], section [X], subsection [X]
-        str = str.rp(RegExp('\\b(' + keyword('sec') + '\\.|' + keyword('section') + '|' + keyword('subsection') + ')\\s\\[(.+?)\\]', 'gi'), 
+        str = str.rp(RegExp('\\b(' + keyword('sec') + '\\.|' + keyword('section') + '|' + keyword('subsection') + ')\\s\\[(.+?)\\]', 'gi'),
                     function (match, prefix, ref) {
                         var link = toc[ref.toLowerCase().trim()];
                         if (link) {
-                            return prefix + '  <a ' + protect('href="#toc' + link + '"') + '>' + link + '</a>';  
+                            return prefix + '  <a ' + protect('href="#toc' + link + '"') + '>' + link + '</a>';
                         } else {
                             return prefix + ' ?';
                         }
@@ -2754,7 +2754,7 @@ function diagramToSVG(diagramString, alignmentHint) {
     diagramString = equalizeLineLengths(diagramString);
 
     // Temporarily replace 'o' that is surrounded by other text
-    // with another character to avoid processing it as a point 
+    // with another character to avoid processing it as a point
     // decoration. This will be replaced in the final svg and is
     // faster than checking each neighborhood each time.
     var HIDE_O = '\ue004';
@@ -2811,7 +2811,7 @@ function diagramToSVG(diagramString, alignmentHint) {
     function isPoint(c)            { return POINT_CHARACTERS.indexOf(c) + 1; }
     function isDecoration(c)       { return DECORATION_CHARACTERS.indexOf(c) + 1; }
     function isEmpty(c)            { return c === ' '; }
-   
+
     ///////////////////////////////////////////////////////////////////////////////
     // Math library
 
@@ -2822,7 +2822,7 @@ function diagramToSVG(diagramString, alignmentHint) {
         if (! (this instanceof Vec2)) { return new Vec2(x, y); }
 
         if (y === undefined) {
-            if (x === undefined) { x = y = 0; } 
+            if (x === undefined) { x = y = 0; }
             else if (x instanceof Vec2) { y = x.y; x = x.x; }
             else { console.error("Vec2 requires one Vec2 or (x, y) as an argument"); }
         }
@@ -2832,7 +2832,7 @@ function diagramToSVG(diagramString, alignmentHint) {
     }
 
     /** Returns an SVG representation */
-    Vec2.prototype.toString = Vec2.prototype.toSVG = 
+    Vec2.prototype.toString = Vec2.prototype.toSVG =
         function () { return '' + (this.x * SCALE) + ',' + (this.y * SCALE * ASPECT) + ' '; };
 
     /** Converts a "rectangular" string defined by newlines into 2D
@@ -2844,7 +2844,7 @@ function diagramToSVG(diagramString, alignmentHint) {
                 if (x instanceof Vec2) { y = x.y; x = x.x; }
                 else { console.error('grid requires either a Vec2 or (x, y)'); }
             }
-            
+
             return ((x >= 0) && (x < grid.width) && (y >= 0) && (y < grid.height)) ?
                 str[y * (grid.width + 1) + x] : ' ';
         };
@@ -2872,7 +2872,7 @@ function diagramToSVG(diagramString, alignmentHint) {
                 grid._used[y * (grid.width + 1) + x] = true;
             }
         };
-        
+
         grid.isUsed = function (x, y) {
             if (y === undefined) {
                 if (x instanceof Vec2) { y = x.y; x = x.x; }
@@ -2880,29 +2880,29 @@ function diagramToSVG(diagramString, alignmentHint) {
             }
             return (this._used[y * (this.width + 1) + x] === true);
         };
-        
+
         /** Returns true if there is a solid vertical line passing through (x, y) */
         grid.isSolidVLineAt = function (x, y) {
             if (y === undefined) { y = x.x; x = x.x; }
-            
+
             var up = grid(x, y - 1);
             var c  = grid(x, y);
             var dn = grid(x, y + 1);
-            
+
             var uprt = grid(x + 1, y - 1);
             var uplt = grid(x - 1, y - 1);
-            
+
             if (isSolidVLine(c)) {
                 // Looks like a vertical line...does it continue?
                 return (isTopVertex(up)    || (up === '^') || isSolidVLine(up) || isJump(up) ||
                         isBottomVertex(dn) || (dn === 'v') || isSolidVLine(dn) || isJump(dn) ||
                         isPoint(up) || isPoint(dn) || (grid(x, y - 1) === '_') || (uplt === '_') ||
                         (uprt === '_') ||
-                        
-                        // Special case of 1-high vertical on two curved corners 
+
+                        // Special case of 1-high vertical on two curved corners
                         ((isTopVertex(uplt) || isTopVertex(uprt)) &&
                          (isBottomVertex(grid(x - 1, y + 1)) || isBottomVertex(grid(x + 1, y + 1)))));
-                
+
             } else if (isTopVertex(c) || (c === '^')) {
                 // May be the top of a vertical line
                 return isSolidVLine(dn) || (isJump(dn) && (c !== '.'));
@@ -2910,27 +2910,27 @@ function diagramToSVG(diagramString, alignmentHint) {
                 return isSolidVLine(up) || (isJump(up) && (c !== "'"));
             } else if (isPoint(c)) {
                 return isSolidVLine(up) || isSolidVLine(dn);
-            } 
-            
+            }
+
             return false;
         };
-    
-    
+
+
         /** Returns true if there is a solid middle (---) horizontal line
             passing through (x, y). Ignores underscores. */
         grid.isSolidHLineAt = function (x, y) {
             if (y === undefined) { y = x.x; x = x.x; }
-            
+
             var ltlt = grid(x - 2, y);
             var lt   = grid(x - 1, y);
             var c    = grid(x + 0, y);
             var rt   = grid(x + 1, y);
             var rtrt = grid(x + 2, y);
-            
+
             if (isSolidHLine(c) || (isSolidHLine(lt) && isJump(c))) {
                 // Looks like a horizontal line...does it continue? We need three in a row.
                 if (isSolidHLine(lt)) {
-                    return isSolidHLine(rt) || isVertexOrRightDecoration(rt) || 
+                    return isSolidHLine(rt) || isVertexOrRightDecoration(rt) ||
                         isSolidHLine(ltlt) || isVertexOrLeftDecoration(ltlt);
                 } else if (isVertexOrLeftDecoration(lt)) {
                     return isSolidHLine(rt);
@@ -2940,31 +2940,31 @@ function diagramToSVG(diagramString, alignmentHint) {
 
             } else if (c === '<') {
                 return isSolidHLine(rt) && isSolidHLine(rtrt)
-                
+
             } else if (c === '>') {
                 return isSolidHLine(lt) && isSolidHLine(ltlt);
-                
+
             } else if (isVertex(c)) {
-                return ((isSolidHLine(lt) && isSolidHLine(ltlt)) || 
+                return ((isSolidHLine(lt) && isSolidHLine(ltlt)) ||
                         (isSolidHLine(rt) && isSolidHLine(rtrt)));
             }
-            
+
             return false;
         };
-        
-        
+
+
         /** Returns true if there is a solid backslash line passing through (x, y) */
         grid.isSolidBLineAt = function (x, y) {
             if (y === undefined) { y = x.x; x = x.x; }
             var c = grid(x, y);
             var lt = grid(x - 1, y - 1);
             var rt = grid(x + 1, y + 1);
-            
+
             if (c === '\\') {
                 // Looks like a diagonal line...does it continue? We need two in a row.
                 return (isSolidBLine(rt) || isBottomVertex(rt) || isPoint(rt) || (rt === 'v') ||
                         isSolidBLine(lt) || isTopVertex(lt) || isPoint(lt) || (lt === '^') ||
-                        (grid(x, y - 1) === '/') || (grid(x, y + 1) === '/') || (rt === '_') || (lt === '_')); 
+                        (grid(x, y - 1) === '/') || (grid(x, y + 1) === '/') || (rt === '_') || (lt === '_'));
             } else if (c === '.') {
                 return (rt === '\\');
             } else if (c === "'") {
@@ -2977,23 +2977,23 @@ function diagramToSVG(diagramString, alignmentHint) {
                 return isSolidBLine(lt) || isSolidBLine(rt);
             }
         };
-        
+
 
         /** Returns true if there is a solid diagonal line passing through (x, y) */
         grid.isSolidDLineAt = function (x, y) {
             if (y === undefined) { y = x.x; x = x.x; }
-            
+
             var c = grid(x, y);
             var lt = grid(x - 1, y + 1);
             var rt = grid(x + 1, y - 1);
-            
+
             if (c === '/' && ((grid(x, y - 1) === '\\') || (grid(x, y + 1) === '\\'))) {
                 // Special case of tiny hexagon corner
                 return true;
             } else if (isSolidDLine(c)) {
                 // Looks like a diagonal line...does it continue? We need two in a row.
                 return (isSolidDLine(rt) || isTopVertex(rt) || isPoint(rt) || (rt === '^') || (rt === '_') ||
-                        isSolidDLine(lt) || isBottomVertex(lt) || isPoint(lt) || (lt === 'v') || (lt === '_')); 
+                        isSolidDLine(lt) || isBottomVertex(lt) || isPoint(lt) || (lt === 'v') || (lt === '_'));
             } else if (c === '.') {
                 return (lt === '/');
             } else if (c === "'") {
@@ -3007,13 +3007,13 @@ function diagramToSVG(diagramString, alignmentHint) {
             }
             return false;
         };
-        
+
         grid.toString = function () { return str; };
-        
+
         return Object.freeze(grid);
     }
-    
-    
+
+
     /** A 1D curve. If C is specified, the result is a bezier with
         that as the tangent control point */
     function Path(A, B, C, D, dashed) {
@@ -3139,20 +3139,20 @@ function diagramToSVG(diagramString, alignmentHint) {
 
     _.verticalPassesThrough = function (x, y) {
         if (y === undefined) { y = x.y; x = x.x; }
-        return this.isVertical() && 
-            (this.A.x === x) && 
+        return this.isVertical() &&
+            (this.A.x === x) &&
             (min(this.A.y, this.B.y) <= y) &&
             (max(this.A.y, this.B.y) >= y);
     }
 
     _.horizontalPassesThrough = function (x, y) {
         if (y === undefined) { y = x.y; x = x.x; }
-        return this.isHorizontal() && 
-            (this.A.y === y) && 
+        return this.isHorizontal() &&
+            (this.A.y === y) &&
             (min(this.A.x, this.B.x) <= x) &&
             (max(this.A.x, this.B.x) >= x);
     }
-    
+
     /** Returns a string suitable for inclusion in an SVG tag */
     _.toSVG = function () {
         var svg = '<path d="M ' + this.A;
@@ -3184,7 +3184,7 @@ function diagramToSVG(diagramString, alignmentHint) {
         this._pathArray.push(path);
     };
 
-    /** Returns a new method that returns true if method(x, y) 
+    /** Returns a new method that returns true if method(x, y)
         returns true on any element of _pathAray */
     function makeFilterAny(method) {
         return function(x, y) {
@@ -3225,7 +3225,7 @@ function diagramToSVG(diagramString, alignmentHint) {
 
     var DS = DecorationSet.prototype;
 
-    /** insert(x, y, type, <angle>)  
+    /** insert(x, y, type, <angle>)
         insert(vec, type, <angle>)
 
         angle is the angle in degrees to rotate the result */
@@ -3233,7 +3233,7 @@ function diagramToSVG(diagramString, alignmentHint) {
         if (type === undefined) { type = y; y = x.y; x = x.x; }
 
         if (! isDecoration(type)) {
-            console.error('Illegal decoration character: ' + type); 
+            console.error('Illegal decoration character: ' + type);
         }
         var d = {C: Vec2(x, y), type: type, angle:angle || 0};
 
@@ -3253,7 +3253,7 @@ function diagramToSVG(diagramString, alignmentHint) {
         for (var i = 0; i < this._decorationArray.length; ++i) {
             var decoration = this._decorationArray[i];
             var C = decoration.C;
-            
+
             if (isJump(decoration.type)) {
                 // Slide jumps
                 var dx = (decoration.type === ')') ? +0.75 : -0.75;
@@ -3269,7 +3269,7 @@ function diagramToSVG(diagramString, alignmentHint) {
                 svg += '<circle cx="' + (C.x * SCALE) + '" cy="' + (C.y * SCALE * ASPECT) +
                        '" r="' + (SCALE - STROKE_WIDTH) + '" class="' + ((decoration.type === '*') ? 'closed' : 'open') + 'dot"/>';
             } else if (isGray(decoration.type)) {
-                
+
                 var shade = Math.round((3 - GRAY_CHARACTERS.indexOf(decoration.type)) * 63.75);
                 svg += '<rect x="' + ((C.x - 0.5) * SCALE) + '" y="' + ((C.y - 0.5) * SCALE * ASPECT) + '" width="' + SCALE + '" height="' + (SCALE * ASPECT) + '" stroke=none fill="rgb(' + shade + ',' + shade + ',' + shade +')"/>';
 
@@ -3287,7 +3287,7 @@ function diagramToSVG(diagramString, alignmentHint) {
                 var tip = Vec2(C.x + 1, C.y);
                 var up =  Vec2(C.x - 0.5, C.y - 0.35);
                 var dn =  Vec2(C.x - 0.5, C.y + 0.35);
-                svg += '<polygon points="' + tip + up + dn + 
+                svg += '<polygon points="' + tip + up + dn +
                     '"  style="stroke:none" transform="rotate(' + decoration.angle + ',' + C + ')"/>\n';
             }
         }
@@ -3320,12 +3320,12 @@ function diagramToSVG(diagramString, alignmentHint) {
                     var A = Vec2(x, y);
                     do  { grid.setUsed(x, y); ++y; } while (grid.isSolidVLineAt(x, y));
                     var B = Vec2(x, y - 1);
-                    
+
                     var up = grid(A);
                     var upup = grid(A.x, A.y - 1);
 
                     if (! isVertex(up) && ((upup === '-') || (upup === '_') || (grid(A.x - 1, A.y - 1) === '_') ||
-                                           (grid(A.x + 1, A.y - 1) === '_') || 
+                                           (grid(A.x + 1, A.y - 1) === '_') ||
                                            isBottomVertex(upup)) || isJump(upup)) {
                         // Stretch up to almost reach the line above (if there is a decoration,
                         // it will finish the gap)
@@ -3346,11 +3346,11 @@ function diagramToSVG(diagramString, alignmentHint) {
                     }
 
                     // Continue the search from the end value y+1
-                } 
+                }
 
                 // Some very special patterns for the short lines needed on
                 // circuit diagrams. Only invoke these if not also on a curve
-                //      _  _    
+                //      _  _
                 //    -'    '-
                 else if ((grid(x, y) === "'") &&
                     (((grid(x - 1, y) === '-') && (grid(x + 1, y - 1) === '_') &&
@@ -3360,9 +3360,9 @@ function diagramToSVG(diagramString, alignmentHint) {
                     pathSet.insert(new Path(Vec2(x, y - 0.5), Vec2(x, y)));
                 }
 
-                //    _.-  -._ 
+                //    _.-  -._
                 else if ((grid(x, y) === '.') &&
-                         (((grid(x - 1, y) === '_') && (grid(x + 1, y) === '-') && 
+                         (((grid(x - 1, y) === '_') && (grid(x + 1, y) === '-') &&
                            ! isSolidVLineOrJumpOrPoint(grid(x + 1, y + 1))) ||
                           ((grid(x - 1, y) === '-') && (grid(x + 1, y) === '_') &&
                            ! isSolidVLineOrJumpOrPoint(grid(x - 1, y + 1))))) {
@@ -3371,8 +3371,8 @@ function diagramToSVG(diagramString, alignmentHint) {
 
             } // y
         } // x
-        
-        // Find all solid horizontal lines 
+
+        // Find all solid horizontal lines
         for (var y = 0; y < grid.height; ++y) {
             for (var x = 0; x < grid.width; ++x) {
                 if (grid.isSolidHLineAt(x, y)) {
@@ -3382,13 +3382,13 @@ function diagramToSVG(diagramString, alignmentHint) {
                     var B = Vec2(x - 1, y);
 
                     // Detect curves and shorten the edge
-                    if ( ! isVertex(grid(A.x - 1, A.y)) && 
+                    if ( ! isVertex(grid(A.x - 1, A.y)) &&
                          ((isTopVertex(grid(A)) && isSolidVLineOrJumpOrPoint(grid(A.x - 1, A.y + 1))) ||
                           (isBottomVertex(grid(A)) && isSolidVLineOrJumpOrPoint(grid(A.x - 1, A.y - 1))))) {
                         ++A.x;
                     }
 
-                    if ( ! isVertex(grid(B.x + 1, B.y)) && 
+                    if ( ! isVertex(grid(B.x + 1, B.y)) &&
                          ((isTopVertex(grid(B)) && isSolidVLineOrJumpOrPoint(grid(B.x + 1, B.y + 1))) ||
                           (isBottomVertex(grid(B)) && isSolidVLineOrJumpOrPoint(grid(B.x + 1, B.y - 1))))) {
                         --B.x;
@@ -3415,14 +3415,14 @@ function diagramToSVG(diagramString, alignmentHint) {
                     // Ensure that the entire line wasn't just vertices
                     if (lineContains(A, B, '\\')) {
                         for (var j = A.x; j <= B.x; ++j) {
-                            grid.setUsed(j, A.y + (j - A.x)); 
+                            grid.setUsed(j, A.y + (j - A.x));
                         }
 
                         var top = grid(A);
                         var up = grid(A.x, A.y - 1);
                         var uplt = grid(A.x - 1, A.y - 1);
-                        if ((up === '/') || (uplt === '_') || (up === '_') || 
-                            (! isVertex(top)  && 
+                        if ((up === '/') || (uplt === '_') || (up === '_') ||
+                            (! isVertex(top)  &&
                              (isSolidHLine(uplt) || isSolidVLine(uplt)))) {
                             // Continue half a cell more to connect for:
                             //  ___   ___
@@ -3437,18 +3437,18 @@ function diagramToSVG(diagramString, alignmentHint) {
                             //    \
                             A.x -= 0.25; A.y -= 0.25;
                         }
-                        
+
                         var bottom = grid(B);
                         var dnrt = grid(B.x + 1, B.y + 1);
-                        if ((grid(B.x, B.y + 1) === '/') || (grid(B.x + 1, B.y) === '_') || 
-                            (grid(B.x - 1, B.y) === '_') || 
+                        if ((grid(B.x, B.y + 1) === '/') || (grid(B.x + 1, B.y) === '_') ||
+                            (grid(B.x - 1, B.y) === '_') ||
                             (! isVertex(grid(B)) &&
                              (isSolidHLine(dnrt) || isSolidVLine(dnrt)))) {
                             // Continue half a cell more to connect for:
                             //                       \      \ |
                             //  \       \     \       v      v|
                             //   \__   __\    /      ----     |
-                            
+
                             B.x += 0.5; B.y += 0.5;
                         } else if (isPoint(dnrt)) {
                             // Continue 1/4 cell more to connect for:
@@ -3456,10 +3456,10 @@ function diagramToSVG(diagramString, alignmentHint) {
                             //    \
                             //     v
                             //      o
-                            
+
                             B.x += 0.25; B.y += 0.25;
                         }
-                        
+
                         pathSet.insert(new Path(A, B));
                         // Continue the search from the end x+1,y+1
                     } // lineContains
@@ -3480,33 +3480,33 @@ function diagramToSVG(diagramString, alignmentHint) {
                     if (lineContains(A, B, '/')) {
                         // This is definitely a line. Commit the characters on it
                         for (var j = A.x; j <= B.x; ++j) {
-                            grid.setUsed(j, A.y - (j - A.x)); 
+                            grid.setUsed(j, A.y - (j - A.x));
                         }
 
                         var up = grid(B.x, B.y - 1);
                         var uprt = grid(B.x + 1, B.y - 1);
                         var bottom = grid(B);
-                        if ((up === '\\') || (up === '_') || (uprt === '_') || 
+                        if ((up === '\\') || (up === '_') || (uprt === '_') ||
                             (! isVertex(grid(B)) &&
                              (isSolidHLine(uprt) || isSolidVLine(uprt)))) {
-                            
+
                             // Continue half a cell more to connect at:
                             //     __   __  ---     |
                             //    /      /   ^     ^|
                             //   /      /   /     / |
-                            
+
                             B.x += 0.5; B.y -= 0.5;
                         } else if (isPoint(uprt)) {
-                            
+
                             // Continue 1/4 cell more to connect at:
                             //
                             //       o
                             //      ^
                             //     /
-                            
+
                             B.x += 0.25; B.y -= 0.25;
                         }
-                        
+
                         var dnlt = grid(A.x - 1, A.y + 1);
                         var top = grid(A);
                         if ((grid(A.x, A.y + 1) === '\\') || (grid(A.x - 1, A.y) === '_') || (grid(A.x + 1, A.y) === '_') ||
@@ -3516,17 +3516,17 @@ function diagramToSVG(diagramString, alignmentHint) {
                             // Continue half a cell more to connect at:
                             //               /     \ |
                             //    /  /      v       v|
-                            // __/  /__   ----       | 
-                            
+                            // __/  /__   ----       |
+
                             A.x -= 0.5; A.y += 0.5;
                         } else if (isPoint(dnlt)) {
-                            
+
                             // Continue 1/4 cell more to connect at:
                             //
                             //       /
                             //      v
                             //     o
-                            
+
                             A.x -= 0.25; A.y += 0.25;
                         }
                         pathSet.insert(new Path(A, B));
@@ -3536,8 +3536,8 @@ function diagramToSVG(diagramString, alignmentHint) {
                 }
             }
         } // y
-        
-        
+
+
         // Now look for curved corners. The syntax constraints require
         // that these can always be identified by looking at three
         // horizontally-adjacent characters.
@@ -3552,7 +3552,7 @@ function diagramToSVG(diagramString, alignmentHint) {
                     //   |
                     if (isSolidHLine(grid(x - 1, y)) && isSolidVLine(grid(x + 1, y + 1))) {
                         grid.setUsed(x - 1, y); grid.setUsed(x, y); grid.setUsed(x + 1, y + 1);
-                        pathSet.insert(new Path(Vec2(x - 1, y), Vec2(x + 1, y + 1), 
+                        pathSet.insert(new Path(Vec2(x - 1, y), Vec2(x + 1, y + 1),
                                                 Vec2(x + 1.1, y), Vec2(x + 1, y + 1)));
                     }
 
@@ -3560,37 +3560,37 @@ function diagramToSVG(diagramString, alignmentHint) {
                     // |
                     if (isSolidHLine(grid(x + 1, y)) && isSolidVLine(grid(x - 1, y + 1))) {
                         grid.setUsed(x - 1, y + 1); grid.setUsed(x, y); grid.setUsed(x + 1, y);
-                        pathSet.insert(new Path(Vec2(x + 1, y), Vec2(x - 1, y + 1), 
+                        pathSet.insert(new Path(Vec2(x + 1, y), Vec2(x - 1, y + 1),
                                                 Vec2(x - 1.1, y), Vec2(x - 1, y + 1)));
                     }
                 }
-                
+
                 // Special case patterns:
-                //   .  .   .  .    
+                //   .  .   .  .
                 //  (  o     )  o
                 //   '  .   '  '
                 if (((c === ')') || isPoint(c)) && (grid(x - 1, y - 1) === '.') && (grid(x - 1, y + 1) === "\'")) {
                     grid.setUsed(x, y); grid.setUsed(x - 1, y - 1); grid.setUsed(x - 1, y + 1);
-                    pathSet.insert(new Path(Vec2(x - 2, y - 1), Vec2(x - 2, y + 1), 
+                    pathSet.insert(new Path(Vec2(x - 2, y - 1), Vec2(x - 2, y + 1),
                                             Vec2(x + 0.6, y - 1), Vec2(x + 0.6, y + 1)));
                 }
 
                 if (((c === '(') || isPoint(c)) && (grid(x + 1, y - 1) === '.') && (grid(x + 1, y + 1) === "\'")) {
                     grid.setUsed(x, y); grid.setUsed(x + 1, y - 1); grid.setUsed(x + 1, y + 1);
-                    pathSet.insert(new Path(Vec2(x + 2, y - 1), Vec2(x + 2, y + 1), 
+                    pathSet.insert(new Path(Vec2(x + 2, y - 1), Vec2(x + 2, y + 1),
                                             Vec2(x - 0.6, y - 1), Vec2(x - 0.6, y + 1)));
                 }
 
                 if (isBottomVertex(c)) {
                     //   |
-                    // -' 
+                    // -'
                     if (isSolidHLine(grid(x - 1, y)) && isSolidVLine(grid(x + 1, y - 1))) {
                         grid.setUsed(x - 1, y); grid.setUsed(x, y); grid.setUsed(x + 1, y - 1);
-                        pathSet.insert(new Path(Vec2(x - 1, y), Vec2(x + 1, y - 1), 
+                        pathSet.insert(new Path(Vec2(x - 1, y), Vec2(x + 1, y - 1),
                                                 Vec2(x + 1.1, y), Vec2(x + 1, y - 1)));
                     }
 
-                    // | 
+                    // |
                     //  '-
                     if (isSolidHLine(grid(x + 1, y)) && isSolidVLine(grid(x - 1, y - 1))) {
                         grid.setUsed(x - 1, y - 1); grid.setUsed(x, y); grid.setUsed(x + 1, y);
@@ -3598,7 +3598,7 @@ function diagramToSVG(diagramString, alignmentHint) {
                                                 Vec2(x - 1.1, y), Vec2(x - 1, y - 1)));
                     }
                 }
-               
+
             } // for x
         } // for y
 
@@ -3607,7 +3607,7 @@ function diagramToSVG(diagramString, alignmentHint) {
         // them directly here without a helper function. Process these
         // from top to bottom and left to right so that we can read
         // them in a single sweep.
-        // 
+        //
         // Exclude the special case of double underscores going right
         // into an ASCII character, which could be a source code
         // identifier such as __FILE__ embedded in the diagram.
@@ -3615,8 +3615,8 @@ function diagramToSVG(diagramString, alignmentHint) {
             for (var x = 0; x < grid.width - 2; ++x) {
                 var lt = grid(x - 1, y);
 
-                if ((grid(x, y) === '_') && (grid(x + 1, y) === '_') && 
-                    (! isASCIILetter(grid(x + 2, y)) || (lt === '_')) && 
+                if ((grid(x, y) === '_') && (grid(x + 1, y) === '_') &&
+                    (! isASCIILetter(grid(x + 2, y)) || (lt === '_')) &&
                     (! isASCIILetter(lt) || (grid(x + 2, y) === '_'))) {
 
                     var ltlt = grid(x - 2, y);
@@ -3629,7 +3629,7 @@ function diagramToSVG(diagramString, alignmentHint) {
 
                         // Very special case of overrunning into the side of a curve,
                         // needed for logic gate diagrams
-                        if ((lt === '.') && 
+                        if ((lt === '.') &&
                             ((ltlt === '-') ||
                              (ltlt === '.')) &&
                             (grid(x - 2, y + 1) === '(')) {
@@ -3659,7 +3659,7 @@ function diagramToSVG(diagramString, alignmentHint) {
 
                         // Very special case of overrunning into the side of a curve,
                         // needed for logic gate diagrams
-                        if ((c === '.') && 
+                        if ((c === '.') &&
                             ((rt === '-') || (rt === '.')) &&
                             (grid(x + 1, y + 1) === ')')) {
                             B.x += 0.5;
@@ -3683,7 +3683,7 @@ function diagramToSVG(diagramString, alignmentHint) {
     function findDecorations(grid, pathSet, decorationSet) {
         function isEmptyOrVertex(c) { return (c === ' ') || /[^a-zA-Z0-9]|[ov]/.test(c); }
         function isLetter(c) { var x = c.toUpperCase().charCodeAt(0); return (x > 64) && (x < 91); }
-                    
+
         /** Is the point in the center of these values on a line? Allow points that are vertically
             adjacent but not horizontally--they wouldn't fit anyway, and might be text. */
         function onLine(up, dn, lt, rt) {
@@ -3720,9 +3720,9 @@ function diagramToSVG(diagramString, alignmentHint) {
                         pathSet.downEndsAt(x, y - 1) ||
                         pathSet.upEndsAt(x, y + 1) ||
 
-                        pathSet.upEndsAt(x, y) ||    // For points on vertical lines 
+                        pathSet.upEndsAt(x, y) ||    // For points on vertical lines
                         pathSet.downEndsAt(x, y) ||  // that are surrounded by other characters
-                        
+
                         onLine(up, dn, lt, rt)) {
 
                         decorationSet.insert(x, y, c);
@@ -3740,7 +3740,7 @@ function diagramToSVG(diagramString, alignmentHint) {
                     // arrow head and not a stray character by looking
                     // for a connecting line.
                     var dx = 0;
-                    if ((c === '>') && (pathSet.rightEndsAt(x, y) || 
+                    if ((c === '>') && (pathSet.rightEndsAt(x, y) ||
                                         pathSet.horizontalPassesThrough(x, y))) {
                         if (isPoint(grid(x + 1, y))) {
                             // Back up if connecting to a point so as to not
@@ -3756,13 +3756,13 @@ function diagramToSVG(diagramString, alignmentHint) {
                             // overlap it
                             dx = 0.5;
                         }
-                        decorationSet.insert(x + dx, y, '>', 180); 
+                        decorationSet.insert(x + dx, y, '>', 180);
                         grid.setUsed(x, y);
                     } else if (c === '^') {
                         // Because of the aspect ratio, we need to look
                         // in two slots for the end of the previous line
                         if (pathSet.upEndsAt(x, y - 0.5)) {
-                            decorationSet.insert(x, y - 0.5, '>', 270); 
+                            decorationSet.insert(x, y - 0.5, '>', 270);
                             grid.setUsed(x, y);
                         } else if (pathSet.upEndsAt(x, y)) {
                             decorationSet.insert(x, y, '>', 270);
@@ -3787,12 +3787,12 @@ function diagramToSVG(diagramString, alignmentHint) {
                             grid.setUsed(x, y);
                         } else if (pathSet.verticalPassesThrough(x, y)) {
                             // Only try this if all others failed
-                            decorationSet.insert(x, y - 0.5, '>', 270); 
+                            decorationSet.insert(x, y - 0.5, '>', 270);
                             grid.setUsed(x, y);
                         }
                     } else if (c === 'v') {
                         if (pathSet.downEndsAt(x, y + 0.5)) {
-                            decorationSet.insert(x, y + 0.5, '>', 90); 
+                            decorationSet.insert(x, y + 0.5, '>', 90);
                             grid.setUsed(x, y);
                         } else if (pathSet.downEndsAt(x, y)) {
                             decorationSet.insert(x, y, '>', 90);
@@ -3817,7 +3817,7 @@ function diagramToSVG(diagramString, alignmentHint) {
                             grid.setUsed(x, y);
                         } else if (pathSet.verticalPassesThrough(x, y)) {
                             // Only try this if all others failed
-                            decorationSet.insert(x, y + 0.5, '>', 90); 
+                            decorationSet.insert(x, y + 0.5, '>', 90);
                             grid.setUsed(x, y);
                         }
                     } // arrow heads
@@ -3834,7 +3834,7 @@ function diagramToSVG(diagramString, alignmentHint) {
     findPaths(grid, pathSet);
     findDecorations(grid, pathSet, decorationSet);
 
-    var svg = '<svg class="diagram" xmlns="http://www.w3.org/2000/svg" version="1.1" height="' + 
+    var svg = '<svg class="diagram" xmlns="http://www.w3.org/2000/svg" version="1.1" height="' +
         ((grid.height + 1) * SCALE * ASPECT) + '" width="' + ((grid.width + 1) * SCALE) + '"';
 
     if (alignmentHint === 'floatleft') {
@@ -3864,7 +3864,7 @@ function diagramToSVG(diagramString, alignmentHint) {
         }
         svg += '</g>\n';
     }
-    
+
     svg += pathSet.toSVG();
     svg += decorationSet.toSVG();
 
@@ -3913,16 +3913,16 @@ var HIGHLIGHT_STYLESHEET =
         "<style>.hljs{display:block;overflow-x:auto;padding:0.5em;background:#fff;color:#000;-webkit-text-size-adjust:none}"+
         ".hljs-comment{color:#006a00}" +
         ".hljs-keyword{color:#02E}" +
-        ".hljs-literal,.nginx .hljs-title{color:#aa0d91}" + 
-        ".method,.hljs-list .hljs-title,.hljs-tag .hljs-title,.setting .hljs-value,.hljs-winutils,.tex .hljs-command,.http .hljs-title,.hljs-request,.hljs-status,.hljs-name{color:#008}" + 
-        ".hljs-envvar,.tex .hljs-special{color:#660}" + 
+        ".hljs-literal,.nginx .hljs-title{color:#aa0d91}" +
+        ".method,.hljs-list .hljs-title,.hljs-tag .hljs-title,.setting .hljs-value,.hljs-winutils,.tex .hljs-command,.http .hljs-title,.hljs-request,.hljs-status,.hljs-name{color:#008}" +
+        ".hljs-envvar,.tex .hljs-special{color:#660}" +
         ".hljs-string{color:#c41a16}" +
-        ".hljs-tag .hljs-value,.hljs-cdata,.hljs-filter .hljs-argument,.hljs-attr_selector,.apache .hljs-cbracket,.hljs-date,.hljs-regexp{color:#080}" + 
+        ".hljs-tag .hljs-value,.hljs-cdata,.hljs-filter .hljs-argument,.hljs-attr_selector,.apache .hljs-cbracket,.hljs-date,.hljs-regexp{color:#080}" +
         ".hljs-sub .hljs-identifier,.hljs-pi,.hljs-tag,.hljs-tag .hljs-keyword,.hljs-decorator,.ini .hljs-title,.hljs-shebang,.hljs-prompt,.hljs-hexcolor,.hljs-rule .hljs-value,.hljs-symbol,.hljs-symbol .hljs-string,.hljs-number,.css .hljs-function,.hljs-function .hljs-title,.coffeescript .hljs-attribute{color:#A0C}" +
-        ".hljs-function .hljs-title{font-weight:bold;color:#000}" + 
+        ".hljs-function .hljs-title{font-weight:bold;color:#000}" +
         ".hljs-class .hljs-title,.smalltalk .hljs-class,.hljs-type,.hljs-typename,.hljs-tag .hljs-attribute,.hljs-doctype,.hljs-class .hljs-id,.hljs-built_in,.setting,.hljs-params,.clojure .hljs-attribute{color:#5c2699}" +
         ".hljs-variable{color:#3f6e74}" +
-        ".css .hljs-tag,.hljs-rule .hljs-property,.hljs-pseudo,.hljs-subst{color:#000}" + 
+        ".css .hljs-tag,.hljs-rule .hljs-property,.hljs-pseudo,.hljs-subst{color:#000}" +
         ".css .hljs-class,.css .hljs-id{color:#9b703f}" +
         ".hljs-value .hljs-important{color:#ff7700;font-weight:bold}" +
         ".hljs-rule .hljs-keyword{color:#c5af75}" +
@@ -3948,7 +3948,7 @@ if (! window.alreadyProcessedMarkdeep) {
     var noformat = (window.location.href.search(/\?.*noformat.*/i) !== -1);
 
     // Export relevant methods
-    window.markdeep = Object.freeze({ 
+    window.markdeep = Object.freeze({
         format:               markdeepToHTML,
         formatDiagram:        diagramToSVG,
         stylesheet:           function() {
@@ -3974,10 +3974,10 @@ if (! window.alreadyProcessedMarkdeep) {
     function needsMathJax(html) {
         // Need MathJax if $$ ... $$, \( ... \), or \begin{
         return option('detectMath') &&
-            ((html.search(/(?:\$\$[\s\S]+\$\$)|(?:\\begin{)/m) !== -1) || 
+            ((html.search(/(?:\$\$[\s\S]+\$\$)|(?:\\begin{)/m) !== -1) ||
              (html.search(/\\\(.*\\\)/) !== -1));
     }
-    
+
     var mode = option('mode');
     switch (mode) {
     case 'script':
@@ -3990,16 +3990,16 @@ if (! window.alreadyProcessedMarkdeep) {
             function (element) {
                 var src = unescapeHTMLEntities(element.innerHTML);
                 // Remove the first and last string (which probably
-                // had the pre or diagram tag as part of them) if they are 
+                // had the pre or diagram tag as part of them) if they are
                 // empty except for whitespace.
                 src = src.rp(/(:?^[ \t]*\n)|(:?\n[ \t]*)$/g, '');
 
                 if (mode === 'doxygen') {
-                    // Undo Doxygen's &ndash and &mdash, which are impossible to 
+                    // Undo Doxygen's &ndash and &mdash, which are impossible to
                     // detect once the browser has parsed the document
                     src = src.rp(new RegExp('\u2013', 'g'), '--');
                     src = src.rp(new RegExp('\u2014', 'g'), '---');
-                    
+
                     // Undo Doxygen's links within the diagram because they throw off spacing
                     src = src.rp(/<a class="el" .*>(.*)<\/a>/g, '$1');
                 }
@@ -4021,14 +4021,14 @@ if (! window.alreadyProcessedMarkdeep) {
         loadMathJax();
         return;
     }
-    
+
     // The following is Morgan's massive hack for allowing browsers to
     // directly parse Markdown from what appears to be a text file, but is
     // actually an intentionally malformed HTML file.
-    
+
     // In order to be able to show what source files look like, the
     // noformat argument may be supplied.
-    
+
     if (! noformat) {
         // Remove any recursive references to this script so that we don't trigger the cost of
         // recursive *loading*. (The alreadyProcessedMarkdeep variable will prevent recursive
@@ -4038,17 +4038,17 @@ if (! window.alreadyProcessedMarkdeep) {
                 node.parentNode.removeChild(node);
             }
         });
-        
+
         // Hide the body while formatting
         document.body.style.visibility = 'hidden';
     }
-      
+
     var source = nodeToMarkdeepSource(document.body);
 
-    if (noformat) { 
-        // Abort processing. 
+    if (noformat) {
+        // Abort processing.
         source = source.rp(/<!-- Markdeep:.+$/gm, '') + MARKDEEP_LINE;
-    
+
         // Escape the <> (not ampersand) that we just added
         source = source.rp(/</g, '&lt;').rp(/>/g, '&gt;');
 
@@ -4070,15 +4070,15 @@ if (! window.alreadyProcessedMarkdeep) {
         source = unescapeHTMLEntities(source);
         var markdeepHTML = markdeepToHTML(source, false);
 
-        // console.log(markdeepHTML); // Final processed source 
+        // console.log(markdeepHTML); // Final processed source
 
         var needMathJax = needsMathJax(markdeepHTML);
         if (needMathJax) {
-            markdeepHTML = MATHJAX_CONFIG + markdeepHTML; 
+            markdeepHTML = MATHJAX_CONFIG + markdeepHTML;
         }
-        
+
         markdeepHTML += MARKDEEP_FOOTER;
-        
+
         // Replace the document. If using MathJax, include the custom Markdeep definitions
         var longDocument = source.length > 1000;
         var head = BODY_STYLESHEET + STYLESHEET + sectionNumberingStylesheet() + HIGHLIGHT_STYLESHEET;
@@ -4098,7 +4098,7 @@ if (! window.alreadyProcessedMarkdeep) {
         } else {
             document.head.innerHTML = '<meta charset="UTF-8"><meta http-equiv="content-type" content="text/html;charset=UTF-8">' + head + document.head.innerHTML;
             document.body.innerHTML = markdeepHTML;
-            if (needMathJax) { loadMathJax(); }            
+            if (needMathJax) { loadMathJax(); }
         }
 
         document.body.style.visibility = 'visible';
@@ -4136,20 +4136,20 @@ if (! window.alreadyProcessedMarkdeep) {
             childID = a;
             return '';
         });
-        
+
         if (childID) {
             // This message event was for the Markdeep/include.js system
-            
+
             //console.log(location.href + ' received a message from child ' + childID);
-            
+
             // Replace the corresponding node's contents
             var childFrame = document.getElementById(childID);
             childFrame.outerHTML = '\n' + childBody + '\n';
-            
+
             --numIncludeChildrenLeft;
 
             // console.log(window.location.pathname, 'numIncludeChildrenLeft = ' + numIncludeChildrenLeft);
-            
+
             if (numIncludeChildrenLeft <= 0) {
                 if (IAmAChild) {
                     //console.log("Intermediate node " + location.pathname + " sending to parent");
@@ -4173,11 +4173,11 @@ if (! window.alreadyProcessedMarkdeep) {
 
         ++numIncludeChildrenLeft;
         // console.log(window.location.pathname, 'numIncludeChildrenLeft = ' + numIncludeChildrenLeft);
-        
+
         // Replace this tag with a frame that loads the document.  Once loaded, it will
         // send a message with its contents for use as a replacement.
         var childID = 'inc' + (++includeCounter);
-        return '<iframe src="' + src + '?id=' + childID + '&p=' + encodeURIComponent(myBase) + 
+        return '<iframe src="' + src + '?id=' + childID + '&p=' + encodeURIComponent(myBase) +
             '"id="' + childID + '"style="' + childFrameStyle + '" content="text/html;charset=UTF-8"></iframe>';
     });
 

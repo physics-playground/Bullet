@@ -61,7 +61,7 @@ SET(BulletRobotics_INCLUDES
   ../../examples/Utils/b3ResourcePath.h
   ../../examples/Utils/ChromeTraceUtil.h
   ../../examples/Utils/b3ERPCFMHelper.hpp
-  ../../examples/Utils/b3ReferenceFrameHelper.hpp  
+  ../../examples/Utils/b3ReferenceFrameHelper.hpp
 
   ../../examples/ThirdPartyLibs/tinyxml2/tinyxml2.h
   ../../examples/ThirdPartyLibs/Wavefront/tiny_obj_loader.h
@@ -90,7 +90,7 @@ SET(BulletRobotics_INCLUDES
   ../../examples/Importers/ImportURDFDemo/UrdfRenderingInterface.h
   ../../examples/Importers/ImportURDFDemo/MultiBodyCreationInterface.h
   ../../examples/Importers/ImportMeshUtility/b3ImportMeshUtility.h
-  
+
   ../../examples/MultiThreading/b3PosixThreadSupport.h
   ../../examples/MultiThreading/b3Win32ThreadSupport.h
   ../../examples/MultiThreading/b3ThreadSupportInterface.h
@@ -111,7 +111,7 @@ SET(BulletRobotics_SRCS ${BulletRobotics_INCLUDES}
 	../../examples/SharedMemory/plugins/stablePDPlugin/KinTree.h
 	../../examples/SharedMemory/plugins/stablePDPlugin/BulletConversion.cpp
 	../../examples/SharedMemory/plugins/stablePDPlugin/BulletConversion.h
-	
+
 	../../examples/OpenGLWindow/SimpleCamera.cpp
 
 	../../examples/TinyRenderer/geometry.cpp
@@ -169,7 +169,7 @@ SET(BulletRobotics_SRCS ${BulletRobotics_INCLUDES}
 	../../examples/Importers/ImportURDFDemo/URDF2Bullet.cpp
 	../../examples/Importers/ImportURDFDemo/UrdfParser.cpp
 	../../examples/Importers/ImportURDFDemo/urdfStringSplit.cpp
-	../../examples/Importers/ImportMeshUtility/b3ImportMeshUtility.cpp 
+	../../examples/Importers/ImportMeshUtility/b3ImportMeshUtility.cpp
 
 	../../examples/MultiThreading/b3PosixThreadSupport.cpp
 	../../examples/MultiThreading/b3Win32ThreadSupport.cpp
@@ -181,16 +181,16 @@ SET(BulletRobotics_SRCS ${BulletRobotics_INCLUDES}
 IF(ENABLE_VHACD)
 ADD_DEFINITIONS(-DBT_ENABLE_VHACD)
 SET(BulletRobotics_SRCS ${BulletRobotics_SRCS}
-  ../../Extras/VHACD/test/src/main_vhacd.cpp
-  ../../Extras/VHACD/src/VHACD.cpp
-  ../../Extras/VHACD/src/vhacdICHull.cpp
-  ../../Extras/VHACD/src/vhacdManifoldMesh.cpp
-  ../../Extras/VHACD/src/vhacdMesh.cpp
-  ../../Extras/VHACD/src/vhacdVolume.cpp
+  ../../extras/VHACD/test/src/main_vhacd.cpp
+  ../../extras/VHACD/src/VHACD.cpp
+  ../../extras/VHACD/src/vhacdICHull.cpp
+  ../../extras/VHACD/src/vhacdManifoldMesh.cpp
+  ../../extras/VHACD/src/vhacdMesh.cpp
+  ../../extras/VHACD/src/vhacdVolume.cpp
 )
-INCLUDE_DIRECTORIES( 
-  ../../Extras/VHACD/inc
-  ../../Extras/VHACD/public
+INCLUDE_DIRECTORIES(
+  ../../extras/VHACD/inc
+  ../../extras/VHACD/public
 )
 ENDIF(ENABLE_VHACD)
 
@@ -211,10 +211,10 @@ ELSE(WIN32)
 		ADD_DEFINITIONS(-DHAS_SOCKLEN_T -DBT_ENABLE_ENET)
 	ENDIF(BUILD_ENET)
 
-	IF(BUILD_CLSOCKET)	
+	IF(BUILD_CLSOCKET)
 		ADD_DEFINITIONS(${OSDEF})
 	ENDIF(BUILD_CLSOCKET)
-		
+
 	IF(NOT APPLE)
 		FIND_PACKAGE(Threads)
 		LINK_LIBRARIES( ${CMAKE_THREAD_LIBS_INIT} ${DL} )
@@ -222,8 +222,8 @@ ELSE(WIN32)
 ENDIF(WIN32)
 
 IF(BUILD_ENET)
-  set(BulletRobotics_ENET_INCLUDES 
-    ../../examples/SharedMemory/PhysicsClientUDP.h		
+  set(BulletRobotics_ENET_INCLUDES
+    ../../examples/SharedMemory/PhysicsClientUDP.h
     ../../examples/SharedMemory/PhysicsClientUDP_C_API.h
     ../../examples/ThirdPartyLibs/enet/include/enet/win32.h
 		../../examples/ThirdPartyLibs/enet/include/enet/unix.h
@@ -285,7 +285,7 @@ IF (BUILD_SHARED_LIBS)
 	TARGET_LINK_LIBRARIES(BulletRobotics BulletInverseDynamicsUtils BulletWorldImporter BulletFileLoader BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamics LinearMath Bullet3Common)
 ENDIF (BUILD_SHARED_LIBS)
 
-  
+
 
 INSTALL (
     DIRECTORY ${CMAKE_SOURCE_DIR}/examples/
@@ -297,11 +297,11 @@ INSTALL (
 		LIBRARY DESTINATION lib${LIB_SUFFIX}
 		ARCHIVE DESTINATION lib${LIB_SUFFIX}
 	)
-		
+
   IF (APPLE AND BUILD_SHARED_LIBS AND FRAMEWORK)
     SET_TARGET_PROPERTIES(BulletRobotics  PROPERTIES FRAMEWORK true)
     SET_TARGET_PROPERTIES(BulletRobotics PROPERTIES PUBLIC_HEADER "PhysicsClientC_API.h" )
-  ENDIF (APPLE AND BUILD_SHARED_LIBS AND FRAMEWORK)	
+  ENDIF (APPLE AND BUILD_SHARED_LIBS AND FRAMEWORK)
 
 IF(NOT MSVC)
     SET(PKGCONFIG_INSTALL_PREFIX "lib${LIB_SUFFIX}/pkgconfig/" CACHE STRING "Base directory for pkgconfig files")

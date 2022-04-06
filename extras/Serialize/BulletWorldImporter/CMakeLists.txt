@@ -1,6 +1,6 @@
 INCLUDE_DIRECTORIES(
 	${BULLET_PHYSICS_SOURCE_DIR}/src
-	${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletFileLoader
+	${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletFileLoader
 )
 
 ADD_LIBRARY(

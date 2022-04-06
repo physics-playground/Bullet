@@ -1,5 +1,5 @@
 #include "SerializeSetup.h"
-#include "../Extras/Serialize/BulletWorldImporter/btBulletWorldImporter.h"
+#include "../extras/Serialize/BulletWorldImporter/btBulletWorldImporter.h"
 
 #include "../CommonInterfaces/CommonRigidBodyBase.h"
 

@@ -50,7 +50,7 @@ public:
     // TODO: disable pick force, non-interactive for now.
     bool pickBody(const btVector3& rayFromWorld, const btVector3& rayToWorld) {
         return false;
-    } 
+    }
 
     void resetCamera()
     {
@@ -64,7 +64,7 @@ public:
         float targetPos[3] = {0, 2, 0};
         m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
     }
-    
+
     void Ctor_RbUpStack(const btVector3& origin)
     {
         float mass = 10;
@@ -87,7 +87,7 @@ public:
     {
 
         if (run_reduced)
-        {   
+        {
             std::string file_path("../../../data/reduced_torus/");
             std::string vtk_file("torus_mesh.vtk");
             btReducedDeformableBody* rsb = btReducedDeformableBodyHelpers::createReducedDeformableObject(
@@ -128,7 +128,7 @@ public:
             std::string filepath("../../../data/reduced_torus/");
             std::string filename = filepath + "torus_mesh.vtk";
             btSoftBody* psb = btSoftBodyHelpers::CreateFromVtkFile(getDeformableDynamicsWorld()->getWorldInfo(), filename.c_str());
-            
+
             btTransform init_transform;
             init_transform.setIdentity();
             init_transform.setOrigin(origin);
@@ -143,11 +143,11 @@ public:
             psb->m_cfg.collisions |= btSoftBody::fCollision::SDF_RDN;
             getDeformableDynamicsWorld()->addSoftBody(psb);
             btSoftBodyHelpers::generateBoundaryFaces(psb);
-            
+
             btDeformableGravityForce* gravity_force =  new btDeformableGravityForce(m_gravity);
             getDeformableDynamicsWorld()->addForce(psb, gravity_force);
             m_forces.push_back(gravity_force);
-            
+
             btScalar E = 10000;
             btScalar nu = 0.3;
             btScalar lambda = E * nu / ((1 + nu) * (1 - 2 * nu));
@@ -189,13 +189,13 @@ public:
         // rsb->m_sleepingThreshold = 0;
         // btSoftBodyHelpers::generateBoundaryFaces(rsb);
     }
-    
+
     void stepSimulation(float deltaTime)
     {
       float internalTimeStep = 1. / 240.f;
       m_dynamicsWorld->stepSimulation(deltaTime, 4, internalTimeStep);
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
@@ -206,7 +206,7 @@ public:
             btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(deformableWorld->getSoftBodyArray()[i]);
             {
                 btSoftBodyHelpers::DrawFrame(rsb, deformableWorld->getDebugDrawer());
-                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags()); 
+                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags());
             }
         }
     }
@@ -219,7 +219,7 @@ void ReducedBenchmark::initPhysics()
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
     m_broadphase = new btDbvtBroadphase();
@@ -249,7 +249,7 @@ void ReducedBenchmark::initPhysics()
 	m_dynamicsWorld->setGravity(gravity);
     getDeformableDynamicsWorld()->getWorldInfo().m_gravity = gravity;
 	m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
-    
+
     // 3x3 torus
     createDeform(btVector3(4, 4, -4), btQuaternion(SIMD_PI / 2.0, SIMD_PI / 2.0, 0));
     createDeform(btVector3(4, 4, 0), btQuaternion(SIMD_PI / 2.0, SIMD_PI / 2.0, 0));
@@ -260,7 +260,7 @@ void ReducedBenchmark::initPhysics()
     createDeform(btVector3(-4, 4, -4), btQuaternion(SIMD_PI / 2.0, SIMD_PI / 2.0, 0));
     createDeform(btVector3(-4, 4, 0), btQuaternion(SIMD_PI / 2.0, SIMD_PI / 2.0, 0));
     createDeform(btVector3(-4, 4, 4), btQuaternion(SIMD_PI / 2.0, SIMD_PI / 2.0, 0));
-    
+
     // create a static rigid box as the ground
     {
         // btBoxShape* groundShape = createBoxShape(btVector3(btScalar(50), btScalar(50), btScalar(50)));
@@ -319,7 +319,7 @@ void ReducedBenchmark::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
     //delete collision shapes
     for (int j = 0; j < m_collisionShapes.size(); j++)
     {

@@ -1,7 +1,7 @@
 INCLUDE_DIRECTORIES(
 	${BULLET_PHYSICS_SOURCE_DIR}/src
-	${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletFileLoader
-	${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletWorldImporter
+	${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletFileLoader
+	${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletWorldImporter
 	${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/tinyxml2
 )
 
@@ -28,7 +28,7 @@ IF (INSTALL_EXTRA_LIBS)
 			IF (APPLE AND BUILD_SHARED_LIBS AND FRAMEWORK)
 				INSTALL(TARGETS BulletXmlWorldImporter DESTINATION .)
 			ELSE (APPLE AND BUILD_SHARED_LIBS AND FRAMEWORK)
-				INSTALL(TARGETS BulletXmlWorldImporter 
+				INSTALL(TARGETS BulletXmlWorldImporter
                                         RUNTIME DESTINATION bin
                                         LIBRARY DESTINATION lib${LIB_SUFFIX}
                                         ARCHIVE DESTINATION lib${LIB_SUFFIX})

@@ -1,5 +1,5 @@
 INCLUDE_DIRECTORIES(
- ${BULLET_PHYSICS_SOURCE_DIR}/Extras/ConvexDecomposition ${BULLET_PHYSICS_SOURCE_DIR}/src
+ ${BULLET_PHYSICS_SOURCE_DIR}/extras/ConvexDecomposition ${BULLET_PHYSICS_SOURCE_DIR}/src
 )
 
 SET(ConvexDecomposition_SRCS

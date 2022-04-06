@@ -43,7 +43,7 @@ class ConservationTest : public CommonDeformableBodyBase
       // for (int i = 0; i < rsb->m_nodes.size(); ++i)
       //   for (int k = 0; k < 3; ++k)
       //     rsb->m_nodes[i].m_x[k] += rsb->m_modes[mode_n][3 * i + k] * scale;
-      
+
       // rsb->m_reducedDofs[mode_n] = scale;
       // rsb->m_reducedDofsBuffer[mode_n] = scale;
 
@@ -77,7 +77,7 @@ public:
     // TODO: disable pick force, non-interactive for now.
     bool pickBody(const btVector3& rayFromWorld, const btVector3& rayToWorld) {
         return false;
-    } 
+    }
 
     void resetCamera()
     {
@@ -116,7 +116,7 @@ public:
         std::ofstream myfile("angular_momentum.txt", std::ios_base::app);
         // btVector3 ri(0, 0, 0);
         // for (int i = 0; i < rsb->m_nFull; ++i)
-        // { 
+        // {
         //   ri = rsb->m_nodes[i].m_x - x_com;
         //   total_angular += rsb->m_nodalMass[i] * ri.cross(rsb->m_nodes[i].m_v);
         // }
@@ -129,7 +129,7 @@ public:
         std::ofstream myfile("angular_momentum_rigid.txt", std::ios_base::app);
         btVector3 ri(0, 0, 0);
         for (int i = 0; i < rsb->m_nFull; ++i)
-        { 
+        {
           ri = rsb->m_nodes[i].m_x - x_com;
           btMatrix3x3 ri_star = Cross(ri);
           angular_rigid += rsb->m_nodalMass[i] * (ri_star.transpose() * ri_star * rsb->getAngularVelocity());
@@ -144,35 +144,35 @@ public:
         myfile.close();
       }
     }
-    
+
     void stepSimulation(float deltaTime)
     {
       // add initial deformation
       btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(static_cast<btDeformableMultiBodyDynamicsWorld*>(m_dynamicsWorld)->getSoftBodyArray()[0]);
-      if (first_step /* && !rsb->m_bUpdateRtCst*/) 
+      if (first_step /* && !rsb->m_bUpdateRtCst*/)
       {
         getDeformedShape(rsb, 0, 1);
         first_step = false;
       }
-      
+
       float internalTimeStep = 1. / 240.f;
       m_dynamicsWorld->stepSimulation(deltaTime, 4, internalTimeStep);
 
       sim_time += internalTimeStep;
       checkMomentum(rsb);
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(deformableWorld->getSoftBodyArray()[i]);
             {
                 btSoftBodyHelpers::DrawFrame(rsb, deformableWorld->getDebugDrawer());
-                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags()); 
+                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags());
 
                 btVector3 origin = rsb->getRigidTransform().getOrigin();
                 btVector3 line_x = rsb->getRigidTransform().getBasis() * 2 * btVector3(1, 0, 0) + origin;
@@ -198,7 +198,7 @@ void ConservationTest::initPhysics()
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
     m_broadphase = new btDbvtBroadphase();
@@ -215,7 +215,7 @@ void ConservationTest::initPhysics()
     m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
 
     // create volumetric reduced deformable body
-    {   
+    {
         std::string file_path("../../../data/reduced_beam/");
         std::string vtk_file("beam_mesh_origin.vtk");
         btReducedDeformableBody* rsb = btReducedDeformableBodyHelpers::createReducedDeformableObject(
@@ -227,7 +227,7 @@ void ConservationTest::initPhysics()
 
         getDeformableDynamicsWorld()->addSoftBody(rsb);
         rsb->getCollisionShape()->setMargin(0.1);
-        
+
         btTransform init_transform;
         init_transform.setIdentity();
         init_transform.setOrigin(btVector3(0, 4, 0));
@@ -236,7 +236,7 @@ void ConservationTest::initPhysics()
 
         rsb->setStiffnessScale(100);
         rsb->setDamping(damping_alpha, damping_beta);
-        
+
         rsb->m_cfg.kKHR = 1; // collision hardness with kinematic objects
         rsb->m_cfg.kCHR = 1; // collision hardness with rigid body
         rsb->m_cfg.kDF = 0;
@@ -244,7 +244,7 @@ void ConservationTest::initPhysics()
         rsb->m_cfg.collisions |= btSoftBody::fCollision::SDF_RDN;
         rsb->m_sleepingThreshold = 0;
         btSoftBodyHelpers::generateBoundaryFaces(rsb);
-        
+
         // rsb->setVelocity(btVector3(0, -COLLIDING_VELOCITY, 0));
         // rsb->setRigidVelocity(btVector3(0, 1, 0));
         // rsb->setRigidAngularVelocity(btVector3(1, 0, 0));
@@ -286,7 +286,7 @@ void ConservationTest::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
     //delete collision shapes
     for (int j = 0; j < m_collisionShapes.size(); j++)
     {

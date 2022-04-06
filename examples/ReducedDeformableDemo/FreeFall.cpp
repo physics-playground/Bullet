@@ -51,7 +51,7 @@ public:
     // TODO: disable pick force, non-interactive for now.
     bool pickBody(const btVector3& rayFromWorld, const btVector3& rayToWorld) {
         return false;
-    } 
+    }
 
     void resetCamera()
     {
@@ -65,7 +65,7 @@ public:
         // float targetPos[3] = {0, 2, 0};
         m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
     }
-    
+
     void Ctor_RbUpStack(const btVector3& origin)
     {
         float mass = 10;
@@ -85,7 +85,7 @@ public:
     }
 
     void createReducedDeformableObject(const btVector3& origin, const btQuaternion& rotation)
-    {   
+    {
         std::string file_path("../../../data/reduced_cube/");
         std::string vtk_file("cube_mesh.vtk");
         btReducedDeformableBody* rsb = btReducedDeformableBodyHelpers::createReducedDeformableObject(
@@ -119,26 +119,26 @@ public:
         rsb->m_sleepingThreshold = 0;
         btSoftBodyHelpers::generateBoundaryFaces(rsb);
     }
-    
+
     void stepSimulation(float deltaTime)
     {
       float internalTimeStep = 1. / 60.f;
       m_dynamicsWorld->stepSimulation(deltaTime, 1, internalTimeStep);
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
         // int flag = 0;
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(deformableWorld->getSoftBodyArray()[i]);
             {
                 btSoftBodyHelpers::DrawFrame(rsb, deformableWorld->getDebugDrawer());
                 // btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), flag);
-                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags()); 
+                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags());
 
                 // for (int p = 0; p < rsb->m_fixedNodes.size(); ++p)
                 // {
@@ -164,7 +164,7 @@ void FreeFall::initPhysics()
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
     m_broadphase = new btDbvtBroadphase();
@@ -179,15 +179,15 @@ void FreeFall::initPhysics()
     m_dynamicsWorld->setGravity(gravity);
     m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
     // m_dynamicsWorld->getSolverInfo().m_solverMode |= SOLVER_RANDMIZE_ORDER;
-    
+
     // 2 reduced deformable cubes
     createReducedDeformableObject(btVector3(0, 4, -2), btQuaternion(0, 0, 0));
     createReducedDeformableObject(btVector3(0, 4, 2), btQuaternion(0, 0, 0));
-   
+
     // 2 rigid cubes
     Ctor_RbUpStack(btVector3(0, 10, -2));
     Ctor_RbUpStack(btVector3(0, 10, 2));
-    
+
     // create a static rigid box as the ground
     {
         // btBoxShape* groundShape = createBoxShape(btVector3(btScalar(50), btScalar(50), btScalar(50)));
@@ -246,7 +246,7 @@ void FreeFall::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
     //delete collision shapes
     for (int j = 0; j < m_collisionShapes.size(); j++)
     {

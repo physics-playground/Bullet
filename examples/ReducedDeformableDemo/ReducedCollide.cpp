@@ -54,7 +54,7 @@ public:
     // TODO: disable pick force, non-interactive for now.
     bool pickBody(const btVector3& rayFromWorld, const btVector3& rayToWorld) {
         return false;
-    } 
+    }
 
     void resetCamera()
     {
@@ -71,7 +71,7 @@ public:
 		// float targetPos[3] = {-3, 2.8, -2.5};
         m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
     }
-    
+
     void Ctor_RbUpStack()
     {
         float mass = 10;
@@ -148,24 +148,24 @@ public:
         body->setLinearVelocity(btVector3(0, 0, 0));
         // body->setFriction(1);
     }
-    
+
     void stepSimulation(float deltaTime)
     {
       float internalTimeStep = 1. / 60.f;
       m_dynamicsWorld->stepSimulation(deltaTime, 1, internalTimeStep);
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btReducedDeformableBody* rsb = static_cast<btReducedDeformableBody*>(deformableWorld->getSoftBodyArray()[i]);
             {
                 btSoftBodyHelpers::DrawFrame(rsb, deformableWorld->getDebugDrawer());
-                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags()); 
+                btSoftBodyHelpers::Draw(rsb, deformableWorld->getDebugDrawer(), deformableWorld->getDrawFlags());
             }
 
             for (int p = 0; p < rsb->m_contactNodesList.size(); ++p)
@@ -184,7 +184,7 @@ void ReducedCollide::initPhysics()
     ///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+    ///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
     m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
     m_broadphase = new btDbvtBroadphase();
@@ -203,7 +203,7 @@ void ReducedCollide::initPhysics()
     m_guiHelper->createPhysicsDebugDrawer(m_dynamicsWorld);
 
     // create volumetric reduced deformable body
-    {   
+    {
         std::string file_path("../../../data/reduced_cube/");
         std::string vtk_file("cube_mesh.vtk");
         btReducedDeformableBody* rsb = btReducedDeformableBodyHelpers::createReducedDeformableObject(
@@ -212,7 +212,7 @@ void ReducedCollide::initPhysics()
                                             vtk_file,
                                             num_modes,
                                             false);
-                                            
+
         getDeformableDynamicsWorld()->addSoftBody(rsb);
         rsb->getCollisionShape()->setMargin(0.1);
         // rsb->scale(btVector3(0.5, 0.5, 0.5));
@@ -235,7 +235,7 @@ void ReducedCollide::initPhysics()
         rsb->m_cfg.collisions |= btSoftBody::fCollision::SDF_RDN;
         rsb->m_sleepingThreshold = 0;
         btSoftBodyHelpers::generateBoundaryFaces(rsb);
-        
+
         rsb->setRigidVelocity(btVector3(0, -COLLIDING_VELOCITY, 0));
         // rsb->setRigidAngularVelocity(btVector3(1, 0, 0));
         b3Printf("total mass: %e", rsb->getTotalMass());
@@ -244,7 +244,7 @@ void ReducedCollide::initPhysics()
 
     // add a few rigid bodies
     Ctor_RbUpStack();
-    
+
     // create ground
     // createGround();
 
@@ -313,7 +313,7 @@ void ReducedCollide::initPhysics()
     getDeformableDynamicsWorld()->getSolverInfo().m_splitImpulse = false;
     getDeformableDynamicsWorld()->getSolverInfo().m_numIterations = 100;
     m_guiHelper->autogenerateGraphicsObjects(m_dynamicsWorld);
-    
+
     // {
     //     SliderParams slider("Young's Modulus", &E);
     //     slider.m_minVal = 0;
@@ -368,7 +368,7 @@ void ReducedCollide::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
     //delete collision shapes
     for (int j = 0; j < m_collisionShapes.size(); j++)
     {

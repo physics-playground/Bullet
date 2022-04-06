@@ -27,7 +27,7 @@ IF (CMAKE_CL_64)
 	# Output BulletDNA.c
 	ADD_CUSTOM_COMMAND(
 		OUTPUT ${BULLET_PHYSICS_SOURCE_DIR}/src/LinearMath/btSerializer64.cpp
-		COMMAND ${CMAKE_CFG_INTDIR}/makesdna ${BULLET_PHYSICS_SOURCE_DIR}/src/LinearMath/btSerializer64.cpp ${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/CommonSerialize/
+		COMMAND ${CMAKE_CFG_INTDIR}/makesdna ${BULLET_PHYSICS_SOURCE_DIR}/src/LinearMath/btSerializer64.cpp ${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/CommonSerialize/
 		DEPENDS makesdna
 	)
 SET(SRC  ${BULLET_PHYSICS_SOURCE_DIR}/src/LinearMath/btSerializer64.cpp)
@@ -36,7 +36,7 @@ ELSE()
 	# Output BulletDNA.c
 	ADD_CUSTOM_COMMAND(
 		OUTPUT ${BULLET_PHYSICS_SOURCE_DIR}/src/LinearMath/btSerializer.cpp
-		COMMAND ${CMAKE_CFG_INTDIR}/makesdna ${BULLET_PHYSICS_SOURCE_DIR}/src/LinearMath/btSerializer.cpp ${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/CommonSerialize/
+		COMMAND ${CMAKE_CFG_INTDIR}/makesdna ${BULLET_PHYSICS_SOURCE_DIR}/src/LinearMath/btSerializer.cpp ${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/CommonSerialize/
 		DEPENDS makesdna
 	)
 SET(SRC  ${BULLET_PHYSICS_SOURCE_DIR}/src/LinearMath/btSerializer.cpp)

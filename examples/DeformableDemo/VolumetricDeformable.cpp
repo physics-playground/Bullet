@@ -65,7 +65,7 @@ public:
         float targetPos[3] = {0, 3, 0};
 		m_guiHelper->resetCamera(dist, yaw, pitch, targetPos[0], targetPos[1], targetPos[2]);
 	}
-    
+
     void stepSimulation(float deltaTime)
     {
 		m_linearElasticity->setPoissonRatio(nu);
@@ -75,12 +75,12 @@ public:
         float internalTimeStep = 1. / 240;
         m_dynamicsWorld->stepSimulation(deltaTime, 4, internalTimeStep);
     }
-    
+
     void createStaticBox(const btVector3& halfEdge, const btVector3& translation)
     {
         btCollisionShape* box = new btBoxShape(halfEdge);
         m_collisionShapes.push_back(box);
-        
+
         btTransform Transform;
         Transform.setIdentity();
         Transform.setOrigin(translation);
@@ -97,15 +97,15 @@ public:
         btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, box, localInertia);
         btRigidBody* body = new btRigidBody(rbInfo);
         body->setFriction(0.5);
-        
+
         //add the ground to the dynamics world
         m_dynamicsWorld->addRigidBody(body);
     }
-    
+
     void Ctor_RbUpStack(int count)
     {
         float mass = 2;
-        
+
         btCompoundShape* cylinderCompound = new btCompoundShape;
         btCollisionShape* cylinderShape = new btCylinderShapeX(btVector3(2, .5, .5));
         btCollisionShape* boxShape = new btBoxShape(btVector3(2, .5, .5));
@@ -116,7 +116,7 @@ public:
         localTransform.setRotation(orn);
         //    localTransform.setOrigin(btVector3(1,1,1));
         cylinderCompound->addChildShape(localTransform, cylinderShape);
-        
+
         btCollisionShape* shape[] = {
             new btBoxShape(btVector3(1, 1, 1)),
         };
@@ -129,12 +129,12 @@ public:
             createRigidBody(mass, startTransform, shape[i % nshapes]);
         }
     }
-    
+
     virtual void renderScene()
     {
         CommonDeformableBodyBase::renderScene();
         btDeformableMultiBodyDynamicsWorld* deformableWorld = getDeformableDynamicsWorld();
-        
+
         for (int i = 0; i < deformableWorld->getSoftBodyArray().size(); i++)
         {
             btSoftBody* psb = (btSoftBody*)deformableWorld->getSoftBodyArray()[i];
@@ -153,7 +153,7 @@ void VolumetricDeformable::initPhysics()
 	///collision configuration contains default setup for memory, collision setup
     m_collisionConfiguration = new btSoftBodyRigidBodyCollisionConfiguration();
 
-	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
 	m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
 	m_broadphase = new btDbvtBroadphase();
@@ -196,12 +196,12 @@ void VolumetricDeformable::initPhysics()
         //add the ground to the dynamics world
         m_dynamicsWorld->addRigidBody(body);
     }
-    
+
     createStaticBox(btVector3(1, 5, 5), btVector3(-5,0,0));
     createStaticBox(btVector3(1, 5, 5), btVector3(5,0,0));
     createStaticBox(btVector3(5, 5, 1), btVector3(0,0,5));
     createStaticBox(btVector3(5, 5, 1), btVector3(0,0,-5));
-    
+
     // create volumetric soft body
     {
         btSoftBody* psb = btSoftBodyHelpers::CreateFromTetGenData(getDeformableDynamicsWorld()->getWorldInfo(),
@@ -224,7 +224,7 @@ void VolumetricDeformable::initPhysics()
         btDeformableGravityForce* gravity_force =  new btDeformableGravityForce(gravity);
         getDeformableDynamicsWorld()->addForce(psb, gravity_force);
         m_forces.push_back(gravity_force);
-        
+
         btDeformableLinearElasticityForce* linearElasticity = new btDeformableLinearElasticityForce(100,100,0.01);
 		m_linearElasticity = linearElasticity;
         getDeformableDynamicsWorld()->addForce(psb, linearElasticity);
@@ -241,7 +241,7 @@ void VolumetricDeformable::initPhysics()
     // add a few rigid bodies
     Ctor_RbUpStack(4);
 	m_guiHelper->autogenerateGraphicsObjects(m_dynamicsWorld);
-	
+
 	{
 		SliderParams slider("Young's Modulus", &E);
 		slider.m_minVal = 0;
@@ -296,7 +296,7 @@ void VolumetricDeformable::exitPhysics()
         delete force;
     }
     m_forces.clear();
-    
+
 	//delete collision shapes
 	for (int j = 0; j < m_collisionShapes.size(); j++)
 	{

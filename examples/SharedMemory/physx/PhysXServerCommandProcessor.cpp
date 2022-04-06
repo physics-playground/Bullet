@@ -30,7 +30,7 @@
 
 //for serialization of data to client
 #include "BulletDynamics/Featherstone/btMultiBody.h"
-#include "../Extras/Serialize/BulletFileLoader/btBulletFile.h"
+#include "../extras/Serialize/BulletFileLoader/btBulletFile.h"
 #include "LinearMath/btSerializer.h"
 #include "PhysXUserData.h"
 
@@ -109,8 +109,8 @@ struct PhysXServerCommandProcessorInternalData : public physx::PxSimulationEvent
 	btSpinMutex m_taskLock;
 
 	btAlignedObjectArray<b3ContactPointData> m_contactPoints;
-	
-	
+
+
 
 	void onContactModify(physx::PxContactModifyPair* const pairs, physx::PxU32 count)
 	{
@@ -161,9 +161,9 @@ struct PhysXServerCommandProcessorInternalData : public physx::PxSimulationEvent
 					srcPt.m_linearFrictionDirection2[0] = 0;
 					srcPt.m_linearFrictionDirection2[1] = 0;
 					srcPt.m_linearFrictionDirection2[2] = 0;
-					
+
 					srcPt.m_linearFrictionForce2 = 0;
-					
+
 					srcPt.m_normalForce = contact.impulse.dot(contact.normal);
 					//compute friction direction from impulse projected in contact plane using contact normal.
 					physx::PxVec3 fric = contact.impulse - contact.normal*srcPt.m_normalForce;
@@ -208,10 +208,10 @@ struct PhysXServerCommandProcessorInternalData : public physx::PxSimulationEvent
 		PX_UNUSED(count);
 	}
 
-	void onAdvance(const physx::PxRigidBody* const*, const physx::PxTransform*, const physx::PxU32) 
+	void onAdvance(const physx::PxRigidBody* const*, const physx::PxTransform*, const physx::PxU32)
 	{
 	}
-	
+
 
 	b3PluginManager m_pluginManager;
 
@@ -227,7 +227,7 @@ struct PhysXServerCommandProcessorInternalData : public physx::PxSimulationEvent
 	//physx::PxPvd*                  m_pvd;
 
 	b3ResizablePool<InternalPhysXBodyHandle> m_bodyHandles;
-	
+
 
 
 
@@ -313,7 +313,7 @@ bool PhysXServerCommandProcessor::connect()
 
 	int result = 0;
 	{
-		
+
 		m_data->m_foundation = PxCreateFoundation(PX_PHYSICS_VERSION, m_data->m_allocator, m_data->m_errorCallback);
 		// This call should be performed after PVD is initialized, otherwise it will have no effect.
 		PxSetProfilerCallback(&gCustomProfilerCallback);
@@ -321,20 +321,20 @@ bool PhysXServerCommandProcessor::connect()
 		m_data->m_physics = PxCreatePhysics(PX_PHYSICS_VERSION, *m_data->m_foundation, physx::PxTolerancesScale(), true, 0);
 		m_data->m_cooking = PxCreateCooking(PX_PHYSICS_VERSION, *m_data->m_foundation, physx::PxCookingParams(physx::PxTolerancesScale()));
 
-		
+
 		physx::PxU32 numCores = 1;
 		m_data->m_commandLineArgs.GetCmdLineArgument("numCores", numCores);
 		printf("PhysX numCores=%d\n", numCores);
 		m_data->m_dispatcher = physx::PxDefaultCpuDispatcherCreate(numCores == 0 ? 0 : numCores - 1);
-		
+
 		physx::PxSceneDesc sceneDesc(m_data->m_physics->getTolerancesScale());
 		sceneDesc.gravity = physx::PxVec3(0.0f, -9.81f, 0.0f);
 
-		
+
 		sceneDesc.solverType = physx::PxSolverType::ePGS;
 		std::string solver;
 		m_data->m_commandLineArgs.GetCmdLineArgument("solver", solver);
-		
+
 		if (solver=="tgs")
 		{
 			sceneDesc.solverType = physx::PxSolverType::eTGS;
@@ -344,9 +344,9 @@ bool PhysXServerCommandProcessor::connect()
 		{
 			printf("PhysX using PGS\n");
 		}
-		
+
 		sceneDesc.cpuDispatcher = m_data->m_dispatcher;
-		
+
 		//todo: add some boolean, to allow enable/disable of this contact filtering
 		bool enableContactCallback = false;
 		m_data->m_commandLineArgs.GetCmdLineArgument("enableContactCallback", enableContactCallback);
@@ -362,10 +362,10 @@ bool PhysXServerCommandProcessor::connect()
 		{
 			sceneDesc.filterShader = physx::PxDefaultSimulationFilterShader;
 		}
-		
-		
-		
-		
+
+
+
+
 		m_data->m_scene = m_data->m_physics->createScene(sceneDesc);
 
 		m_data->m_material = m_data->m_physics->createMaterial(0.5f, 0.5f, 0.f);
@@ -398,7 +398,7 @@ void PhysXServerCommandProcessor::resetSimulation()
 	//gPvd->release();
 	//transport->release();
 	PxCloseExtensions();
-	
+
 	m_data->m_foundation->release();
 }
 
@@ -570,7 +570,7 @@ bool PhysXServerCommandProcessor::processInitPoseCommand(const struct SharedMemo
 			physx::PxTransform pt = physxLinks[0]->getGlobalPose();
 			physx::PxVec3 linVel = physxLinks[0]->getLinearVelocity();
 			physx::PxVec3 angVel = physxLinks[0]->getAngularVelocity();
-			
+
 
 			if (clientCmd.m_updateFlags & INIT_POSE_HAS_BASE_LINEAR_VELOCITY)
 			{
@@ -606,7 +606,7 @@ bool PhysXServerCommandProcessor::processInitPoseCommand(const struct SharedMemo
 		{
 			int uDofIndex = 6;
 			int posVarCountIndex = 7;
-			
+
 			//skip 'root' link
 			for (int i = 1; i < numLinks2; i++)
 			{
@@ -665,7 +665,7 @@ bool PhysXServerCommandProcessor::processInitPoseCommand(const struct SharedMemo
 						//mb->setJointVelMultiDof(i, &clientCmd.m_initPoseArgs.m_initialStateQdot[uDofIndex]);
 					}
 				}
-				
+
 				posVarCountIndex += dofs;
 				uDofIndex += dofs;// mb->getLink(i).m_dofCount;
 			}
@@ -673,7 +673,7 @@ bool PhysXServerCommandProcessor::processInitPoseCommand(const struct SharedMemo
 
 		body->mArticulation->applyCache(*c, physx::PxArticulationCache::ePOSITION| physx::PxArticulationCache::eVELOCITY);
 		body->mArticulation->releaseCache(*c);
-		
+
 	}
 
 	SharedMemoryStatus& serverCmd = serverStatusOut;
@@ -685,7 +685,7 @@ bool PhysXServerCommandProcessor::processSendDesiredStateCommand(const struct Sh
 {
 	bool hasStatus = true;
 	BT_PROFILE("CMD_SEND_DESIRED_STATE");
-	
+
 	int bodyUniqueId = clientCmd.m_sendDesiredStateCommandArgument.m_bodyUniqueId;
 	InternalPhysXBodyData* body = m_data->m_bodyHandles.getHandle(bodyUniqueId);
 	if (body && body->mArticulation)
@@ -768,7 +768,7 @@ bool PhysXServerCommandProcessor::processSendDesiredStateCommand(const struct Sh
 					physx::PxReal stiffness = 10.f;
 					physx::PxReal damping = 0.1f;
 					physx::PxReal forceLimit = PX_MAX_F32;
-					
+
 
 					if (dofs == 1)
 					{
@@ -778,7 +778,7 @@ bool PhysXServerCommandProcessor::processSendDesiredStateCommand(const struct Sh
 						physx::PxReal stiffness = 10.f;
 						btScalar kd = 0.1f;
 						btScalar kp = 0.f;
-						
+
 						if ((clientCmd.m_sendDesiredStateCommandArgument.m_hasDesiredStateFlags[dofIndex] & SIM_DESIRED_STATE_HAS_QDOT) != 0)
 						{
 							desiredVelocity = clientCmd.m_sendDesiredStateCommandArgument.m_desiredStateQdot[dofIndex];
@@ -863,7 +863,7 @@ bool PhysXServerCommandProcessor::processChangeDynamicsInfoCommand(const struct 
 		physx::PxU32 bufferSize = 64;
 		physx::PxU32 startIndex = 0;
 		int physxLinkIndex = linkIndex + 1;
-		
+
 		int numLinks2 = body->mArticulation->getLinks(physxLinks, bufferSize, startIndex);
 
 		if (physxLinkIndex >= 0 && physxLinkIndex < numLinks2)
@@ -886,7 +886,7 @@ bool PhysXServerCommandProcessor::processChangeDynamicsInfoCommand(const struct 
 	}
 	if (body->m_rigidStatic)
 	{
-		
+
 	}
 #if 0
 	if (body && body->m_multiBody)
@@ -1177,7 +1177,7 @@ bool PhysXServerCommandProcessor::processChangeDynamicsInfoCommand(const struct 
 	SharedMemoryStatus& serverCmd = serverStatusOut;
 	serverCmd.m_type = CMD_CLIENT_COMMAND_COMPLETED;
 
-	
+
 	return hasStatus;
 }
 
@@ -1197,7 +1197,7 @@ bool PhysXServerCommandProcessor::processRequestPhysicsSimulationParametersComma
 	serverCmd.m_simulationParameterResultArgs.m_defaultGlobalCFM = 0;// m_data->m_dynamicsWorld->getSolverInfo().m_globalCfm;
 	serverCmd.m_simulationParameterResultArgs.m_defaultContactERP = 0;// m_data->m_dynamicsWorld->getSolverInfo().m_erp2;
 	serverCmd.m_simulationParameterResultArgs.m_defaultNonContactERP = 0;// m_data->m_dynamicsWorld->getSolverInfo().m_erp;
-	
+
 	serverCmd.m_simulationParameterResultArgs.m_deterministicOverlappingPairs = 0;// m_data->m_dynamicsWorld->getDispatchInfo().m_deterministicOverlappingPairs;
 	serverCmd.m_simulationParameterResultArgs.m_enableConeFriction = 0;// (m_data->m_dynamicsWorld->getSolverInfo().m_solverMode & SOLVER_DISABLE_IMPLICIT_CONE_FRICTION) ? 0 : 1;
 	serverCmd.m_simulationParameterResultArgs.m_enableFileCaching = 0;// b3IsFileCachingEnabled();
@@ -1211,7 +1211,7 @@ bool PhysXServerCommandProcessor::processRequestPhysicsSimulationParametersComma
 	serverCmd.m_simulationParameterResultArgs.m_gravityAcceleration[2] = grav.z;
 	serverCmd.m_simulationParameterResultArgs.m_internalSimFlags = 0;
 	serverCmd.m_simulationParameterResultArgs.m_jointFeedbackMode = 0;
-	
+
 	serverCmd.m_simulationParameterResultArgs.m_numSimulationSubSteps = 0;// m_data->m_numSimulationSubSteps;
 	serverCmd.m_simulationParameterResultArgs.m_numSolverIterations = 0;// m_data->m_dynamicsWorld->getSolverInfo().m_numIterations;
 	serverCmd.m_simulationParameterResultArgs.m_restitutionVelocityThreshold = 0;// m_data->m_dynamicsWorld->getSolverInfo().m_restitutionVelocityThreshold;
@@ -1248,7 +1248,7 @@ bool PhysXServerCommandProcessor::processRequestContactpointInformationCommand(c
 	serverCmd.m_sendContactPointArgs.m_numRemainingContactPoints = m_data->m_contactPoints.size() - startContactPointIndex - serverCmd.m_sendContactPointArgs.m_numContactPointsCopied;
 	serverCmd.m_numDataStreamBytes = totalBytesPerContact * serverCmd.m_sendContactPointArgs.m_numContactPointsCopied;
 	serverCmd.m_type = CMD_CONTACT_POINT_INFORMATION_COMPLETED;
-	
+
 
 	return true;
 }
@@ -1475,7 +1475,7 @@ bool PhysXServerCommandProcessor::processCommand(const struct SharedMemoryComman
 			break;
 		}
 
-	
+
 	case CMD_REQUEST_BODY_INFO:
 		{
 			hasStatus = processRequestBodyInfoCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
@@ -1491,7 +1491,7 @@ bool PhysXServerCommandProcessor::processCommand(const struct SharedMemoryComman
 			hasStatus = processLoadSDFCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
 			break;
 		}
-	
+
 	case CMD_CREATE_VISUAL_SHAPE:
 		{
 			hasStatus = processCreateVisualShapeCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
@@ -1502,8 +1502,8 @@ bool PhysXServerCommandProcessor::processCommand(const struct SharedMemoryComman
 			hasStatus = processCreateMultiBodyCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
 			break;
 		}
-	
-	
+
+
 	case CMD_LOAD_MJCF:
 	{
 		hasStatus = processLoadMJCFCommand(clientCmd, serverStatusOut, bufferServerToClient, bufferSizeInBytes);
@@ -1526,16 +1526,16 @@ bool PhysXServerCommandProcessor::processCommand(const struct SharedMemoryComman
 			break;
 		}
 
-	
+
 	case CMD_REQUEST_COLLISION_INFO:
 		{
 			hasStatus = processRequestCollisionInfoCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
 			break;
 		}
 
-	
-	
-	
+
+
+
 	case CMD_GET_DYNAMICS_INFO:
 		{
 			hasStatus = processGetDynamicsInfoCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
@@ -1543,8 +1543,8 @@ bool PhysXServerCommandProcessor::processCommand(const struct SharedMemoryComman
 		}
 
 
-	
-	
+
+
 	case CMD_CREATE_RIGID_BODY:
 		{
 			hasStatus = processCreateRigidBodyCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
@@ -1586,7 +1586,7 @@ bool PhysXServerCommandProcessor::processCommand(const struct SharedMemoryComman
 			hasStatus = processConfigureOpenGLVisualizerCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
 			break;
 		}
-	
+
 	case CMD_CALCULATE_INVERSE_DYNAMICS:
 		{
 			hasStatus = processInverseDynamicsCommand(clientCmd,serverStatusOut,bufferServerToClient, bufferSizeInBytes);
@@ -1721,7 +1721,7 @@ bool PhysXServerCommandProcessor::processRequestCameraImageCommand(const struct 
 	m_data->m_pluginManager.getRenderInterface()->getWidthAndHeight(oldWidth, oldHeight);
 
 	serverStatusOut.m_type = CMD_CAMERA_IMAGE_FAILED;
-	
+
 	if ((clientCmd.m_requestPixelDataArguments.m_startPixelIndex == 0) &&
 		(clientCmd.m_updateFlags & REQUEST_PIXEL_ARGS_SET_PIXEL_WIDTH_HEIGHT) != 0)
 	{
@@ -1760,7 +1760,7 @@ bool PhysXServerCommandProcessor::processRequestCameraImageCommand(const struct 
 		float projMat[16];
 		float projTextureViewMat[16];
 		float projTextureProjMat[16];
-		
+
 		if ((clientCmd.m_updateFlags & REQUEST_PIXEL_ARGS_HAS_CAMERA_MATRICES) == 0)
 		{
 			b3OpenGLVisualizerCameraInfo tmpCamResult;
@@ -1800,7 +1800,7 @@ bool PhysXServerCommandProcessor::processRequestCameraImageCommand(const struct 
 				projMat[i] = clientCmd.m_requestPixelDataArguments.m_projectionMatrix[i];
 			}
 		}
-		
+
 		{
 			if (m_data->m_pluginManager.getRenderInterface())
 			{
@@ -1924,7 +1924,7 @@ bool PhysXServerCommandProcessor::processRequestCameraImageCommand(const struct 
 				depthBuffer, numRequestedPixels,
 				segmentationMaskBuffer, numRequestedPixels,
 				startPixelIndex, width, height, &numPixelsCopied);
-			#endif		
+			#endif
 		}
 
 		//each pixel takes 4 RGBA values and 1 float = 8 bytes
@@ -1979,7 +1979,7 @@ bool PhysXServerCommandProcessor::processSyncUserDataCommand(const struct Shared
 struct MyPhysXURDFImporter : public PhysXURDFImporter
 {
 	b3PluginManager& m_pluginManager;
-	
+
 	MyPhysXURDFImporter(struct CommonFileIOInterface* fileIO, double globalScaling, int flags, b3PluginManager& pluginManager)
 		:PhysXURDFImporter(fileIO, globalScaling, flags),
 		m_pluginManager(pluginManager)
@@ -2029,7 +2029,7 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 	}
 
 	b3BulletDefaultFileIO fileIO;
-	
+
 	btVector3 initialPos(0, 0, 0);
 	btQuaternion initialOrn(0, 0, 0, 1);
 	if (clientCmd.m_updateFlags & URDF_ARGS_INITIAL_POSITION)
@@ -2053,15 +2053,15 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 
 
 	MyPhysXURDFImporter u2p(&fileIO, globalScaling, urdfArgs.m_urdfFlags, m_data->m_pluginManager);
-	
-	
+
+
 
 	bool loadOk = u2p.loadURDF(urdfArgs.m_urdfFileName, useFixedBase);
 
 
 	if (loadOk)
 	{
-		
+
 
 		for (int m = 0; m < u2p.getNumModels(); m++)
 		{
@@ -2079,8 +2079,8 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 
 			//sd.m_bodyUniqueIds.push_back(bodyUniqueId);
 
-			
-			
+
+
 			u2p.setBodyUniqueId(bodyUniqueId);
 			{
 				btScalar mass = 0;
@@ -2090,7 +2090,7 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 				int urdfLinkIndex = u2p.getRootLinkIndex();
 				//u2p.getMassAndInertia2((urdfLinkIndex, mass, localInertiaDiagonal, bodyHandle->m_rootLocalInertialFrame, flags);
 			}
-			
+
 			physx::PxBase* baseObj = URDF2PhysX(m_data->m_foundation,m_data->m_physics, m_data->m_cooking, m_data->m_scene, u2p, urdfArgs.m_urdfFlags, u2p.getPathPrefix(), rootTrans, &fileIO, useMultiBody);
 
 			physx::PxRigidDynamic* c = baseObj->is<physx::PxRigidDynamic>();
@@ -2120,18 +2120,18 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 				serverStatusOut.m_dataStreamArguments.m_bodyUniqueId = bodyUniqueId;
 				sprintf(serverStatusOut.m_dataStreamArguments.m_bodyName, "%s", bodyHandle->m_bodyName.c_str());
 			}
-			
+
 			if (articulation)
 			{
 				bodyHandle->mArticulation = articulation;
-				
-				
+
+
 
 				btDefaultSerializer ser(bufferSizeInBytes, (unsigned char*)bufferServerToClient);
 
 				ser.startSerialization();
 
-				int len = sizeof(btMultiBodyData); 
+				int len = sizeof(btMultiBodyData);
 				btChunk* chunk = ser.allocate(len, 1);
 
 
@@ -2144,7 +2144,7 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 
 				zero.serialize(mbd->m_baseLinearVelocity);
 				zero.serialize(mbd->m_baseAngularVelocity);
-				
+
 				ser.registerNameForPointer(bodyHandle->m_bodyName.c_str(), bodyHandle->m_bodyName.c_str());
 				{
 					char *name = (char *)ser.findNameForPointer(bodyHandle->m_bodyName.c_str());
@@ -2166,15 +2166,15 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 					physx::PxU32 bufferSize = 64;
 					physx::PxU32 startIndex = 0;
 					int numLinks2 = articulation->getLinks(physxLinks, bufferSize, startIndex);
-					
+
 					btMultiBodyLinkData *memPtr = (btMultiBodyLinkData *)chunk->m_oldPtr;
 					for (int j = 0; j < numElem; j++, memPtr++)
 					{
 						int i = j + 1;
-						
-						
-						memPtr->m_jointType = 0;//todo 
-						memPtr->m_dofCount = physxLinks[i]->getInboundJointDof(); 
+
+
+						memPtr->m_jointType = 0;//todo
+						memPtr->m_dofCount = physxLinks[i]->getInboundJointDof();
 						memPtr->m_posVarCount = physxLinks[i]->getInboundJointDof(); //??
 
 						physx::PxVec3 li = physxLinks[i]->getMassSpaceInertiaTensor();
@@ -2193,8 +2193,8 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 						//getLink(i).m_eVector.serialize(memPtr->m_parentComToThisPivotOffset);
 						//getLink(i).m_dVector.serialize(memPtr->m_thisPivotToThisComOffset);
 						//getLink(i).m_zeroRotParentToThis.serialize(memPtr->m_zeroRotParentToThis);
-						
-						
+
+
 						{
 							char *name = (char *)ser.findNameForPointer(physxLinks[i]->getName());
 							memPtr->m_linkName = (char *)ser.getUniquePointer(name);
@@ -2226,7 +2226,7 @@ bool PhysXServerCommandProcessor::processLoadURDFCommand(const struct SharedMemo
 				ser.finalizeChunk(chunk, structType, BT_MULTIBODY_CODE,0);
 				int streamSizeInBytes = ser.getCurrentBufferSize();
 				serverStatusOut.m_numDataStreamBytes = streamSizeInBytes;
-				
+
 			}
 		}
 #if 0
@@ -2260,7 +2260,7 @@ bool PhysXServerCommandProcessor::processRequestBodyInfoCommand(const struct Sha
 
 	serverStatusOut.m_type = CMD_BODY_INFO_COMPLETED;
 
-	
+
 	serverStatusOut.m_numDataStreamBytes = streamSizeInBytes;
 
 	return hasStatus;
@@ -2271,16 +2271,16 @@ bool PhysXServerCommandProcessor::processForwardDynamicsCommand(const struct Sha
 	bool hasStatus = true;
 
 	BT_PROFILE("CMD_STEP_FORWARD_SIMULATION");
-	
+
 	int numArt = m_data->m_scene->getNbArticulations();
-	
+
 	{
 		B3_PROFILE("clear Contacts");
 		m_data->m_contactPoints.clear();
 	}
 	{
 		B3_PROFILE("PhysX_simulate_fetchResults");
-		
+
 		m_data->m_scene->simulate(m_data->m_physicsDeltaTime);
 		m_data->m_scene->fetchResults(true);
 	}
@@ -2298,7 +2298,7 @@ bool PhysXServerCommandProcessor::processForwardDynamicsCommand(const struct Sha
 			{
 				InternalPhysXBodyHandle* bodyHandle = m_data->m_bodyHandles.getHandle(usedHandles[i]);
 
-				
+
 				physx::PxRigidActor* actor = 0;
 				if (bodyHandle->m_rigidDynamic)
 					actor = bodyHandle->m_rigidDynamic;
@@ -2319,7 +2319,7 @@ bool PhysXServerCommandProcessor::processForwardDynamicsCommand(const struct Sha
 
 				if (bodyHandle->mArticulation)
 				{
-					
+
 					physx::PxArticulationLink* physxLinks[64];
 					physx::PxU32 bufferSize = 64;
 					physx::PxU32 startIndex = 0;
@@ -2342,7 +2342,7 @@ bool PhysXServerCommandProcessor::processForwardDynamicsCommand(const struct Sha
 				}
 			}
 		}
-		
+
 		{
 			B3_PROFILE("render");
 			//m_data->m_pluginManager.getRenderInterface()->render();
@@ -2351,12 +2351,12 @@ bool PhysXServerCommandProcessor::processForwardDynamicsCommand(const struct Sha
 			float* depthBuffer = 0;
 			int* segmentationMaskBuffer = 0;
 			int startPixelIndex = 0;
-			
+
 			int width = 1024;
 			int height = 768;
 			m_data->m_pluginManager.getRenderInterface()->getWidthAndHeight(width, height);
 			int numPixelsCopied = 0;
-			
+
 
 			m_data->m_pluginManager.getRenderInterface()->copyCameraImageData(pixelRGBA, numRequestedPixels,
 				depthBuffer, numRequestedPixels,
@@ -2386,7 +2386,7 @@ bool PhysXServerCommandProcessor::processSendPhysicsParametersCommand(const stru
 		btVector3 grav(clientCmd.m_physSimParamArgs.m_gravityAcceleration[0],
 			clientCmd.m_physSimParamArgs.m_gravityAcceleration[1],
 			clientCmd.m_physSimParamArgs.m_gravityAcceleration[2]);
-		
+
 		m_data->m_scene->setGravity(physx::PxVec3(grav[0], grav[1], grav[2]));
 
 		if (m_data->m_verboseOutput)
@@ -2397,7 +2397,7 @@ bool PhysXServerCommandProcessor::processSendPhysicsParametersCommand(const stru
 #if 0
 	if (clientCmd.m_updateFlags&SIM_PARAM_UPDATE_NUM_SOLVER_ITERATIONS)
 	{
-		
+
 		m_data->m_dynamicsWorld->getSolverInfo().m_numIterations = clientCmd.m_physSimParamArgs.m_numSolverIterations;
 	}
 
@@ -2421,39 +2421,39 @@ bool PhysXServerCommandProcessor::processSendPhysicsParametersCommand(const stru
 	{
 		m_data->m_dynamicsWorld->getDispatchInfo().m_allowedCcdPenetration = clientCmd.m_physSimParamArgs.m_allowedCcdPenetration;
 	}
-	
+
 	if (clientCmd.m_updateFlags&SIM_PARAM_UPDATE_JOINT_FEEDBACK_MODE)
 	{
 		gJointFeedbackInWorldSpace = (clientCmd.m_physSimParamArgs.m_jointFeedbackMode&JOINT_FEEDBACK_IN_WORLD_SPACE)!=0;
 		gJointFeedbackInJointFrame = (clientCmd.m_physSimParamArgs.m_jointFeedbackMode&JOINT_FEEDBACK_IN_JOINT_FRAME)!=0;
 	}
 
-	
+
 	if (clientCmd.m_updateFlags & SIM_PARAM_UPDATE_REAL_TIME_SIMULATION)
 	{
 		m_data->m_useRealTimeSimulation = (clientCmd.m_physSimParamArgs.m_useRealTimeSimulation!=0);
 	}
-					
-	//see 
+
+	//see
 	if (clientCmd.m_updateFlags & SIM_PARAM_UPDATE_INTERNAL_SIMULATION_FLAGS)
 	{
 		//these flags are for internal/temporary/easter-egg/experimental demo purposes, use at own risk
 		gInternalSimFlags = clientCmd.m_physSimParamArgs.m_internalSimFlags;
 	}
 
-	
+
 
 	if (clientCmd.m_updateFlags&SIM_PARAM_UPDATE_SOLVER_RESIDULAL_THRESHOLD)
 	{
 		m_data->m_dynamicsWorld->getSolverInfo().m_leastSquaresResidualThreshold = clientCmd.m_physSimParamArgs.m_solverResidualThreshold;
 	}
-	
+
 
 	if (clientCmd.m_updateFlags&SIM_PARAM_UPDATE_CONTACT_BREAKING_THRESHOLD)
 	{
 		gContactBreakingThreshold = clientCmd.m_physSimParamArgs.m_contactBreakingThreshold;
 	}
-	
+
 	if (clientCmd.m_updateFlags&SIM_PARAM_UPDATE_CONTACT_SLOP)
 	{
 		m_data->m_dynamicsWorld->getSolverInfo().m_linearSlop = clientCmd.m_physSimParamArgs.m_contactSlop;
@@ -2478,7 +2478,7 @@ bool PhysXServerCommandProcessor::processSendPhysicsParametersCommand(const stru
 	{
 		m_data->m_dynamicsWorld->getSolverInfo().m_splitImpulsePenetrationThreshold = clientCmd.m_physSimParamArgs.m_splitImpulsePenetrationThreshold;
 	}
-					
+
 
     if (clientCmd.m_updateFlags&SIM_PARAM_UPDATE_NUM_SIMULATION_SUB_STEPS)
     {
@@ -2515,7 +2515,7 @@ bool PhysXServerCommandProcessor::processSendPhysicsParametersCommand(const stru
         m_data->m_dynamicsWorld->getSolverInfo().m_restitutionVelocityThreshold = clientCmd.m_physSimParamArgs.m_restitutionVelocityThreshold;
     }
 
-					
+
 
 	if (clientCmd.m_updateFlags&SIM_PARAM_ENABLE_FILE_CACHING)
     {
@@ -2645,7 +2645,7 @@ bool PhysXServerCommandProcessor::processRequestActualStateCommand(const struct 
 			{
 				int  dofs = physxLinks[l]->getInboundJointDof();
 				int  llIndex = physxLinks[l]->getLinkIndex();
-				
+
 				for (int d = 0; d < dofs; d++)
 				{
 					serverCmd.m_sendActualStateArgs.m_actualStateQ[totalDegreeOfFreedomQ++] = c->jointPosition[dofStarts[llIndex + d]];

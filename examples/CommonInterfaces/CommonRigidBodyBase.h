@@ -56,12 +56,12 @@ struct CommonRigidBodyBase : public CommonExampleInterface
 		m_collisionConfiguration = new btDefaultCollisionConfiguration();
 		//m_collisionConfiguration->setConvexConvexMultipointIterations();
 
-		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
 		m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
 		m_broadphase = new btDbvtBroadphase();
 
-		///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+		///the default constraint solver. For parallel processing you can use a different solver (see extras/BulletMultiThreaded)
 		btSequentialImpulseConstraintSolver* sol = new btSequentialImpulseConstraintSolver;
 		m_solver = sol;
 
@@ -266,7 +266,7 @@ struct CommonRigidBodyBase : public CommonExampleInterface
 		{
 			printf("NO ALT pressed\n");
 		}
-		
+
 		if (window->isModifierKeyPressed(B3G_SHIFT))
 		{
 			printf("SHIFT pressed\n");
@@ -274,7 +274,7 @@ struct CommonRigidBodyBase : public CommonExampleInterface
 		{
 			printf("NO SHIFT pressed\n");
 		}
-		
+
 		if (window->isModifierKeyPressed(B3G_CONTROL))
 		{
 			printf("CONTROL pressed\n");

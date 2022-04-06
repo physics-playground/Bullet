@@ -102,7 +102,7 @@ struct CommonMultiBodyBase : public CommonExampleInterface
 		//m_collisionConfiguration->setConvexConvexMultipointIterations();
 		m_filterCallback = new MyOverlapFilterCallback2();
 
-		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+		///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
 		m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
 		m_pairCache = new btHashedOverlappingPairCache();
@@ -456,7 +456,7 @@ struct CommonMultiBodyBase : public CommonExampleInterface
 
 		return false;
 	}
-    
+
 	virtual void removePickingConstraint()
 	{
 		if (m_pickedConstraint)

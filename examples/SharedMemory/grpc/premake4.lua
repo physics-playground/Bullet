@@ -2,19 +2,19 @@
 project ("App_PhysicsServerSharedMemoryBridgeGRPC")
 
 	language "C++"
-			
+
 	kind "ConsoleApp"
-	
+
 	includedirs {"../../../src",".."}
-		
+
 	initGRPC()
 
 		links {
 			"BulletFileLoader",
-			"Bullet3Common", 
+			"Bullet3Common",
 			"LinearMath"
 		}
-	
+
 	files {
 		"main.cpp",
 		"../PhysicsClient.cpp",
@@ -33,7 +33,7 @@ project ("App_PhysicsServerSharedMemoryBridgeGRPC")
 		"../../Utils/b3ResourcePath.cpp",
 		"../../Utils/b3ResourcePath.h",
 		"../../Utils/b3Clock.cpp",
-		"../../Utils/b3Clock.h",		
+		"../../Utils/b3Clock.h",
 	}
 
 
@@ -41,12 +41,12 @@ project "App_PhysicsServerGRPC"
 
 if _OPTIONS["ios"] then
 	kind "WindowedApp"
-else	
+else
 	kind "ConsoleApp"
 end
 
 defines { "NO_SHARED_MEMORY" }
-						
+
 includedirs {"..","../../../src", "../../ThirdPartyLibs","../../ThirdPartyLibs/clsocket/src"}
 
 links {
@@ -59,7 +59,7 @@ links {
 
 language "C++"
 
-myfiles = 
+myfiles =
 {
 	"../IKTrajectoryHelper.cpp",
 	"../IKTrajectoryHelper.h",
@@ -105,8 +105,8 @@ myfiles =
 	"../../Utils/ChromeTraceUtil.h",
 	"../../Utils/RobotLoggingUtil.cpp",
 	"../../Utils/RobotLoggingUtil.h",
-	"../../../Extras/Serialize/BulletWorldImporter/*",
-	"../../../Extras/Serialize/BulletFileLoader/*",	
+	"../../../extras/Serialize/BulletWorldImporter/*",
+	"../../../extras/Serialize/BulletFileLoader/*",
 	"../../Importers/ImportURDFDemo/URDFImporterInterface.h",
 	"../../Importers/ImportURDFDemo/URDFJointTypes.h",
 	"../../Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.cpp",
@@ -115,10 +115,10 @@ myfiles =
 	"../../Importers/ImportSTLDemo/LoadMeshFromSTL.h",
 	"../../Importers/ImportColladaDemo/LoadMeshFromCollada.cpp",
 	"../../Importers/ImportColladaDemo/ColladaGraphicsInstance.h",
-	"../../ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp",	
+	"../../ThirdPartyLibs/Wavefront/tiny_obj_loader.cpp",
 	"../../ThirdPartyLibs/tinyxml2/tinyxml2.cpp",
 	"../../Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
-	"../../ThirdPartyLibs/stb_image/stb_image.cpp",     
+	"../../ThirdPartyLibs/stb_image/stb_image.cpp",
 }
 
 files {

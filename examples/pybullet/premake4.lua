@@ -1,4 +1,4 @@
-		
+
 
 project ("pybullet")
 		language "C++"
@@ -6,7 +6,7 @@ project ("pybullet")
 
 		if _OPTIONS["enable_grpc"] then
 				initGRPC()
-				
+
 				 files {
                   "../../examples/SharedMemory/PhysicsClientGRPC.cpp",
                   "../../examples/SharedMemory/PhysicsClientGRPC.h",
@@ -14,25 +14,25 @@ project ("pybullet")
                   "../../examples/SharedMemory/PhysicsClientGRPC_C_API.h",
                 }
 		end
-		
+
 		includedirs {"../../src", "../../examples",
 		"../../examples/ThirdPartyLibs",
-		"../../Extras/VHACD/inc", "../../Extras/VHACD/public",
+		"../../extras/VHACD/inc", "../../extras/VHACD/public",
 		}
 		defines {"BT_ENABLE_VHACD"}
-		
+
 		defines {"PHYSICS_IN_PROCESS_EXAMPLE_BROWSER"}
-		files 
+		files
 		{
-			"../../Extras/VHACD/test/src/main_vhacd.cpp",
-			"../../Extras/VHACD/src/VHACD.cpp",
-			"../../Extras/VHACD/src/vhacdICHull.cpp",
-			"../../Extras/VHACD/src/vhacdManifoldMesh.cpp",
-			"../../Extras/VHACD/src/vhacdMesh.cpp",
-			"../../Extras/VHACD/src/vhacdVolume.cpp",
+			"../../extras/VHACD/test/src/main_vhacd.cpp",
+			"../../extras/VHACD/src/VHACD.cpp",
+			"../../extras/VHACD/src/vhacdICHull.cpp",
+			"../../extras/VHACD/src/vhacdManifoldMesh.cpp",
+			"../../extras/VHACD/src/vhacdMesh.cpp",
+			"../../extras/VHACD/src/vhacdVolume.cpp",
 		}
-		
-		
+
+
 	hasCL = findOpenCL("clew")
 
 	links{ "BulletExampleBrowserLib","gwen", "BulletFileLoader","BulletWorldImporter","OpenGL_Window","BulletSoftBody", "BulletInverseDynamicsUtils", "BulletInverseDynamics", "BulletDynamics","BulletCollision","LinearMath","BussIK", "Bullet3Common"}
@@ -63,8 +63,8 @@ project ("pybullet")
 if not _OPTIONS["no-enet"] then
 
 		includedirs {"../../examples/ThirdPartyLibs/enet/include"}
-	
-		if os.is("Windows") then 
+
+		if os.is("Windows") then
 --			targetextension {"dylib"}
 			defines { "WIN32" }
 			links {"Ws2_32","Winmm"}
@@ -72,16 +72,16 @@ if not _OPTIONS["no-enet"] then
 		if os.is("Linux") then
 		end
 		if os.is("MacOSX") then
-		end		
-		
-		links {"enet"}		
+		end
+
+		links {"enet"}
 
 		files {
 			"../../examples/SharedMemory/PhysicsClientUDP.cpp",
 			"../../examples/SharedMemory/PhysicsClientUDP.h",
 			"../../examples/SharedMemory/PhysicsClientUDP_C_API.cpp",
 			"../../examples/SharedMemory/PhysicsClientUDP_C_API.h",
-		}	
+		}
 		defines {"BT_ENABLE_ENET"}
 	end
 
@@ -192,8 +192,8 @@ if not _OPTIONS["no-enet"] then
 			"../../examples/SharedMemory/plugins/pdControlPlugin/pdControlPlugin.cpp",
 			"../../examples/SharedMemory/plugins/pdControlPlugin/pdControlPlugin.h",
 		}
-		
-	defines {"B3_ENABLE_FILEIO_PLUGIN", "B3_USE_ZIPFILE_FILEIO"}	
+
+	defines {"B3_ENABLE_FILEIO_PLUGIN", "B3_USE_ZIPFILE_FILEIO"}
   files {
   	"../../examples/SharedMemory/plugins/fileIOPlugin/fileIOPlugin.cpp",
   	"../../examples/ThirdPartyLibs/minizip/ioapi.c",
@@ -235,12 +235,12 @@ if not _OPTIONS["no-enet"] then
 			"../../examples/SharedMemory/plugins/stablePDPlugin/BulletConversion.h",
 			}
 		end
-		
-		
+
+
 	if _OPTIONS["enable_physx"] then
   	defines {"BT_ENABLE_PHYSX","PX_PHYSX_STATIC_LIB", "PX_FOUNDATION_DLL=0"}
-		
-		configuration {"x64", "debug"}			
+
+		configuration {"x64", "debug"}
 				defines {"_DEBUG"}
 		configuration {"x86", "debug"}
 				defines {"_DEBUG"}
@@ -265,7 +265,7 @@ if not _OPTIONS["no-enet"] then
 		links {
 				"PhysX",
 			}
-			
+
 			files {
 				"../../examples/SharedMemory/plugins/eglPlugin/eglRendererPlugin.cpp",
 				"../../examples/SharedMemory/plugins/eglPlugin/eglRendererPlugin.h",
@@ -282,21 +282,21 @@ if not _OPTIONS["no-enet"] then
 				"../../examples/SharedMemory/physx/PhysXUserData.h",
 				}
   end
-  			
+
 if (_OPTIONS["enable_static_vr_plugin"]) then
 		files {"../../examples/SharedMemory/plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
 end
 
-	
+
 	includedirs {
 		_OPTIONS["python_include_dir"],
 	}
 	libdirs {
 		_OPTIONS["python_lib_dir"]
 	}
-	
+
 	if os.is("Linux") then
        		initX11()
 	end
 
-	
+

@@ -8,9 +8,9 @@
 
 #include <gtest/gtest.h>
 
-#include "../Extras/InverseDynamics/CoilCreator.hpp"
-#include "../Extras/InverseDynamics/DillCreator.hpp"
-#include "../Extras/InverseDynamics/SimpleTreeCreator.hpp"
+#include "../extras/InverseDynamics/CoilCreator.hpp"
+#include "../extras/InverseDynamics/DillCreator.hpp"
+#include "../extras/InverseDynamics/SimpleTreeCreator.hpp"
 #include "BulletInverseDynamics/MultiBodyTree.hpp"
 
 using namespace btInverseDynamics;

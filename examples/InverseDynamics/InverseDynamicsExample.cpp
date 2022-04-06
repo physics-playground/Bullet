@@ -34,7 +34,7 @@ subject to the following restrictions:
 #include "../CommonInterfaces/CommonRigidBodyBase.h"
 
 #include "BulletInverseDynamics/IDConfig.hpp"
-#include "../Extras/InverseDynamics/btMultiBodyTreeCreator.hpp"
+#include "../extras/InverseDynamics/btMultiBodyTreeCreator.hpp"
 
 #include "../RenderingExamples/TimeSeriesCanvas.h"
 
@@ -346,7 +346,7 @@ void InverseDynamicsExample::stepSimulation(float deltaTime)
 			btVector3 localAxis = m_multiBody->getLink(i).m_axes[0].m_topVec;
 			//printf("link %d: %f,%f,%f, local axis:%f,%f,%f\n", i, pos.x(), pos.y(), pos.z(), localAxis.x(), localAxis.y(), localAxis.z());
 
-			
+
 
 
 		}

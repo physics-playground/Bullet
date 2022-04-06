@@ -4,8 +4,8 @@ Copyright (c) 2003-2011 Erwin Coumans  https://bulletphysics.org
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -96,12 +96,12 @@ void FractureDemo::initPhysics()
 	m_collisionConfiguration = new btDefaultCollisionConfiguration();
 	//m_collisionConfiguration->setConvexConvexMultipointIterations();
 
-	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
+	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see extras/BulletMultiThreaded)
 	m_dispatcher = new btCollisionDispatcher(m_collisionConfiguration);
 
 	m_broadphase = new btDbvtBroadphase();
 
-	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
+	///the default constraint solver. For parallel processing you can use a different solver (see extras/BulletMultiThreaded)
 	btSequentialImpulseConstraintSolver* sol = new btSequentialImpulseConstraintSolver;
 	m_solver = sol;
 
@@ -206,7 +206,7 @@ void FractureDemo::showMessage()
 			sprintf(buf,"Glue mode");
 		}
 		GLDebugDrawString(xStart,yStart,buf);
-		sprintf(buf,"f to toggle fracture/glue mode");		
+		sprintf(buf,"f to toggle fracture/glue mode");
 		yStart+=20;
 		GLDebugDrawString(xStart,yStart,buf);
 		sprintf(buf,"space to restart, mouse to pick/shoot");
@@ -223,7 +223,7 @@ void FractureDemo::showMessage()
 #if 0
 void FractureDemo::displayCallback(void) {
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	renderme();
 
