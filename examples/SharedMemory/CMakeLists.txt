@@ -117,7 +117,7 @@ IF (WIN32)
                 main.cpp
                 ../MultiThreading/b3Win32ThreadSupport.cpp
 	              ../MultiThreading/b3Win32ThreadSupport.h
-                ${BULLET_PHYSICS_SOURCE_DIR}/build3/bullet.rc
+                ${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
         )
 ELSE(WIN32)
 	FIND_PACKAGE(Threads)
@@ -177,7 +177,7 @@ IF (WIN32)
 								../ExampleBrowser/CollisionShape2TriangleMesh.cpp
 								../MultiThreading/b3Win32ThreadSupport.cpp
 								../MultiThreading/b3Win32ThreadSupport.h
-			          ${BULLET_PHYSICS_SOURCE_DIR}/build3/bullet.rc
+			          ${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
         )
 ELSE(WIN32)
 	FIND_PACKAGE(Threads)
@@ -252,7 +252,7 @@ LINK_LIBRARIES(
 				SET(Platform_SRCS
 					../MultiThreading/b3Win32ThreadSupport.cpp
 					../MultiThreading/b3Win32ThreadSupport.h
-					${BULLET_PHYSICS_SOURCE_DIR}/build3/bullet.rc
+					${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
 				)
 				IF (CMAKE_CL_64)
 					LINK_DIRECTORIES(${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/openvr/lib/win64)
@@ -267,7 +267,7 @@ LINK_LIBRARIES(
     					set(EXTRA_LIBS ${EXTRA_LIBS} ${FOUNDATION_FRAMEWORK})
 
 					set(CMAKE_MACOSX_RPATH 0)
-  					
+
 					SET(Platform_SRCS
                                         ../MultiThreading/b3PosixThreadSupport.cpp
                                         ../MultiThreading/b3PosixThreadSupport.h

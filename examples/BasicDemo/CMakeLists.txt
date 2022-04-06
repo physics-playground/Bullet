@@ -12,7 +12,7 @@ IF (WIN32)
 	ADD_EXECUTABLE(App_BasicExample
 		BasicExample.cpp
 		main.cpp
-		${BULLET_PHYSICS_SOURCE_DIR}/build3/bullet.rc
+		${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
 	)
 ELSE()
 	ADD_EXECUTABLE(App_BasicExample
@@ -48,7 +48,7 @@ INCLUDE_DIRECTORIES(
 
 SET(AppBasicExampleGui_SRCS
 	BasicExample.cpp
-        ${BULLET_PHYSICS_SOURCE_DIR}/build3/bullet.rc
+        ${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
 	../StandaloneMain/main_opengl_single_example.cpp
         ../ExampleBrowser/OpenGLGuiHelper.cpp
         ../ExampleBrowser/GL_ShapeDrawer.cpp
@@ -60,7 +60,7 @@ SET(AppBasicExampleGui_SRCS
 ADD_DEFINITIONS(-DB3_USE_STANDALONE_EXAMPLE)
 
 LINK_LIBRARIES(
-        BulletDynamics BulletCollision LinearMath OpenGLWindow Bullet3Common 
+        BulletDynamics BulletCollision LinearMath OpenGLWindow Bullet3Common
 )
 
 #some code to support OpenGL and Glew cross platform

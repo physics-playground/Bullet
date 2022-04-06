@@ -11,7 +11,7 @@ LINK_LIBRARIES(
 IF (WIN32)
 	ADD_EXECUTABLE(App_HelloWorld
 		HelloWorld.cpp
-		${BULLET_PHYSICS_SOURCE_DIR}/build3/bullet.rc
+		${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
 	)
 ELSE()
 	ADD_EXECUTABLE(App_HelloWorld

@@ -10,7 +10,7 @@ INCLUDE_DIRECTORIES(
 
 SET(AppSimpleOpenGL3_SRCS
 	main.cpp
-	${BULLET_PHYSICS_SOURCE_DIR}/build3/bullet.rc
+	${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
 )
 
 LINK_LIBRARIES(
