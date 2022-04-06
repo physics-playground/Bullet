@@ -1,0 +1,8 @@
+use_tab: true
+indent_width: 1
+keep_simple_control_block_one_line: false
+keep_simple_function_one_line: false
+align_args: true
+continuation_indent_width: 0
+align_parameter: true
+column_limit: 110

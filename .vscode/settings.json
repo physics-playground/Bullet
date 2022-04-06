@@ -4,11 +4,15 @@
     "editor.formatOnType": false,
     "cmake.configureOnOpen": true,
     "cmake.configureOnEdit": true,
+    "vscode-lua-format.configPath": ".lua-format",
     "python.linting.lintOnSave": true,
     "python.linting.pylintEnabled": true,
     "python.linting.mypyEnabled": true,
     "python.linting.flake8Enabled": true,
     "python.formatting.provider": "black",
+    "[lua]": {
+        "editor.formatOnSave": true
+    },
     "[json]": {
         "editor.formatOnSave": true,
         "editor.quickSuggestions": {
