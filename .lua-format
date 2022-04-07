@@ -6,3 +6,6 @@ align_args: true
 continuation_indent_width: 0
 align_parameter: true
 column_limit: 110
+align_table_field: true
+break_before_table_rb: true
+chop_down_table: true

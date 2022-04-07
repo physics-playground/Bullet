@@ -23,6 +23,9 @@
             "document"
         ]
     },
+    "[shellscript]": {
+        "editor.formatOnSave": true
+    },
     "[yaml]": {
         "editor.insertSpaces": true,
         "editor.tabSize": 2,
