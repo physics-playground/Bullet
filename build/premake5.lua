@@ -8,7 +8,8 @@ if _ACTION == "vs2010" or _ACTION == "vs2008" then
 	buildoptions {
 		-- Multithreaded compiling
 		"/MP", -- Disable a few useless warnings
-		"/wd4244", "/wd4267"
+		"/wd4244",
+		"/wd4267"
 	}
 end
 
@@ -181,13 +182,13 @@ if _OPTIONS["enable_grpc"] then
 		includedirs {projectRootDir .. "examples", _OPTIONS["grpc_include_dir"], _OPTIONS["protobuf_include_dir"]}
 
 		if os.istarget("Windows") then
-			filter {"x64", "debug"}
+			filter {"architecture:x86_64", "configurations:Debug"}
 			libdirs {_OPTIONS["grpc_lib_dir"] .. "/win64_debug", _OPTIONS["protobuf_lib_dir"] .. "win64_debug"}
-			filter {"x86", "debug"}
+			filter {"architecture:x86", "configurations:Debug"}
 			libdirs {_OPTIONS["grpc_lib_dir"] .. "/win32_debug", _OPTIONS["protobuf_lib_dir"] .. "win32_debug"}
-			filter {"x64", "release"}
+			filter {"architecture:x86_64", "configurations:Release"}
 			libdirs {_OPTIONS["grpc_lib_dir"] .. "/win64_release", _OPTIONS["protobuf_lib_dir"] .. "win64_release"}
-			filter {"x86", "release"}
+			filter {"architecture:x86", "configurations:Release"}
 			libdirs {_OPTIONS["grpc_lib_dir"] .. "/win32_release", _OPTIONS["protobuf_lib_dir"] .. "win32_release"}
 			filter {}
 
@@ -198,11 +199,11 @@ if _OPTIONS["enable_grpc"] then
 		links {"grpc", "grpc++", "grpc++_reflection", "gpr", "protobuf"}
 		files {
 			projectRootDir .. "examples/SharedMemory/grpc/ConvertGRPCBullet.cpp",
-   projectRootDir .. "examples/SharedMemory/grpc/ConvertGRPCBullet.h",
-   projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.grpc.pb.cpp",
-   projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.grpc.pb.h",
-   projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.pb.cpp",
-   projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.pb.h"
+			projectRootDir .. "examples/SharedMemory/grpc/ConvertGRPCBullet.h",
+			projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.grpc.pb.cpp",
+			projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.grpc.pb.h",
+			projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.pb.cpp",
+			projectRootDir .. "examples/SharedMemory/grpc/proto/pybullet.pb.h"
 		}
 	end
 
@@ -266,19 +267,14 @@ newoption {
 
 newoption {trigger = "no-test", description = "Disable all tests"}
 newoption {trigger = "test-bullet2", description = "Enable Bullet2 LinearMath test"}
-
 newoption {trigger = "no-gtest", description = "Disable unit tests using gtest"}
-
-newoption {trigger = "no-bullet3", description = "Do not build bullet3 libs"}
-
+newoption {trigger = "no-bullet3", description = "Do not build Bullet3 libs"}
 newoption {trigger = "double", description = "Double precision version of Bullet"}
-
 newoption {trigger = "clamp-velocities", description = "Limit maximum velocities to reduce FP exception risk"}
-
 newoption {trigger = "serial", description = "Enable serial, for testing the VR glove in C++"}
-
 newoption {trigger = "audio", description = "Enable audio"}
 newoption {trigger = "enable_multithreading", description = "enable CPU multithreading for bullet2 libs"}
+
 if _OPTIONS["enable_multithreading"] then
 	defines {"BT_THREADSAFE=1"}
 end
@@ -290,7 +286,41 @@ if _OPTIONS["clamp-velocities"] then
 end
 
 newoption {trigger = "dynamic-runtime", description = "Enable dynamic DLL CRT runtime"}
+
 configurations {"Release", "Debug"}
+if os.istarget("Linux") then
+	platforms {"x64"}
+elseif os.istarget("macosx") then
+	platforms {"x64", "x86"}
+else
+	platforms {"Win32", "x64"}
+end
+
+filter "platforms:Win32 or platforms:x86"
+architecture "x86"
+
+filter "platforms:x64"
+architecture "x86_64"
+
+filter {"architecture:x86"}
+targetsuffix("_" .. act)
+
+filter {"architecture:x86", "configurations:Debug"}
+targetsuffix("_" .. act .. "_debug")
+
+filter {"architecture:x86", "configurations:Release"}
+targetsuffix("_" .. act .. "_release")
+
+filter "architecture:x86_64"
+targetsuffix("_" .. act .. "_64")
+
+filter {"architecture:x86_64", "configurations:Debug"}
+targetsuffix("_" .. act .. "_x64_debug")
+
+filter {"architecture:x86_64", "configurations:Release"}
+targetsuffix("_" .. act .. "_x64_release")
+
+filter {}
 filter "configurations:Release"
 vectorextensions "SSE2"
 floatingpoint "Fast"
@@ -299,6 +329,7 @@ flags {"NoMinimalRebuild"}
 if not _OPTIONS["dynamic-runtime"] then
 	staticruntime "On"
 end
+
 filter "configurations:Debug"
 defines {"_DEBUG=1"}
 vectorextensions "SSE2"
@@ -309,27 +340,6 @@ flags {"NoMinimalRebuild"}
 if not _OPTIONS["dynamic-runtime"] then
 	staticruntime "On"
 end
-
-if os.istarget("Linux") or os.istarget("macosx") then
-	if os.is64bit() then
-		platforms {"x64"}
-	else
-		platforms {"x32"}
-	end
-else
-	platforms {"x32", "x64"}
-end
-
-filter {"x32"}
-targetsuffix("_" .. act)
-filter "configurations:x64"
-targetsuffix("_" .. act .. "_64")
-filter {"x64", "debug"}
-targetsuffix("_" .. act .. "_x64_debug")
-filter {"x64", "release"}
-targetsuffix("_" .. act .. "_x64_release")
-filter {"x32", "debug"}
-targetsuffix("_" .. act .. "_debug")
 
 filter {}
 
@@ -342,12 +352,17 @@ if _ACTION == "xcode4" then
 
 		postfix = "ios";
 		xcodebuildsettings {
-			'INFOPLIST_FILE = "../../test/Bullet2/Info.plist"', 'CODE_SIGN_IDENTITY = "iPhone Developer"',
-   "SDKROOT = iphoneos", 'ARCHS = "armv7"', 'TARGETED_DEVICE_FAMILY = "1,2"', 'VALID_ARCHS = "armv7"'
+			'INFOPLIST_FILE = "../../test/Bullet2/Info.plist"',
+			'CODE_SIGN_IDENTITY = "iPhone Developer"',
+			"SDKROOT = iphoneos",
+			'ARCHS = "armv7"',
+			'TARGETED_DEVICE_FAMILY = "1,2"',
+			'VALID_ARCHS = "armv7"'
 		}
 	else
 		xcodebuildsettings {
-			'ARCHS = "$(ARCHS_STANDARD_64_BIT)"', 'VALID_ARCHS = "x86_64"'
+			'ARCHS = "$(ARCHS_STANDARD_64_BIT)"',
+			'VALID_ARCHS = "x86_64"'
 			--			'SDKROOT = "macosx10.9"',
 		}
 	end
@@ -429,18 +444,22 @@ if _OPTIONS["enable_glfw"] then
 		links {_OPTIONS["glfw_lib_name"]}
 		files {projectRootDir .. "examples/ThirdPartyLibs/glad/glad.c"}
 	end
+
 	function findOpenGL3()
 		return true
 	end
+
 	function initGlew()
 	end
+
 	function initX11()
 		links {"X11", "dl", "pthread"}
 	end
 
 else
 	dofile("findOpenGLGlewGlut.lua")
-	if (not findOpenGL3()) then
+
+	if not findOpenGL3() then
 		defines {"NO_OPENGL3"}
 	end
 end

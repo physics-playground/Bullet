@@ -24,12 +24,13 @@ end
 
 function initOpenGL()
 	filter {}
-	filter {"Windows"}
-	links {"opengl32", "glu32"}
-	filter {"MacOSX"}
-	links {"OpenGL.framework"}
-	filter {"not Windows", "not MacOSX"}
-	if os.istarget("Linux") then
+
+	if os.istarget("Windows") then
+		links {"opengl32", "glu32"}
+		includedirs {projectRootDir .. "examples/ThirdPartyLibs/glad"}
+	elseif os.istarget("MacOSX") then
+		links {"OpenGL.framework"}
+	else
 		if _OPTIONS["enable_system_opengl"] and (os.isdir("/usr/include") and os.isfile("/usr/include/GL/gl.h")) then
 			links {"GL"}
 		else
@@ -38,7 +39,6 @@ function initOpenGL()
 			links {"dl"}
 		end
 	end
-	filter {}
 end
 
 function initX11()
@@ -70,7 +70,6 @@ end
 function initGlew()
 	filter {}
 	if os.istarget("Windows") then
-		filter {"Windows"}
 		defines {"GLEW_STATIC"}
 		includedirs {projectRootDir .. "examples/ThirdPartyLibs/glad"}
 		files {projectRootDir .. "examples/ThirdPartyLibs/glad/gl.c"}
@@ -97,7 +96,7 @@ function initGlew()
 		includedirs {projectRootDir .. "examples/ThirdPartyLibs/glad"}
 		files {
 			projectRootDir .. "examples/ThirdPartyLibs/glad/gl.c",
-   projectRootDir .. "examples/ThirdPartyLibs/glad/glx.c"
+			projectRootDir .. "examples/ThirdPartyLibs/glad/glx.c"
 		}
 		links {"dl"}
 

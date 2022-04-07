@@ -1,4 +1,3 @@
-
 project "App_PhysicsServer_SharedMemory"
 
 if _OPTIONS["ios"] then
@@ -7,19 +6,25 @@ else
 	kind "ConsoleApp"
 end
 
-includedirs {".","../../src", "../ThirdPartyLibs"}
+includedirs {".", "../../src", "../ThirdPartyLibs"}
 
 links {
-	"BulletSoftBody", "Bullet3Common","BulletInverseDynamicsUtils", "BulletInverseDynamics",	"BulletDynamics","BulletCollision", "LinearMath", "BussIK"
+	"BulletSoftBody",
+	"Bullet3Common",
+	"BulletInverseDynamicsUtils",
+	"BulletInverseDynamics",
+	"BulletDynamics",
+	"BulletCollision",
+	"LinearMath",
+	"BussIK"
 }
 if os.istarget("Linux") then
-    links{"dl"}
+	links {"dl"}
 end
 
 language "C++"
 
-myfiles =
-{
+myfiles = {
 	"b3RobotSimulatorClientAPI_NoDirect.cpp",
 	"b3RobotSimulatorClientAPI_NoDirect.h",
 	"IKTrajectoryHelper.cpp",
@@ -79,7 +84,7 @@ myfiles =
 	"../Importers/ImportURDFDemo/BulletUrdfImporter.cpp",
 	"../Importers/ImportURDFDemo/BulletUrdfImporter.h",
 	"../Importers/ImportURDFDemo/UrdfParser.cpp",
- 	"../Importers/ImportURDFDemo/urdfStringSplit.cpp",
+	"../Importers/ImportURDFDemo/urdfStringSplit.cpp",
 	"../Importers/ImportURDFDemo/UrdfParser.cpp",
 	"../Importers/ImportURDFDemo/UrdfParser.h",
 	"../Importers/ImportURDFDemo/URDF2Bullet.cpp",
@@ -106,17 +111,11 @@ myfiles =
 	"../ThirdPartyLibs/tinyxml2/tinyxml2.cpp",
 	"../Importers/ImportMeshUtility/b3ImportMeshUtility.cpp",
 	"../ThirdPartyLibs/stb_image/stb_image.cpp",
-	"../ThirdPartyLibs/stb_image/stb_image_write.cpp",
+	"../ThirdPartyLibs/stb_image/stb_image_write.cpp"
 
 }
 
-
-files {
-	myfiles,
-	"../OpenGLWindow/SimpleCamera.cpp",
-	"../OpenGLWindow/SimpleCamera.h",
-	"main.cpp",
-}
+files {myfiles, "../OpenGLWindow/SimpleCamera.cpp", "../OpenGLWindow/SimpleCamera.h", "main.cpp"}
 
 if (_OPTIONS["enable_static_vr_plugin"]) then
 	defines("STATIC_LINK_VR_PLUGIN")
@@ -124,8 +123,7 @@ if (_OPTIONS["enable_static_vr_plugin"]) then
 end
 
 if (_OPTIONS["enable_static_tinyrenderer_plugin"]) then
-	files
-		{
+	files {
 		"plugins/tinyRendererPlugin/tinyRendererPlugin.cpp",
 		"plugins/tinyRendererPlugin/TinyRendererVisualShapeConverter.cpp",
 		"../TinyRenderer/geometry.cpp",
@@ -133,98 +131,90 @@ if (_OPTIONS["enable_static_tinyrenderer_plugin"]) then
 		"../TinyRenderer/tgaimage.cpp",
 		"../TinyRenderer/our_gl.cpp",
 		"../TinyRenderer/TinyRenderer.cpp"
-		}
+	}
 else
 	defines("SKIP_STATIC_TINYRENDERER_PLUGIN")
 end
 
-files {
-		"../MultiThreading/b3ThreadSupportInterface.cpp",
-		"../MultiThreading/b3ThreadSupportInterface.h"
-	}
-	if os.istarget("Windows") then
+files {"../MultiThreading/b3ThreadSupportInterface.cpp", "../MultiThreading/b3ThreadSupportInterface.h"}
+if os.istarget("Windows") then
 
-		files {
-                "../MultiThreading/b3Win32ThreadSupport.cpp",
-                "../MultiThreading/b3Win32ThreadSupport.h"
-		}
-		--links {"winmm"}
-		--defines {"__WINDOWS_MM__", "WIN32"}
-	end
+	files {"../MultiThreading/b3Win32ThreadSupport.cpp", "../MultiThreading/b3Win32ThreadSupport.h"}
+	-- links {"winmm"}
+	-- defines {"__WINDOWS_MM__", "WIN32"}
+end
 
-	if os.istarget("Linux") then
-		files {
-                "../MultiThreading/b3PosixThreadSupport.cpp",
-                "../MultiThreading/b3PosixThreadSupport.h"
-        	}
+if os.istarget("Linux") then
+	files {"../MultiThreading/b3PosixThreadSupport.cpp", "../MultiThreading/b3PosixThreadSupport.h"}
 
-		links {"pthread"}
-	end
+	links {"pthread"}
+end
 
-	if os.istarget("MacOSX") then
-		files {
-                "../MultiThreading/b3PosixThreadSupport.cpp",
-                "../MultiThreading/b3PosixThreadSupport.h"
-                }
+if os.istarget("MacOSX") then
+	files {"../MultiThreading/b3PosixThreadSupport.cpp", "../MultiThreading/b3PosixThreadSupport.h"}
 
-		links {"pthread"}
-		--links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
-		--defines {"__MACOSX_CORE__"}
-	end
-
+	links {"pthread"}
+	-- links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
+	-- defines {"__MACOSX_CORE__"}
+end
 
 project "App_PhysicsServer_SharedMemory_GUI"
 
 if _OPTIONS["ios"] then
-        kind "WindowedApp"
+	kind "WindowedApp"
 else
-        kind "ConsoleApp"
+	kind "ConsoleApp"
 end
 defines {"B3_USE_STANDALONE_EXAMPLE"}
 
 includedirs {"../../src", "../ThirdPartyLibs"}
 
 links {
-       "BulletSoftBody",  "BulletInverseDynamicsUtils", "BulletInverseDynamics", "BulletDynamics","BulletCollision", "LinearMath", "OpenGL_Window","Bullet3Common","BussIK"
+	"BulletSoftBody",
+	"BulletInverseDynamicsUtils",
+	"BulletInverseDynamics",
+	"BulletDynamics",
+	"BulletCollision",
+	"LinearMath",
+	"OpenGL_Window",
+	"Bullet3Common",
+	"BussIK"
 }
-	initOpenGL()
-  initGlew()
+initOpenGL()
+initGlew()
 
 language "C++"
 
-	if _OPTIONS["midi"] then
+if _OPTIONS["midi"] then
 
-		defines {"B3_USE_MIDI"}
+	defines {"B3_USE_MIDI"}
 
+	includedirs {"../ThirdPartyLibs/midi"}
 
-
-			 includedirs{"../ThirdPartyLibs/midi"}
-
-				 files {
-	        	"../ThirdPartyLibs/midi/RtMidi.cpp",
-	        	"../ThirdPartyLibs/midi/RtMidi.h",
-	        	"../ThirdPartyLibs/midi/RtError.h",
-        	}
-			if os.istarget("Windows") then
-				links {"winmm"}
-				defines {"__WINDOWS_MM__", "WIN32"}
-			end
-
-			if os.istarget("Linux") then
-				defines {"__LINUX_ALSA__"}
-			  links {"asound","pthread"}
-			end
-
-			if os.istarget("MacOSX") then
-				links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
-				defines {"__MACOSX_CORE__"}
-			end
-
+	files {
+		"../ThirdPartyLibs/midi/RtMidi.cpp",
+		"../ThirdPartyLibs/midi/RtMidi.h",
+		"../ThirdPartyLibs/midi/RtError.h"
+	}
+	if os.istarget("Windows") then
+		links {"winmm"}
+		defines {"__WINDOWS_MM__", "WIN32"}
 	end
 
-if ( _OPTIONS["enable_static_tinyrenderer_plugin"]) then
-	files
-		{
+	if os.istarget("Linux") then
+		defines {"__LINUX_ALSA__"}
+		links {"asound", "pthread"}
+	end
+
+	if os.istarget("MacOSX") then
+		links {"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
+		defines {"__MACOSX_CORE__"}
+	end
+
+end
+
+if (_OPTIONS["enable_static_tinyrenderer_plugin"]) then
+	files {
 		"plugins/tinyRendererPlugin/tinyRendererPlugin.cpp",
 		"plugins/tinyRendererPlugin/TinyRendererVisualShapeConverter.cpp",
 		"../TinyRenderer/geometry.cpp",
@@ -232,72 +222,57 @@ if ( _OPTIONS["enable_static_tinyrenderer_plugin"]) then
 		"../TinyRenderer/tgaimage.cpp",
 		"../TinyRenderer/our_gl.cpp",
 		"../TinyRenderer/TinyRenderer.cpp"
-		}
+	}
 else
 	defines("SKIP_STATIC_TINYRENDERER_PLUGIN")
 end
 
-
 files {
-        myfiles,
-        "../StandaloneMain/main_opengl_single_example.cpp",
-				"../ExampleBrowser/OpenGLGuiHelper.cpp",
-				"../ExampleBrowser/GL_ShapeDrawer.cpp",
-				"../ExampleBrowser/CollisionShape2TriangleMesh.cpp",
+	myfiles,
+	"../StandaloneMain/main_opengl_single_example.cpp",
+	"../ExampleBrowser/OpenGLGuiHelper.cpp",
+	"../ExampleBrowser/GL_ShapeDrawer.cpp",
+	"../ExampleBrowser/CollisionShape2TriangleMesh.cpp"
 }
 if (_OPTIONS["enable_static_vr_plugin"]) then
 	defines("STATIC_LINK_VR_PLUGIN")
 	files {"plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
 end
 
-
-if os.istarget("Linux") then initX11() end
-
-if os.istarget("MacOSX") then
-        links{"Cocoa.framework"}
+if os.istarget("Linux") then
+	initX11()
 end
 
+if os.istarget("MacOSX") then
+	links {"Cocoa.framework"}
+end
 
-files {
-		"../MultiThreading/b3ThreadSupportInterface.cpp",
-		"../MultiThreading/b3ThreadSupportInterface.h"
-	}
+files {"../MultiThreading/b3ThreadSupportInterface.cpp", "../MultiThreading/b3ThreadSupportInterface.h"}
 if os.istarget("Windows") then
 
-	files {
-              "../MultiThreading/b3Win32ThreadSupport.cpp",
-              "../MultiThreading/b3Win32ThreadSupport.h"
-	}
-	--links {"winmm"}
-	--defines {"__WINDOWS_MM__", "WIN32"}
+	files {"../MultiThreading/b3Win32ThreadSupport.cpp", "../MultiThreading/b3Win32ThreadSupport.h"}
+	-- links {"winmm"}
+	-- defines {"__WINDOWS_MM__", "WIN32"}
 end
 
 if os.istarget("Linux") then
-	files {
-              "../MultiThreading/b3PosixThreadSupport.cpp",
-              "../MultiThreading/b3PosixThreadSupport.h"
-      	}
+	files {"../MultiThreading/b3PosixThreadSupport.cpp", "../MultiThreading/b3PosixThreadSupport.h"}
 
 	links {"pthread"}
 end
 
 if os.istarget("MacOSX") then
-	files {
-              "../MultiThreading/b3PosixThreadSupport.cpp",
-              "../MultiThreading/b3PosixThreadSupport.h"
-              }
+	files {"../MultiThreading/b3PosixThreadSupport.cpp", "../MultiThreading/b3PosixThreadSupport.h"}
 
 	links {"pthread"}
-	--links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
-	--defines {"__MACOSX_CORE__"}
+	-- links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
+	-- defines {"__MACOSX_CORE__"}
 end
-
-
 
 if os.istarget("Windows") then
 	project "App_PhysicsServer_SharedMemory_VR"
-	--for now, only enable VR under Windows, until compilation issues are resolved on Mac/Linux
-	defines {"B3_USE_STANDALONE_EXAMPLE","BT_ENABLE_VR"}
+	-- for now, only enable VR under Windows, until compilation issues are resolved on Mac/Linux
+	defines {"B3_USE_STANDALONE_EXAMPLE", "BT_ENABLE_VR"}
 
 	if _OPTIONS["ios"] then
 		kind "WindowedApp"
@@ -309,197 +284,189 @@ if os.istarget("Windows") then
 
 		defines {"B3_USE_MIDI"}
 
+		includedirs {"../ThirdPartyLibs/midi"}
 
-
-			 includedirs{"../ThirdPartyLibs/midi"}
-
-				 files {
-	        	"../ThirdPartyLibs/midi/RtMidi.cpp",
-	        	"../ThirdPartyLibs/midi/RtMidi.h",
-	        	"../ThirdPartyLibs/midi/RtError.h",
-        	}
-			if os.istarget("Windows") then
-				links {"winmm"}
-				defines {"__WINDOWS_MM__", "WIN32"}
-			end
-
-			if os.istarget("Linux") then
-				defines {"__LINUX_ALSA__"}
-			  links {"asound","pthread"}
-			end
-
-			if os.istarget("MacOSX") then
-				links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
-				defines {"__MACOSX_CORE__"}
-			end
-
-	end
-	if _OPTIONS["audio"] then
-			files {
-				"../TinyAudio/b3ADSR.cpp",
-				"../TinyAudio/b3AudioListener.cpp",
-				"../TinyAudio/b3ReadWavFile.cpp",
-				"../TinyAudio/b3SoundEngine.cpp",
-				"../TinyAudio/b3SoundSource.cpp",
-				"../TinyAudio/b3WriteWavFile.cpp",
-				"../TinyAudio/RtAudio.cpp",
-			}
-
-			defines {"B3_ENABLE_TINY_AUDIO"}
-
-			if os.istarget("Windows") then
-				links {"winmm","Wsock32","dsound"}
-				defines {"WIN32","__WINDOWS_MM__","__WINDOWS_DS__"}
-			end
-
-			if os.istarget("Linux") then initX11()
-			                defines  {"__OS_LINUX__","__LINUX_ALSA__"}
-				links {"asound","pthread"}
-			end
-
-
-			if os.istarget("MacOSX") then
-				links{"Cocoa.framework"}
-				links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
-				defines {"__OS_MACOSX__","__MACOSX_CORE__"}
-			end
-		end
-	includedirs {
-			".","../../src", "../ThirdPartyLibs",
-			"../ThirdPartyLibs/openvr/headers",
-			"../ThirdPartyLibs/openvr/samples/shared"
-		}
-
-	links {
-		"BulletSoftBody", "BulletInverseDynamicsUtils", "BulletInverseDynamics","Bullet3Common",	"BulletDynamics","BulletCollision", "LinearMath","OpenGL_Window","openvr_api","BussIK"
-	}
-
-
-	language "C++"
-
-
-		initOpenGL()
-	  initGlew()
-
-	if ( _OPTIONS["enable_static_tinyrenderer_plugin"]) then
-	files
-		{
-		"plugins/tinyRendererPlugin/tinyRendererPlugin.cpp",
-		"plugins/tinyRendererPlugin/TinyRendererVisualShapeConverter.cpp",
-		"../TinyRenderer/geometry.cpp",
-		"../TinyRenderer/model.cpp",
-		"../TinyRenderer/tgaimage.cpp",
-		"../TinyRenderer/our_gl.cpp",
-		"../TinyRenderer/TinyRenderer.cpp"
-		}
-else
-	defines("SKIP_STATIC_TINYRENDERER_PLUGIN")
-end
-
-
-	files
-	{
-		myfiles,
-		 "../StandaloneMain/hellovr_opengl_main.cpp",
-					"../ExampleBrowser/OpenGLGuiHelper.cpp",
-					"../ExampleBrowser/GL_ShapeDrawer.cpp",
-					"../ExampleBrowser/CollisionShape2TriangleMesh.cpp",
-					"../RenderingExamples/TinyVRGui.cpp",
-					"../RenderingExamples/TimeSeriesCanvas.cpp",
-					"../RenderingExamples/TimeSeriesFontData.cpp",
-					"../ThirdPartyLibs/openvr/samples/shared/lodepng.cpp",
-					"../ThirdPartyLibs/openvr/samples/shared/lodepng.h",
-					"../ThirdPartyLibs/openvr/samples/shared/Matrices.cpp",
-					"../ThirdPartyLibs/openvr/samples/shared/Matrices.h",
-					"../ThirdPartyLibs/openvr/samples/shared/strtools.cpp",
-					"../ThirdPartyLibs/openvr/samples/shared/pathtools.cpp",
-					"../ThirdPartyLibs/openvr/samples/shared/pathtools.h",
-					"../ThirdPartyLibs/openvr/samples/shared/Vectors.h",
-	}
-if (_OPTIONS["enable_static_vr_plugin"]) then
-	defines("STATIC_LINK_VR_PLUGIN")
-	files {"plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
-end
-
-	if os.istarget("Windows") then
-		filter {"x32"}
-			libdirs {"../ThirdPartyLibs/openvr/lib/win32"}
-		filter {"x64"}
-			libdirs {"../ThirdPartyLibs/openvr/lib/win64"}
-		filter {}
-	end
-
-	if os.istarget("Linux") then initX11() end
-
-	if os.istarget("MacOSX") then
-	        links{"Cocoa.framework"}
-	end
-
-
-	files {
-			"../MultiThreading/b3ThreadSupportInterface.cpp",
-			"../MultiThreading/b3ThreadSupportInterface.h"
+		files {
+			"../ThirdPartyLibs/midi/RtMidi.cpp",
+			"../ThirdPartyLibs/midi/RtMidi.h",
+			"../ThirdPartyLibs/midi/RtError.h"
 		}
 		if os.istarget("Windows") then
-
-			files {
-	                "../MultiThreading/b3Win32ThreadSupport.cpp",
-	                "../MultiThreading/b3Win32ThreadSupport.h"
-			}
-			--links {"winmm"}
-			--defines {"__WINDOWS_MM__", "WIN32"}
+			links {"winmm"}
+			defines {"__WINDOWS_MM__", "WIN32"}
 		end
 
 		if os.istarget("Linux") then
-			files {
-	                "../MultiThreading/b3PosixThreadSupport.cpp",
-	                "../MultiThreading/b3PosixThreadSupport.h"
-	        	}
-
-			links {"pthread"}
+			defines {"__LINUX_ALSA__"}
+			links {"asound", "pthread"}
 		end
 
 		if os.istarget("MacOSX") then
-			files {
-	                "../MultiThreading/b3PosixThreadSupport.cpp",
-	                "../MultiThreading/b3PosixThreadSupport.h"
-	                }
-
-			links {"pthread"}
-			--links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
-			--defines {"__MACOSX_CORE__"}
+			links {"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
+			defines {"__MACOSX_CORE__"}
 		end
 
+	end
+	if _OPTIONS["audio"] then
+		files {
+			"../TinyAudio/b3ADSR.cpp",
+			"../TinyAudio/b3AudioListener.cpp",
+			"../TinyAudio/b3ReadWavFile.cpp",
+			"../TinyAudio/b3SoundEngine.cpp",
+			"../TinyAudio/b3SoundSource.cpp",
+			"../TinyAudio/b3WriteWavFile.cpp",
+			"../TinyAudio/RtAudio.cpp"
+		}
+
+		defines {"B3_ENABLE_TINY_AUDIO"}
+
+		if os.istarget("Windows") then
+			links {"winmm", "Wsock32", "dsound"}
+			defines {"WIN32", "__WINDOWS_MM__", "__WINDOWS_DS__"}
+		end
+
+		if os.istarget("Linux") then
+			initX11()
+			defines {"__OS_LINUX__", "__LINUX_ALSA__"}
+			links {"asound", "pthread"}
+		end
+
+		if os.istarget("MacOSX") then
+			links {"Cocoa.framework"}
+			links {"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
+			defines {"__OS_MACOSX__", "__MACOSX_CORE__"}
+		end
+	end
+	includedirs {
+		".",
+		"../../src",
+		"../ThirdPartyLibs",
+		"../ThirdPartyLibs/openvr/headers",
+		"../ThirdPartyLibs/openvr/samples/shared"
+	}
+
+	links {
+		"BulletSoftBody",
+		"BulletInverseDynamicsUtils",
+		"BulletInverseDynamics",
+		"Bullet3Common",
+		"BulletDynamics",
+		"BulletCollision",
+		"LinearMath",
+		"OpenGL_Window",
+		"openvr_api",
+		"BussIK"
+	}
+
+	language "C++"
+
+	initOpenGL()
+	initGlew()
+
+	if (_OPTIONS["enable_static_tinyrenderer_plugin"]) then
+		files {
+			"plugins/tinyRendererPlugin/tinyRendererPlugin.cpp",
+			"plugins/tinyRendererPlugin/TinyRendererVisualShapeConverter.cpp",
+			"../TinyRenderer/geometry.cpp",
+			"../TinyRenderer/model.cpp",
+			"../TinyRenderer/tgaimage.cpp",
+			"../TinyRenderer/our_gl.cpp",
+			"../TinyRenderer/TinyRenderer.cpp"
+		}
+	else
+		defines("SKIP_STATIC_TINYRENDERER_PLUGIN")
+	end
+
+	files {
+		myfiles,
+		"../StandaloneMain/hellovr_opengl_main.cpp",
+		"../ExampleBrowser/OpenGLGuiHelper.cpp",
+		"../ExampleBrowser/GL_ShapeDrawer.cpp",
+		"../ExampleBrowser/CollisionShape2TriangleMesh.cpp",
+		"../RenderingExamples/TinyVRGui.cpp",
+		"../RenderingExamples/TimeSeriesCanvas.cpp",
+		"../RenderingExamples/TimeSeriesFontData.cpp",
+		"../ThirdPartyLibs/openvr/samples/shared/lodepng.cpp",
+		"../ThirdPartyLibs/openvr/samples/shared/lodepng.h",
+		"../ThirdPartyLibs/openvr/samples/shared/Matrices.cpp",
+		"../ThirdPartyLibs/openvr/samples/shared/Matrices.h",
+		"../ThirdPartyLibs/openvr/samples/shared/strtools.cpp",
+		"../ThirdPartyLibs/openvr/samples/shared/pathtools.cpp",
+		"../ThirdPartyLibs/openvr/samples/shared/pathtools.h",
+		"../ThirdPartyLibs/openvr/samples/shared/Vectors.h"
+	}
+
+	if (_OPTIONS["enable_static_vr_plugin"]) then
+		defines("STATIC_LINK_VR_PLUGIN")
+		files {"plugins/vrSyncPlugin/vrSyncPlugin.cpp"}
+	end
+
+	if os.istarget("Windows") then
+		filter {"architecture:x86"}
+		libdirs {"../ThirdPartyLibs/openvr/lib/win32"}
+		filter {"architecture:x86_64"}
+		libdirs {"../ThirdPartyLibs/openvr/lib/win64"}
+		filter {}
+	end
+
+	if os.istarget("Linux") then
+		initX11()
+	end
+
+	if os.istarget("MacOSX") then
+		links {"Cocoa.framework"}
+	end
+
+	files {"../MultiThreading/b3ThreadSupportInterface.cpp", "../MultiThreading/b3ThreadSupportInterface.h"}
+	if os.istarget("Windows") then
+
+		files {"../MultiThreading/b3Win32ThreadSupport.cpp", "../MultiThreading/b3Win32ThreadSupport.h"}
+		-- links {"winmm"}
+		-- defines {"__WINDOWS_MM__", "WIN32"}
+	end
+
+	if os.istarget("Linux") then
+		files {"../MultiThreading/b3PosixThreadSupport.cpp", "../MultiThreading/b3PosixThreadSupport.h"}
+
+		links {"pthread"}
+	end
+
+	if os.istarget("MacOSX") then
+		files {"../MultiThreading/b3PosixThreadSupport.cpp", "../MultiThreading/b3PosixThreadSupport.h"}
+
+		links {"pthread"}
+		-- links{"CoreAudio.framework", "coreMIDI.framework", "Cocoa.framework"}
+		-- defines {"__MACOSX_CORE__"}
+	end
 
 end
-
 
 include "udp"
 include "tcp"
 
 if (_OPTIONS["enable_static_test_plugin"]) then
-include "plugins/testPlugin"
+	include "plugins/testPlugin"
 end
 
 if (_OPTIONS["enable_vr_sync_plugin"]) then
-include "plugins/vrSyncPlugin"
+	include "plugins/vrSyncPlugin"
 end
 
 if (_OPTIONS["enable_static_tiny_renderer__plugin"]) then
-include "plugins/tinyRendererPlugin"
+	include "plugins/tinyRendererPlugin"
 end
 if (_OPTIONS["enable_static_pd_control_plugin"]) then
-include "plugins/pdControlPlugin"
+	include "plugins/pdControlPlugin"
 end
 
 if (_OPTIONS["enable_static_collision_filter_plugin"]) then
-include "plugins/collisionFilterPlugin"
+	include "plugins/collisionFilterPlugin"
 end
 if _OPTIONS["enable_egl"] then
-		include "plugins/eglPlugin"
+	include "plugins/eglPlugin"
 end
 
 if _OPTIONS["enable_grpc"] then
-		include "grpc"
-		include "plugins/grpcPlugin"
+	include "grpc"
+	include "plugins/grpcPlugin"
 end

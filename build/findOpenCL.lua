@@ -65,9 +65,9 @@ function initOpenCL_AMD()
 	if (amdopenclpath) then
 		defines {"ADL_ENABLE_CL", "CL_PLATFORM_AMD"}
 		includedirs {"$(AMDAPPSDKROOT)/include"}
-		filter "configurations:x32"
+		filter "architecture:x86"
 		libdirs {"$(AMDAPPSDKROOT)/lib/x86"}
-		filter "configurations:x64"
+		filter "architecture:x86_64"
 		libdirs {"$(AMDAPPSDKROOT)/lib/x86_64"}
 		filter {}
 		links {"OpenCL"}
@@ -82,9 +82,9 @@ function initOpenCL_NVIDIA()
 	if (nvidiaopenclpath) then
 		defines {"ADL_ENABLE_CL", "CL_PLATFORM_NVIDIA"}
 		includedirs {"$(CUDA_PATH)/include"}
-		filter "configurations:x32"
+		filter "architecture:x86"
 		libdirs {"$(CUDA_PATH)/lib/Win32"}
-		filter "configurations:x64"
+		filter "architecture:x86_64"
 		libdirs {"$(CUDA_PATH)/lib/x64"}
 		filter {}
 		links {"OpenCL"}
@@ -100,9 +100,9 @@ function initOpenCL_Intel()
 		if (intelopenclpath) then
 			defines {"ADL_ENABLE_CL", "CL_PLATFORM_INTEL"}
 			includedirs {"$(INTELOCLSDKROOT)/include"}
-			filter "configurations:x32"
+			filter "architecture:x86"
 			libdirs {"$(INTELOCLSDKROOT)/lib/x86"}
-			filter "configurations:x64"
+			filter "architecture:x86_64"
 			libdirs {"$(INTELOCLSDKROOT)/lib/x64"}
 			filter {}
 			links {"OpenCL"}

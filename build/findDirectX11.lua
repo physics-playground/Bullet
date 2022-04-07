@@ -18,9 +18,9 @@ function initDirectX11()
 	defines {"ADL_ENABLE_DX11"}
 	includedirs {"$(DXSDK_DIR)/include"}
 
-	filter "configurations:x32"
+	filter "architecture:x86"
 	libdirs {"$(DXSDK_DIR)/Lib/x86"}
-	filter "configurations:x64"
+	filter "architecture:x86_64"
 	libdirs {"$(DXSDK_DIR)/Lib/x64"}
 	filter {}
 	links {"d3dcompiler", "dxerr", "dxguid", "d3dx9", "d3d9", "winmm", "comctl32", "d3dx11"}
