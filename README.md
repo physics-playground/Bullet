@@ -1,4 +1,4 @@
-[![Build](https://github.com/physics-playground/Bullet/actions/workflows/build.yml/badge.svg)](https://github.com/physics-playground/Bullet/actions/workflows/build.yml)
+[![Build](https://github.com/physics-playground/Bullet/actions/workflows/build.yml/badge.svg)](https://github.com/physics-playground/Bullet/actions/workflows/build.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=physics-playground_Bullet&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=physics-playground_Bullet) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=physics-playground_Bullet&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=physics-playground_Bullet)
 
 # Bullet Physics SDK
 
