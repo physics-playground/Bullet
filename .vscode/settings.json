@@ -51,5 +51,15 @@
         ".clang-tidy": "yaml",
         "*.command": "shellscript"
     },
-    "cSpell.words": []
+    "cSpell.words": [
+        "backflip",
+        "cmake",
+        "coumans",
+        "gmake",
+        "premake",
+        "pybullet",
+        "Radeon",
+        "vcpkg",
+        "Yunfei"
+    ]
 }

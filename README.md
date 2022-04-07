@@ -1,16 +1,23 @@
-[![Build](https://github.com/physics-playground/Bullet/actions/workflows/build.yml/badge.svg)](https://github.com/physics-playground/Bullet/actions/workflows/build.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=physics-playground_Bullet&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=physics-playground_Bullet) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=physics-playground_Bullet&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=physics-playground_Bullet)
 
 # Bullet Physics SDK
 
+[![Build](https://github.com/physics-playground/Bullet/actions/workflows/build.yml/badge.svg)](https://github.com/physics-playground/Bullet/actions/workflows/build.yml) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=physics-playground_Bullet&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=physics-playground_Bullet) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=physics-playground_Bullet&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=physics-playground_Bullet)
+
 This is the official C++ source code repository of the Bullet Physics SDK: real-time collision detection and multi-physics simulation for VR, games, visual effects, robotics, machine learning etc.
 
-![PyBullet](https://pybullet.org/wordpress/wp-content/uploads/2019/03/cropped-pybullet.png)
+![PyBullet](./docs/logo/bullet_logo_2010_9.png)
+
+## Logo
+
+The [Bullet Physics Library logo](./docs/logo/bullet_logo_2010_9.png) in this repository (used above) was modified from original to better handle dark backgrounds. In original the "Physics Library" text was not visible on many screens.
 
 ## Issues
 
 The Issue tracker was flooded with support questions and is closed until it is cleaned up. Use the [PyBullet forums](http://pybullet.org) to discuss with others.
 
 ## PyBullet
+
+![PyBullet](./docs/images/cropped-pybullet.png)
 
 It is highly recommended to use PyBullet Python bindings for improved support for robotics, reinforcement learning and VR. Use pip install pybullet and checkout the [PyBullet Quickstart Guide](https://docs.google.com/document/d/10sXEhzFRSnvFcl3XxNGhnD4N2SedqwdAvK3dsihxVUA/edit#heading=h.2ye70wns7io3).
 
@@ -57,7 +64,7 @@ The entire collision detection and rigid body dynamics can be executed on the GP
 All source code files are licensed under the permissive zlib license
 [permissive zlib license](https://opensource.org/licenses/Zlib) unless marked differently in a particular folder/file.
 
-## Build instructions for Bullet using vcpkg
+## Build instructions for Bullet using `vcpkg`
 
 You can download and install Bullet using the [vcpkg](https://github.com/Microsoft/vcpkg/) dependency manager:
 
@@ -69,9 +76,11 @@ cd vcpkg
 ./vcpkg install bullet3
 ```
 
-The Bullet port in vcpkg is kept up to date by Microsoft team members and community contributors. If the version is out of date, please [create an issue or pull request](https://github.com/Microsoft/vcpkg) on the vcpkg repository.
+The Bullet port in vcpkg is kept up to date by Microsoft team members and community contributors. If the version is out of date, please [create an issue or pull request](https://github.com/Microsoft/vcpkg) on the `vcpkg` repository.
 
-## Build instructions for Bullet using premake. You can also use cmake instead.
+## Build instructions for Bullet
+
+Bullet supports using either `premake5` or `cmake`. Which you choose will really depends on your preferences and perhaps platform support.
 
 ### Windows
 
