@@ -14,7 +14,7 @@ insert_final_newline = true
 [*.{md,clang-tidy,clang-format}]
 indent_size = 1
 
-[*.yml]
+[*.{yml,clang-format}]
 indent_size = 2
 
 [*.{cpp,h,c,txt,cmake}]

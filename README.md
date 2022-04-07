@@ -1,5 +1,4 @@
-[![Travis Build Status](https://api.travis-ci.org/bulletphysics/bullet3.png?branch=master)](https://travis-ci.org/bulletphysics/bullet3)
-[![Appveyor Build status](https://ci.appveyor.com/api/projects/status/6sly9uxajr6xsstq)](https://ci.appveyor.com/project/erwincoumans/bullet3)
+[![Build](https://github.com/physics-playground/Bullet/actions/workflows/build.yml/badge.svg)](https://github.com/physics-playground/Bullet/actions/workflows/build.yml)
 
 # Bullet Physics SDK
 
@@ -43,23 +42,20 @@ Some optional demos require OpenGL 2 or OpenGL 3, there are some non-graphical d
 
 ## Contributors and Coding Style information
 
-https://docs.google.com/document/d/1u9vyzPtrVoVhYqQOGNWUgjRbfwfCdIts_NzmvgiJ144/edit
+[CodingStyle - Google Docs](https://docs.google.com/document/d/1u9vyzPtrVoVhYqQOGNWUgjRbfwfCdIts_NzmvgiJ144/edit)
 
 ## Requirements for experimental OpenCL GPGPU support
 
 The entire collision detection and rigid body dynamics can be executed on the GPU.
 
-A high-end desktop GPU, such as an AMD Radeon 7970 or NVIDIA GTX 680 or better.
-We successfully tested the software under Windows, Linux and Mac OSX.
-The software currently doesn't work on OpenCL CPU devices. It might run
-on a laptop GPU but performance will not likely be very good. Note that
-often an OpenCL drivers fails to compile a kernel. Some unit tests exist to
-track down the issue, but more work is required to cover all OpenCL kernels.
+* A high-end desktop GPU, such as an AMD Radeon 7970 or NVIDIA GTX 680 or better.
+* We successfully tested the software under Windows, Linux and Mac OSX.
+* The software currently doesn't work on OpenCL CPU devices. It might run on a laptop GPU but performance will not likely be very good. Note that often an OpenCL drivers fails to compile a kernel. Some unit tests exist to track down the issue, but more work is required to cover all OpenCL kernels.
 
 ## License
 
 All source code files are licensed under the permissive zlib license
-(http://opensource.org/licenses/Zlib) unless marked differently in a particular folder/file.
+[permissive zlib license](https://opensource.org/licenses/Zlib) unless marked differently in a particular folder/file.
 
 ## Build instructions for Bullet using vcpkg
 
@@ -92,12 +88,14 @@ You can connect from Python pybullet to the sandbox using:
 
 ```python
 import pybullet as p
-p.connect(p.SHARED_MEMORY) #or (p.TCP, "localhost", 6667) or (p.UDP, "192.168.86.10",1234)
+
+# or (p.TCP, "localhost", 6667) or (p.UDP, "192.168.86.10",1234)
+p.connect(p.SHARED_MEMORY)
 ```
 
 ### Linux and Mac OSX gnu make
 
-Make sure cmake is installed (sudo apt-get install cmake, brew install cmake, or https://cmake.org)
+Make sure `cmake` is installed using  `sudo apt-get install cmake`, `brew install cmake`, or from [CMake](https://cmake.org/).
 
 In a terminal type:
 
@@ -108,9 +106,9 @@ In a terminal type:
 This script will invoke cmake and build in the build_cmake directory. You can find pybullet in Bullet/examples/pybullet.
 The BulletExampleBrowser binary will be in Bullet/examples/ExampleBrowser.
 
-You can also build Bullet using premake. There are premake executables in the build folder.
-Depending on your system (Linux 32bit, 64bit or Mac OSX) use one of the following lines
-Using premake:
+You can also build Bullet using [Premake](https://premake.github.io/). There are `premake` executables in the `build` folder.
+
+Depending on your system (Linux 32bit, 64bit or Mac OSX) use one of the following lines:
 
 ```bash
 cd build
@@ -126,11 +124,11 @@ cd gmake
 make
 ```
 
-Note that on Linux, you need to use cmake to build pybullet, since the compiler has issues of mixing shared and static libraries.
+Note that on Linux, you need to use cmake to build `pybullet`, since the compiler has issues of mixing shared and static libraries.
 
 ### Mac OSX Xcode
 
-Click on build/xcode4.command or in a terminal window execute
+Click on `build.command` or in a terminal window execute
 
 ```bash
 ./premake_osx xcode4
@@ -138,8 +136,7 @@ Click on build/xcode4.command or in a terminal window execute
 
 ## Usage
 
-The `App_ExampleBrowser` executables will be located in the bin folder.
-You can just run it though a terminal/command prompt, or by clicking it.
+The `App_ExampleBrowser` executables will be located in the `bin` folder. You can run it though a terminal/command prompt, or by clicking it.
 
 ```ini
 [--start_demo_name="Demo Name"]     Start with a selected demo
@@ -150,7 +147,8 @@ You can just run it though a terminal/command prompt, or by clicking it.
 [--fixed_timestep= 0.0]             Use either a real-time delta time (0.0) or a fixed step size (0.016666)
 ```
 
-You can use mouse picking to grab objects. When holding the ALT or CONTROL key, you have Maya style camera mouse controls.
-Press F1 to create a series of screenshots. Hit ESCAPE to exit the demo app.
+You can use mouse picking to grab objects. When holding the `ALT` or `CONTROL` key, you have Maya style camera mouse controls.
+
+Press `F1` to create a series of screenshots. Hit `ESCAPE` to exit the demo app.
 
 Check out the docs folder and the Bullet physics forums for further information.
