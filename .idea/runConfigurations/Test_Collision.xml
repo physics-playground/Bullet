@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Test_Collision" type="CMakeRunConfiguration" factoryName="Application" folderName="Tests" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="BULLET_PHYSICS" TARGET_NAME="Test_Collision" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="BULLET_PHYSICS" RUN_TARGET_NAME="Test_Collision">
+    <method v="2">
+      <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+    </method>
+  </configuration>
+</component>
