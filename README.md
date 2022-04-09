@@ -108,12 +108,11 @@ Make sure `cmake` is installed using  `sudo apt-get install cmake`, `brew instal
 
 In a terminal type:
 
-```bash
-./build_cmake_pybullet_double.sh
-```
+>`bash ./build.sh`
 
-This script will invoke cmake and build in the build_cmake directory. You can find pybullet in Bullet/examples/pybullet.
-The BulletExampleBrowser binary will be in Bullet/examples/ExampleBrowser.
+This script will invoke cmake and build in the `build/intermediate/` directory. You can find pybullet in `Bullet/examples/pybullet`.
+
+The `BulletExampleBrowser` binary will be in `Bullet/examples/ExampleBrowser`.
 
 You can also build Bullet using [Premake](https://premake.github.io/). There are `premake` executables in the `build` folder.
 
