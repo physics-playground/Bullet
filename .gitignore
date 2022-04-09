@@ -3,14 +3,12 @@
 /build/gmake/
 /build/vs20*/
 /build/LuaFormatter/
-
 /build_cmake/
-
-*.pyc
 
 # Python
 __pycache__/
 *.py[cod]
+*.pyc
 
 # Pip
 pip-selfcheck.json
@@ -21,12 +19,16 @@ pip-selfcheck.json
 # Setuptools
 /dist
 *.eggs
+/pybullet-*
+/build/lib*/
+/build/temp*/
 
 # CMake
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 CTestTestFile.cmake
+BulletConfig.cmake
 
 # Visual Studio build files
 *.vcxproj
