@@ -9,19 +9,13 @@
     "python.linting.pylintEnabled": true,
     "python.linting.mypyEnabled": true,
     "python.linting.flake8Enabled": true,
-    "python.formatting.provider": "black",
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": ["--style", ".style.yapf"],
     "[lua]": {
         "editor.formatOnSave": true
     },
     "[json]": {
-        "editor.formatOnSave": true,
-        "editor.quickSuggestions": {
-            "strings": true
-        },
-        "editor.suggest.insertMode": "replace",
-        "gitlens.codeLens.scopes": [
-            "document"
-        ]
+        "editor.formatOnSave": true
     },
     "[shellscript]": {
         "editor.formatOnSave": true
@@ -51,6 +45,7 @@
         ".clang-tidy": "yaml",
         "*.command": "shellscript"
     },
+    "git.ignoreLimitWarning": true,
     "cSpell.words": [
         "backflip",
         "cmake",
