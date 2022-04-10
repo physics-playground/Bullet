@@ -440,7 +440,7 @@ if(INSTALL_LIBS)
 	set(PKGCONFIG_INSTALL_PREFIX "lib${LIB_SUFFIX}/pkgconfig/" CACHE STRING "Base directory for pkgconfig files")
 
 	if(NOT MSVC)
-		configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bullet.pc.cmake ${CMAKE_CURRENT_BINARY_DIR}/bullet.pc @ONLY)
+		configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bullet.pc.in ${CMAKE_CURRENT_BINARY_DIR}/bullet.pc @ONLY)
 		install(
 			FILES
 			${CMAKE_CURRENT_BINARY_DIR}/bullet.pc

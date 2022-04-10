@@ -30,6 +30,9 @@ cmake_install.cmake
 CTestTestFile.cmake
 BulletConfig.cmake
 
+# pkgconfig output file transformed from 'bullet.pc.in'
+bullet.pc
+
 # Visual Studio build files
 *.vcxproj
 *.vcxproj.filters
