@@ -19,7 +19,8 @@ print("short_version:%s" % '.'.join(map(lambda x: str(x), sys.version_info[0:2])
 print("long_version:%s" % '.'.join(map(lambda x: str(x), sys.version_info[0:3])))
 print("py_inc_dir:%s" % distutils.sysconfig.get_python_inc())
 print("site_packages_dir:%s" % distutils.sysconfig.get_python_lib(plat_specific=1))
+
 for e in distutils.sysconfig.get_config_vars('LIBDIR'):
-  if e != None:
-    print("py_lib_dir:%s" % e)
-    break
+    if e != None:
+        print("py_lib_dir:%s" % e)
+        break

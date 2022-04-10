@@ -1,32 +1,30 @@
 
-INCLUDE_DIRECTORIES(
+include_directories(
 	.
 	${BULLET_PHYSICS_SOURCE_DIR}/src
 	${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs
 )
 
-FILE(GLOB GwenGUISupport_SRCS  "GwenGUISupport/*" )
-FILE(GLOB GwenGUISupport_HDRS  "GwenGUISupport/*" )
+file(GLOB GwenGUISupport_SRCS "GwenGUISupport/*")
+file(GLOB GwenGUISupport_HDRS "GwenGUISupport/*")
 
+if(WIN32)
+	include_directories(
+		${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad
+	)
+	add_definitions(-DGLEW_STATIC)
+else(WIN32)
+	if(APPLE)
+		find_library(COCOA NAMES Cocoa)
+	else(APPLE)
+		add_definitions("-DGLEW_INIT_OPENGL11_FUNCTIONS=1")
+		add_definitions("-DGLEW_STATIC")
+		add_definitions("-DGLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1")
+		include_directories(${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad)
+	endif(APPLE)
+endif(WIN32)
 
-IF (WIN32)
-        INCLUDE_DIRECTORIES(
-                ${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad
-        )
-				ADD_DEFINITIONS(-DGLEW_STATIC)
-ELSE(WIN32)
-        IF(APPLE)
-                find_library(COCOA NAMES Cocoa)
-  			ELSE(APPLE)
-                ADD_DEFINITIONS("-DGLEW_INIT_OPENGL11_FUNCTIONS=1")
-                ADD_DEFINITIONS("-DGLEW_STATIC")
-                ADD_DEFINITIONS("-DGLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1")
-                INCLUDE_DIRECTORIES( ${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad )
-     		ENDIF(APPLE)
-ENDIF(WIN32)
-
-
-ADD_LIBRARY(BulletExampleBrowserLib
+add_library(BulletExampleBrowserLib
 	OpenGLExampleBrowser.cpp
 	OpenGLGuiHelper.cpp
 	GL_ShapeDrawer.cpp
@@ -42,40 +40,39 @@ ADD_LIBRARY(BulletExampleBrowserLib
 	../Utils/b3ReferenceFrameHelper.hpp
 	${GwenGUISupport_SRCS}
 	${GwenGUISupport_HDRS}
+	)
 
-)
+set_target_properties(BulletExampleBrowserLib PROPERTIES VERSION ${BULLET_VERSION})
+set_target_properties(BulletExampleBrowserLib PROPERTIES SOVERSION ${BULLET_VERSION})
+if(BUILD_SHARED_LIBS)
+	if(WIN32)
+		target_link_libraries(
+			BulletExampleBrowserLib Bullet3Common BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamicsUtils
+			BulletInverseDynamics LinearMath OpenGLWindow gwen BussIK
+			${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
+		)
+	else(WIN32)
+		if(APPLE)
+			target_link_libraries(
+				BulletExampleBrowserLib Bullet3Common BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamicsUtils
+				BulletInverseDynamics LinearMath OpenGLWindow gwen BussIK
+				${COCOA} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
+			)
+		else(APPLE)
+			find_package(Threads)
+			target_link_libraries(
+				BulletExampleBrowserLib Bullet3Common BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamicsUtils
+				BulletInverseDynamics LinearMath OpenGLWindow gwen BussIK
+				${CMAKE_THREAD_LIBS_INIT} ${DL}
+			)
+		endif(APPLE)
+	endif(WIN32)
+endif(BUILD_SHARED_LIBS)
 
-SET_TARGET_PROPERTIES(BulletExampleBrowserLib PROPERTIES VERSION ${BULLET_VERSION})
-SET_TARGET_PROPERTIES(BulletExampleBrowserLib PROPERTIES SOVERSION ${BULLET_VERSION})
-IF (BUILD_SHARED_LIBS)
-		IF (WIN32)
-                TARGET_LINK_LIBRARIES(
-                        BulletExampleBrowserLib Bullet3Common BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamicsUtils
-                        BulletInverseDynamics LinearMath OpenGLWindow gwen BussIK
-                        ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
-                )
-		ELSE(WIN32)
-        IF(APPLE)
-                 TARGET_LINK_LIBRARIES(
-                                BulletExampleBrowserLib Bullet3Common BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamicsUtils
-                                BulletInverseDynamics LinearMath OpenGLWindow gwen BussIK
-                                ${COCOA} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
-                 )
-				ELSE(APPLE)
-                 FIND_PACKAGE(Threads)
-                 TARGET_LINK_LIBRARIES(
-                                BulletExampleBrowserLib Bullet3Common BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamicsUtils
-                                BulletInverseDynamics LinearMath OpenGLWindow gwen BussIK
-                                ${CMAKE_THREAD_LIBS_INIT} ${DL}
-                        )
-        ENDIF(APPLE)
-	ENDIF(WIN32)
-ENDIF(BUILD_SHARED_LIBS)
-
-INSTALL(TARGETS BulletExampleBrowserLib
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib${LIB_SUFFIX}
-        ARCHIVE DESTINATION lib${LIB_SUFFIX})
+install(TARGETS BulletExampleBrowserLib
+	RUNTIME DESTINATION bin
+	LIBRARY DESTINATION lib${LIB_SUFFIX}
+	ARCHIVE DESTINATION lib${LIB_SUFFIX})
 
 ####################
 #
@@ -83,54 +80,51 @@ INSTALL(TARGETS BulletExampleBrowserLib
 #
 ####################
 
-INCLUDE_DIRECTORIES(
-        .
-        ${BULLET_PHYSICS_SOURCE_DIR}/src
+include_directories(
+	.
+	${BULLET_PHYSICS_SOURCE_DIR}/src
 	${BULLET_PHYSICS_SOURCE_DIR}/examples/SharedMemory
-        ${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs
+	${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs
 )
 
-
-LINK_LIBRARIES(
-        BulletExampleBrowserLib Bullet3Common BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamicsUtils BulletInverseDynamics LinearMath OpenGLWindow gwen BussIK
+link_libraries(
+	BulletExampleBrowserLib Bullet3Common BulletSoftBody BulletDynamics BulletCollision BulletInverseDynamicsUtils BulletInverseDynamics LinearMath OpenGLWindow gwen BussIK
 )
-
 
 add_definitions(-DINCLUDE_CLOTH_DEMOS)
 
-IF (WIN32)
-	INCLUDE_DIRECTORIES(
+if(WIN32)
+	include_directories(
 		${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad
 	)
-	LINK_LIBRARIES(
+	link_libraries(
 		${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
 	)
-	ADD_DEFINITIONS(-DGLEW_STATIC)
-ELSE(WIN32)
-	IF(APPLE)
-                find_library(COCOA NAMES Cocoa)
-                MESSAGE(${COCOA})
-                link_libraries(${COCOA} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY})
-		INCLUDE_DIRECTORIES( ${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad )
-  ELSE(APPLE)
-		ADD_DEFINITIONS("-DGLEW_INIT_OPENGL11_FUNCTIONS=1")
-		ADD_DEFINITIONS("-DGLEW_STATIC")
-		ADD_DEFINITIONS("-DGLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1")
-		INCLUDE_DIRECTORIES( ${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad )
-		FIND_PACKAGE(Threads)
-		LINK_LIBRARIES( ${CMAKE_THREAD_LIBS_INIT} ${DL} )
-	ENDIF(APPLE)
-ENDIF(WIN32)
+	add_definitions(-DGLEW_STATIC)
+else(WIN32)
+	if(APPLE)
+		find_library(COCOA NAMES Cocoa)
+		message(${COCOA})
+		link_libraries(${COCOA} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY})
+		include_directories(${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad)
+	else(APPLE)
+		add_definitions("-DGLEW_INIT_OPENGL11_FUNCTIONS=1")
+		add_definitions("-DGLEW_STATIC")
+		add_definitions("-DGLEW_DYNAMIC_LOAD_ALL_GLX_FUNCTIONS=1")
+		include_directories(${BULLET_PHYSICS_SOURCE_DIR}/examples/ThirdPartyLibs/glad)
+		find_package(Threads)
+		link_libraries(${CMAKE_THREAD_LIBS_INIT} ${DL})
+	endif(APPLE)
+endif(WIN32)
 
-
-SET(ExtendedTutorialsSources
+set(ExtendedTutorialsSources
 	../ExtendedTutorials/Chain.cpp
 	../ExtendedTutorials/Chain.h
 	../ExtendedTutorials/Bridge.cpp
 	../ExtendedTutorials/Bridge.h
 	../ExtendedTutorials/RigidBodyFromObj.cpp
 	../ExtendedTutorials/RigidBodyFromObj.h
-    ../ExtendedTutorials/SimpleBox.cpp
+	../ExtendedTutorials/SimpleBox.cpp
 	../ExtendedTutorials/SimpleBox.h
 	../ExtendedTutorials/MultipleBoxes.cpp
 	../ExtendedTutorials/MultipleBoxes.h
@@ -146,14 +140,14 @@ SET(ExtendedTutorialsSources
 	../ExtendedTutorials/InclinedPlane.h
 	../ExtendedTutorials/MultiPendulum.cpp
 	../ExtendedTutorials/MultiPendulum.h
-)
+	)
 
-SET(BulletExampleBrowser_SRCS
-        ../BulletRobotics/FixJointBoxes.cpp
+set(BulletExampleBrowser_SRCS
+	../BulletRobotics/FixJointBoxes.cpp
 
-        ../BulletRobotics/BoxStack.cpp
-        ../BulletRobotics/JointLimit.cpp
-        # ../BulletRobotics/GraspBox.cpp
+	../BulletRobotics/BoxStack.cpp
+	../BulletRobotics/JointLimit.cpp
+	# ../BulletRobotics/GraspBox.cpp
 
 	../TinyRenderer/geometry.cpp
 	../TinyRenderer/model.cpp
@@ -284,13 +278,13 @@ SET(BulletExampleBrowser_SRCS
 	../Benchmarks/BenchmarkDemo.cpp
 	../Benchmarks/BenchmarkDemo.h
 	../Benchmarks/landscapeData.h
-	../Benchmarks/TaruData
+	../Benchmarks/TaruData.h
 	../Raycast/RaytestDemo.cpp
-		../Importers/ImportBsp/BspConverter.h
- 	../Importers/ImportBullet/SerializeSetup.cpp
+	../Importers/ImportBsp/BspConverter.h
+	../Importers/ImportBullet/SerializeSetup.cpp
 	../Importers/ImportBullet/SerializeSetup.h
 	../Importers/ImportMeshUtility/b3ImportMeshUtility.cpp
-../Importers/ImportMeshUtility/b3ImportMeshUtility.h
+	../Importers/ImportMeshUtility/b3ImportMeshUtility.h
 	../../extras/Serialize/BulletWorldImporter/btWorldImporter.cpp
 	../../extras/Serialize/BulletWorldImporter/btMultiBodyWorldImporter.cpp
 	../../extras/Serialize/BulletWorldImporter/btBulletWorldImporter.cpp
@@ -300,96 +294,96 @@ SET(BulletExampleBrowser_SRCS
 	../../extras/Serialize/BulletFileLoader/btBulletFile.cpp
 
 	../Importers/ImportBsp/BspLoader.h
-  ../Importers/ImportBsp/ImportBspExample.h
-  ../Importers/ImportColladaDemo/btMatrix4x4.h
-  ../Importers/ImportColladaDemo/ColladaGraphicsInstance.h
-  ../Importers/ImportColladaDemo/ImportColladaSetup.h
-  ../Importers/ImportColladaDemo/LoadMeshFromCollada.h
-  ../Importers/ImportObjDemo/ImportObjExample.h
-  ../Importers/ImportObjDemo/LoadMeshFromObj.h
-  ../Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.h
-  ../Importers/ImportSTLDemo/ImportSTLSetup.h
-  ../Importers/ImportSTLDemo/LoadMeshFromSTL.h
-  ../Importers/ImportURDFDemo/ConvertRigidBodies2MultiBody.h
-  ../Importers/ImportURDFDemo/ImportURDFSetup.h
-  ../Importers/ImportURDFDemo/URDF2Bullet.h
-  ../Importers/ImportURDFDemo/urdf_samples.h
-  ../Importers/ImportURDFDemo/urdf_samples.h
+	../Importers/ImportBsp/ImportBspExample.h
+	../Importers/ImportColladaDemo/btMatrix4x4.h
+	../Importers/ImportColladaDemo/ColladaGraphicsInstance.h
+	../Importers/ImportColladaDemo/ImportColladaSetup.h
+	../Importers/ImportColladaDemo/LoadMeshFromCollada.h
+	../Importers/ImportObjDemo/ImportObjExample.h
+	../Importers/ImportObjDemo/LoadMeshFromObj.h
+	../Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.h
+	../Importers/ImportSTLDemo/ImportSTLSetup.h
+	../Importers/ImportSTLDemo/LoadMeshFromSTL.h
+	../Importers/ImportURDFDemo/ConvertRigidBodies2MultiBody.h
+	../Importers/ImportURDFDemo/ImportURDFSetup.h
+	../Importers/ImportURDFDemo/URDF2Bullet.h
+	../Importers/ImportURDFDemo/urdf_samples.h
+	../Importers/ImportURDFDemo/urdf_samples.h
 	../Importers/ImportMJCFDemo/BulletMJCFImporter.cpp
 	../Importers/ImportMJCFDemo/BulletMJCFImporter.h
 	../Importers/ImportMJCFDemo/ImportMJCFSetup.cpp
 	../Importers/ImportMJCFDemo/ImportMJCFSetup.h
-  ../Importers/ImportBsp/BspConverter.cpp
-  ../Importers/ImportBsp/BspLoader.cpp
-  ../Importers/ImportBsp/ImportBspExample.cpp
-  ../Importers/ImportColladaDemo/ImportColladaSetup.cpp
-  ../Importers/ImportColladaDemo/LoadMeshFromCollada.cpp
-  ../Importers/ImportObjDemo/ImportObjExample.cpp
-  ../Importers/ImportObjDemo/LoadMeshFromObj.cpp
-  ../Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.cpp
-  ../Importers/ImportSTLDemo/ImportSTLSetup.cpp
- ../Importers/ImportSDFDemo/ImportSDFSetup.cpp
-  ../Importers/ImportURDFDemo/ImportURDFSetup.cpp
-  ../Importers/ImportURDFDemo/URDF2Bullet.cpp
-  ../Importers/ImportURDFDemo/MyMultiBodyCreator.cpp
-  ../Importers/ImportURDFDemo/MyMultiBodyCreator.h
-  ../Importers/ImportURDFDemo/UrdfParser.cpp
-  ../Utils/RobotLoggingUtil.cpp
-  ../Utils/RobotLoggingUtil.h
-  ../Importers/ImportURDFDemo/urdfStringSplit.cpp
- ../Importers/ImportURDFDemo/urdfStringSplit.h
-  ../Importers/ImportURDFDemo/BulletUrdfImporter.cpp
-  ../Importers/ImportURDFDemo/BulletUrdfImporter.h
-  ../VoronoiFracture/VoronoiFractureDemo.cpp
-  ../VoronoiFracture/VoronoiFractureDemo.h
-  ../VoronoiFracture/btConvexConvexMprAlgorithm.cpp
-  ../VoronoiFracture/btConvexConvexMprAlgorithm.h
-  ../Vehicles/Hinge2Vehicle.cpp
-  ../Vehicles/Hinge2Vehicle.h
-  ../MultiBody/Pendulum.cpp
-  ../MultiBody/MultiBodySoftContact.cpp
-  ../MultiBody/TestJointTorqueSetup.cpp
-  ../MultiBody/TestJointTorqueSetup.h
-  ../MultiBody/InvertedPendulumPDControl.cpp
-  ../MultiBody/InvertedPendulumPDControl.h
-  ../MultiBody/MultiBodyConstraintFeedback.cpp
-  ../MultiBody/KinematicMultiBodyExample.cpp
-  ../SoftDemo/SoftDemo.cpp
-  ../SoftDemo/SoftDemo.h
-  ../DeformableDemo/DeformableContact.cpp
-  ../DeformableDemo/DeformableContact.h
-  ../DeformableDemo/GraspDeformable.cpp
-  ../DeformableDemo/GraspDeformable.h
-  ../DeformableDemo/Pinch.cpp
-  ../DeformableDemo/Pinch.h
-  ../DeformableDemo/DeformableSelfCollision.cpp
-  ../DeformableDemo/DeformableSelfCollision.h
-  ../DeformableDemo/PinchFriction.cpp
-  ../DeformableDemo/PinchFriction.h
-  ../DeformableDemo/ClothFriction.cpp
-  ../DeformableDemo/ClothFriction.h
-  ../DeformableDemo/DeformableMultibody.cpp
-  ../DeformableDemo/DeformableMultibody.h
-  ../DeformableDemo/DeformableRigid.cpp
-  ../DeformableDemo/DeformableRigid.h
-  ../DeformableDemo/SplitImpulse.cpp
-  ../DeformableDemo/SplitImpulse.h
-  ../DeformableDemo/VolumetricDeformable.cpp
-  ../DeformableDemo/VolumetricDeformable.h
-  ../DeformableDemo/Collide.cpp
-  ../DeformableDemo/Collide.h
-  ../DeformableDemo/LargeDeformation.cpp
-  ../DeformableDemo/LoadDeformed.h
-  ../DeformableDemo/LoadDeformed.cpp
-  ../DeformableDemo/LargeDeformation.h
-  ../DeformableDemo/DeformableClothAnchor.cpp
-  ../DeformableDemo/DeformableClothAnchor.h
-  ../DeformableDemo/MultibodyClothAnchor.cpp
-  ../DeformableDemo/MultibodyClothAnchor.h
-  ../MultiBody/MultiDofDemo.cpp
-  ../MultiBody/MultiDofDemo.h
-  ../RigidBody/RigidBodySoftContact.cpp
-  ../RigidBody/KinematicRigidBodyExample.cpp
+	../Importers/ImportBsp/BspConverter.cpp
+	../Importers/ImportBsp/BspLoader.cpp
+	../Importers/ImportBsp/ImportBspExample.cpp
+	../Importers/ImportColladaDemo/ImportColladaSetup.cpp
+	../Importers/ImportColladaDemo/LoadMeshFromCollada.cpp
+	../Importers/ImportObjDemo/ImportObjExample.cpp
+	../Importers/ImportObjDemo/LoadMeshFromObj.cpp
+	../Importers/ImportObjDemo/Wavefront2GLInstanceGraphicsShape.cpp
+	../Importers/ImportSTLDemo/ImportSTLSetup.cpp
+	../Importers/ImportSDFDemo/ImportSDFSetup.cpp
+	../Importers/ImportURDFDemo/ImportURDFSetup.cpp
+	../Importers/ImportURDFDemo/URDF2Bullet.cpp
+	../Importers/ImportURDFDemo/MyMultiBodyCreator.cpp
+	../Importers/ImportURDFDemo/MyMultiBodyCreator.h
+	../Importers/ImportURDFDemo/UrdfParser.cpp
+	../Utils/RobotLoggingUtil.cpp
+	../Utils/RobotLoggingUtil.h
+	../Importers/ImportURDFDemo/urdfStringSplit.cpp
+	../Importers/ImportURDFDemo/urdfStringSplit.h
+	../Importers/ImportURDFDemo/BulletUrdfImporter.cpp
+	../Importers/ImportURDFDemo/BulletUrdfImporter.h
+	../VoronoiFracture/VoronoiFractureDemo.cpp
+	../VoronoiFracture/VoronoiFractureDemo.h
+	../VoronoiFracture/btConvexConvexMprAlgorithm.cpp
+	../VoronoiFracture/btConvexConvexMprAlgorithm.h
+	../Vehicles/Hinge2Vehicle.cpp
+	../Vehicles/Hinge2Vehicle.h
+	../MultiBody/Pendulum.cpp
+	../MultiBody/MultiBodySoftContact.cpp
+	../MultiBody/TestJointTorqueSetup.cpp
+	../MultiBody/TestJointTorqueSetup.h
+	../MultiBody/InvertedPendulumPDControl.cpp
+	../MultiBody/InvertedPendulumPDControl.h
+	../MultiBody/MultiBodyConstraintFeedback.cpp
+	../MultiBody/KinematicMultiBodyExample.cpp
+	../SoftDemo/SoftDemo.cpp
+	../SoftDemo/SoftDemo.h
+	../DeformableDemo/DeformableContact.cpp
+	../DeformableDemo/DeformableContact.h
+	../DeformableDemo/GraspDeformable.cpp
+	../DeformableDemo/GraspDeformable.h
+	../DeformableDemo/Pinch.cpp
+	../DeformableDemo/Pinch.h
+	../DeformableDemo/DeformableSelfCollision.cpp
+	../DeformableDemo/DeformableSelfCollision.h
+	../DeformableDemo/PinchFriction.cpp
+	../DeformableDemo/PinchFriction.h
+	../DeformableDemo/ClothFriction.cpp
+	../DeformableDemo/ClothFriction.h
+	../DeformableDemo/DeformableMultibody.cpp
+	../DeformableDemo/DeformableMultibody.h
+	../DeformableDemo/DeformableRigid.cpp
+	../DeformableDemo/DeformableRigid.h
+	../DeformableDemo/SplitImpulse.cpp
+	../DeformableDemo/SplitImpulse.h
+	../DeformableDemo/VolumetricDeformable.cpp
+	../DeformableDemo/VolumetricDeformable.h
+	../DeformableDemo/Collide.cpp
+	../DeformableDemo/Collide.h
+	../DeformableDemo/LargeDeformation.cpp
+	../DeformableDemo/LoadDeformed.h
+	../DeformableDemo/LoadDeformed.cpp
+	../DeformableDemo/LargeDeformation.h
+	../DeformableDemo/DeformableClothAnchor.cpp
+	../DeformableDemo/DeformableClothAnchor.h
+	../DeformableDemo/MultibodyClothAnchor.cpp
+	../DeformableDemo/MultibodyClothAnchor.h
+	../MultiBody/MultiDofDemo.cpp
+	../MultiBody/MultiDofDemo.h
+	../RigidBody/RigidBodySoftContact.cpp
+	../RigidBody/KinematicRigidBodyExample.cpp
 	../ReducedDeformableDemo/ConservationTest.cpp
 	../ReducedDeformableDemo/ConservationTest.h
 	../ReducedDeformableDemo/Springboard.cpp
@@ -408,15 +402,14 @@ SET(BulletExampleBrowser_SRCS
 	../ReducedDeformableDemo/ReducedBenchmark.h
 	../ReducedDeformableDemo/ReducedMotorGrasp.cpp
 	../ReducedDeformableDemo/ReducedMotorGrasp.h
-  ../Constraints/TestHingeTorque.cpp
-  ../Constraints/TestHingeTorque.h
-  ../Constraints/ConstraintDemo.cpp
-  ../Constraints/ConstraintDemo.h
-  ../Constraints/Dof6Spring2Setup.cpp
-  ../Constraints/Dof6Spring2Setup.h
-  ../Constraints/ConstraintPhysicsSetup.cpp
-  ../Constraints/ConstraintPhysicsSetup.h
-
+	../Constraints/TestHingeTorque.cpp
+	../Constraints/TestHingeTorque.h
+	../Constraints/ConstraintDemo.cpp
+	../Constraints/ConstraintDemo.h
+	../Constraints/Dof6Spring2Setup.cpp
+	../Constraints/Dof6Spring2Setup.h
+	../Constraints/ConstraintPhysicsSetup.cpp
+	../Constraints/ConstraintPhysicsSetup.h
 
 	../ThirdPartyLibs/stb_image/stb_image.cpp
 	../ThirdPartyLibs/stb_image/stb_image.h
@@ -426,46 +419,42 @@ SET(BulletExampleBrowser_SRCS
 	../ThirdPartyLibs/tinyxml2/tinyxml2.cpp
 	InProcessExampleBrowser.cpp
 	${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
+	)
+
+add_executable(App_ExampleBrowser
+	main.cpp
+	ExampleEntries.cpp
+	ExampleEntries.h
+	${ExtendedTutorialsSources}
+	${BulletExampleBrowser_SRCS}
+	)
+
+file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/data")
+
+add_custom_command(
+	TARGET App_ExampleBrowser
+	POST_BUILD
+	COMMAND ${CMAKE_COMMAND} ARGS -E copy_directory ${BULLET_PHYSICS_SOURCE_DIR}/data ${PROJECT_BINARY_DIR}/data
 )
 
+if(BULLET2_USE_TBB_MULTITHREADING AND WIN32)
+	# add a post build command to copy some dlls to the executable directory
+	set(TBB_VC_VER "vc12")
+	set(TBB_VC_ARCH "ia32")
+	# assume 32-bit build in VC12 for now
+	# checks can be added here at a later time
+	add_custom_command(TARGET App_ExampleBrowser POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${BULLET2_TBB_INCLUDE_DIR}/../bin/${TBB_VC_ARCH}/${TBB_VC_VER}/tbb.dll"
+		$<TARGET_FILE_DIR:App_ExampleBrowser>)
+	add_custom_command(TARGET App_ExampleBrowser POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_if_different
+		"${BULLET2_TBB_INCLUDE_DIR}/../bin/${TBB_VC_ARCH}/${TBB_VC_VER}/tbbmalloc.dll"
+		$<TARGET_FILE_DIR:App_ExampleBrowser>)
+endif(BULLET2_USE_TBB_MULTITHREADING AND WIN32)
 
-
-ADD_EXECUTABLE(App_ExampleBrowser
-		main.cpp
-		ExampleEntries.cpp
-		ExampleEntries.h
-		${ExtendedTutorialsSources}
-		${BulletExampleBrowser_SRCS}
-)
-
-FILE( MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/data" )
-
-ADD_CUSTOM_COMMAND(
-                TARGET App_ExampleBrowser
-                POST_BUILD
-                COMMAND ${CMAKE_COMMAND} ARGS -E copy_directory ${BULLET_PHYSICS_SOURCE_DIR}/data ${PROJECT_BINARY_DIR}/data
-        )
-
-IF (BULLET2_USE_TBB_MULTITHREADING AND WIN32)
-    # add a post build command to copy some dlls to the executable directory
-    set(TBB_VC_VER "vc12")
-    set(TBB_VC_ARCH "ia32")
-    # assume 32-bit build in VC12 for now
-    # checks can be added here at a later time
-    ADD_CUSTOM_COMMAND(TARGET App_ExampleBrowser POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${BULLET2_TBB_INCLUDE_DIR}/../bin/${TBB_VC_ARCH}/${TBB_VC_VER}/tbb.dll"
-        $<TARGET_FILE_DIR:App_ExampleBrowser>)
-    ADD_CUSTOM_COMMAND(TARGET App_ExampleBrowser POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        "${BULLET2_TBB_INCLUDE_DIR}/../bin/${TBB_VC_ARCH}/${TBB_VC_VER}/tbbmalloc.dll"
-        $<TARGET_FILE_DIR:App_ExampleBrowser>)
-ENDIF (BULLET2_USE_TBB_MULTITHREADING AND WIN32)
-
-
-IF (INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
-			SET_TARGET_PROPERTIES(App_ExampleBrowser PROPERTIES  DEBUG_POSTFIX "_Debug")
-			SET_TARGET_PROPERTIES(App_ExampleBrowser PROPERTIES  MINSIZEREL_POSTFIX "_MinsizeRel")
-			SET_TARGET_PROPERTIES(App_ExampleBrowser PROPERTIES  RELWITHDEBINFO_POSTFIX "_RelWithDebugInfo")
-ENDIF(INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
-
+if(INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
+	set_target_properties(App_ExampleBrowser PROPERTIES DEBUG_POSTFIX "_Debug")
+	set_target_properties(App_ExampleBrowser PROPERTIES MINSIZEREL_POSTFIX "_MinsizeRel")
+	set_target_properties(App_ExampleBrowser PROPERTIES RELWITHDEBINFO_POSTFIX "_RelWithDebugInfo")
+endif(INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
