@@ -1,8 +1,10 @@
 #!/usr/bin/env python
+"""
+Setup script for `pybullet` which is a wrapper for Bullet Physics.
+"""
 
 from setuptools import find_packages
 from sys import platform as _platform
-import os
 
 from distutils.core import setup
 from distutils.extension import Extension
@@ -511,6 +513,8 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Games/Entertainment :: Simulation",
         "Topic :: Scientific/Engineering :: Artificial Intelligence",
         "Framework :: Robot Framework",
