@@ -2,6 +2,7 @@
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/examples/pybullet" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/pybullet/gym" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/examples/pybullet/unittests" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/Obj/python_venv" />
@@ -12,8 +13,56 @@
       <excludeFolder url="file://$MODULE_DIR$/build/lib.win-amd64-2.7" />
       <excludeFolder url="file://$MODULE_DIR$/build/temp.win-amd64-2.7" />
       <excludeFolder url="file://$MODULE_DIR$/.vscode" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/BasicDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Benchmarks" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/BulletRobotics" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Collision" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/CommonInterfaces" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Constraints" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/DeformableDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/DynamicControlDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Evolution" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/ExampleBrowser" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Experiments" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/ExtendedTutorials" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/ForkLift" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/FractureDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/GyroscopicDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Heightfield" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/HelloWorld" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Importers" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/InverseDynamics" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/InverseKinematics" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/LuaDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/MultiBody" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/MultiBodyBaseline" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/MultiThreadedDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/MultiThreading" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/OpenCL" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/OpenGLWindow" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Planar2D" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Raycast" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/ReducedDeformableDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/RenderingExamples" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/RigidBody" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/RoboticsLearning" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/RobotSimulator" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/RollingFrictionDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/SharedMemory" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/SimpleOpenGL3" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/SoftDemo" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/StandaloneMain" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/ThirdPartyLibs" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/TinyAudio" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/TinyRenderer" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Tutorial" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/TwoJoint" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Utils" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/Vehicles" />
+      <excludeFolder url="file://$MODULE_DIR$/examples/VoronoiFracture" />
+      <excludeFolder url="file://$MODULE_DIR$/extras" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 2.7 (bullet) (2)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (bullet)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
